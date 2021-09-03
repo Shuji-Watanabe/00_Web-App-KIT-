@@ -12,8 +12,8 @@ R01_check=st.sidebar.checkbox('1次導関数の計算結果')
 R01_1_check=st.sidebar.checkbox('1次導関数の計算結果（展開版）')
 R02_check=st.sidebar.checkbox('2次導関数の計算結果')
 
-if not str:
-    print("数式をサイドバーに入力してください．")
+if not FORM_INPUT:
+    st.write("数式をサイドバーに入力してください．")
 else :
     F0 = sympify(FORM_INPUT)
     F1 = simplify(diff(F0))
@@ -21,19 +21,26 @@ else :
     F2 = simplify(diff(F1))
     F3 = simplify(diff(F2))
     F4 = simplify(diff(F3))
+
+    st.write('入力された関数は次の通りです．')
+    st.latex(F0)
+    st.write('サイドバーの解答をみたい項目にチェックを入れてください．')
+
     """
-    \nこのWebアプリは現在開発中のものであり，練習のために作成しています.
-    間違いがあってもそっとしておいてください．僕をいじめないでください．
-    今僕は頑張っているんです．アドバイスは優しく丁寧にお願いします．
+    ## [Step1：1次導関数および2次導関数の計算]
     """
-    st.write('$f(x)\\,$の１次導関数は次の通りです．')
     if (R01_check == 1) :
+        st.write('$f(x)\\,$の１次導関数は次の通りです．')
         st.latex(F1)
     if (R01_1_check == 1) :
         st.latex(F1_Expand)
-        st.write('$f(x)\\,$の２次導関数は次の通りです．')
     if (R02_check == 1) :
+        st.write('$f(x)\\,$の２次導関数は次の通りです．')
         st.latex(F2)
+
+    """
+    ## [Step2：$$f^\prime(x)=0$$,$$f^{\prime\prime}(x)=0$$の解]
+    """
 
 
 #lcolumn, rcolumn=st.columns(2)
