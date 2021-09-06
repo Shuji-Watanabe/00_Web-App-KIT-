@@ -54,7 +54,7 @@ else :
             for i in range(len(X0)) :
                 PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(sympify(F0.subs(x,X0[i-1])))
                 if (i < len(X0)-1 ):
-                    PRINT_STR1=PRINT_STR1+""","""
+                    PRINT_STR1=PRINT_STR1+""",\quad """
         st.latex(PRINT_STR1)
     Sol02=st.sidebar.checkbox('f\'\'(x)=0の解')
     if (Sol02 == 1) :
@@ -72,7 +72,7 @@ else :
             for i in range(len(X00)) :
                 PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(sympify(F0.subs(x,X00[i-1])))
                 if (i < len(X00)-1 ):
-                    PRINT_STR1=PRINT_STR1+""", """
+                    PRINT_STR1=PRINT_STR1+""",\quad """
         st.latex(PRINT_STR1)
 
     st.write('\
