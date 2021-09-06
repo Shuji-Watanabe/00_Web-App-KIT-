@@ -19,7 +19,7 @@ else :
     """サイドバーの解答をみたい項目にチェックを入れてください．"""
 
     st.write('\
-        ### \[Step1：1次導関数および2次導関数の計算\]\
+        ### **\[Step1：1次導関数および2次導関数の計算\]**\
         ',unsafe_allow_html=True)
         ### <span style="color:yellow"> \[Step1：1次導関数および2次導関数の計算\]</span>
     F1 = simplify(diff(F0))
@@ -36,7 +36,7 @@ else :
         st.latex(F2)
 
     st.write('\
-        ### \[Step2：$f^\prime(x)=0$, $f^{\prime\prime}(x)=0$の解\]'\
+        ### **\[Step2：$f^\prime(x)=0$, $f^{\prime\prime}(x)=0$の解\]**'\
         ,unsafe_allow_html=True)
         #<span style="color:yellow"> \[Step2：$f^\prime(x)=0$, $f^{\prime\prime}(x)=0$の解\]</span>'
 
@@ -78,7 +78,7 @@ else :
         st.latex(PRINT_STR1)
 
     st.write('\
-        ### \[Step3：極大点，極小点，変曲点の判定\]',\
+        ### **\[Step3：極大点，極小点，変曲点の判定\]**',\
         unsafe_allow_html=True)  
         ### <span style="color:yellow"> \[Step3：極大点，極小点，変曲点の判定\]</span>'
     MaxMimi_P=st.sidebar.checkbox('極大点，極小点の判定結果')
