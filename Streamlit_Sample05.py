@@ -8,48 +8,113 @@ st.title("""関数の極大点，極小点，変曲点""")
 #st.latex('\\frac{1}{2}mx^2')
 
 FORM_INPUT = st.sidebar.text_input('極大点，極小点，変曲点を調べたい関数を入力')
-R01_check=st.sidebar.checkbox('1次導関数の計算結果')
-R01_1_check=st.sidebar.checkbox('1次導関数の計算結果（展開版）')
-R02_check=st.sidebar.checkbox('2次導関数の計算結果')
+
 
 if not FORM_INPUT:
     st.write("数式をサイドバーに入力してください．")
 else :
     F0 = sympify(FORM_INPUT)
+    st.write('入力された関数は次の通りです．')
+    st.latex(F0)
+    """サイドバーの解答をみたい項目にチェックを入れてください．"""
+
+    st.write('\
+        ### <span style="color:yellow"> \[Step1：1次導関数および2次導関数の計算\]</span>\
+        ',unsafe_allow_html=True)
     F1 = simplify(diff(F0))
     F1_Expand = expand(simplify(diff(F0)))
     F2 = simplify(diff(F1))
-    F3 = simplify(diff(F2))
-    F4 = simplify(diff(F3))
-
-    st.write('入力された関数は次の通りです．')
-    st.latex(F0)
-    st.write('サイドバーの解答をみたい項目にチェックを入れてください．')
-
-    """
-    ## [Step1：1次導関数および2次導関数の計算]
-    """
+    R01_check=st.sidebar.checkbox('1次導関数の計算結果')
     if (R01_check == 1) :
-        st.write('$f(x)\\,$の１次導関数は次の通りです．')
+        st.write('▶︎ $f(x)\\,$の１次導関数は次の通りです．')
         st.latex(F1)
-    if (R01_1_check == 1) :
-        st.latex(F1_Expand)
+
+    R02_check=st.sidebar.checkbox('2次導関数の計算結果')
     if (R02_check == 1) :
-        st.write('$f(x)\\,$の２次導関数は次の通りです．')
+        st.write('▶︎ $f(x)\\,$の２次導関数は次の通りです．')
         st.latex(F2)
 
-    """
-    ## [Step2：$$f^\prime(x)=0$$,$$f^{\prime\prime}(x)=0$$の解]
-    """
+    st.write('\
+        ### <span style="color:yellow"> \[Step2：$f^\prime(x)=0$, $f^{\prime\prime}(x)=0$の解\]</span>'\
+        ,unsafe_allow_html=True)
 
+    Sol01=st.sidebar.checkbox('f\'(x)=0の解')
+    if (Sol01 == 1) :
+        try:
+            X0 = sympify(
+                    solve(
+                        Eq(0,sympify(F1)),x
+                        )
+                 )
+        except:
+            st.write(' $f^\prime(x)=0$ の解なし')
+        else:
+            st.write('▶︎ $f^\prime(x)=0$ の解は次の通りです．')
+            PRINT_STR1=" "
+            for i in range(len(X0)) :
+                PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(sympify(F0.subs(x,X0[i-1])))
+                if (i < len(X0)-1 ):
+                    PRINT_STR1=PRINT_STR1+""","""
+        st.latex(PRINT_STR1)
+    Sol02=st.sidebar.checkbox('f\'\'(x)=0の解')
+    if (Sol02 == 1) :
+        try:
+            X00 = sympify(
+                    solve(
+                        Eq(0,sympify(F2)),x
+                        )
+                 )
+        except:
+            st.write(' $f^{\prime\prime}(x)=0$ の解なし')
+        else:
+            st.write('▶︎ $f^{\prime\prime}(x)=0$ の解は次の通りです．')
+            PRINT_STR1=" "
+            for i in range(len(X00)) :
+                PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(sympify(F0.subs(x,X00[i-1])))
+                if (i < len(X00)-1 ):
+                    PRINT_STR1=PRINT_STR1+""", """
+        st.latex(PRINT_STR1)
 
-#lcolumn, rcolumn=st.columns(2)
-#lcolumn.write('入力された関数$\\,f(x)$')
-#lcolumn.latex(F0)
-#lcolumn.write('$f(x)\\,$の3次導関数')
-#lcolumn.latex(F3)
-#lcolumn.write('$f(x)\\,$の4次導関数')
-# lcolumn.latex(F4)
-
-
-
+    st.write('\
+        ### <span style="color:yellow"> \[Step3：極大点，極小点，変曲点の判定\]</span>',\
+        unsafe_allow_html=True)  
+    
+    MaxMimi_P=st.sidebar.checkbox('極大点，極小点の判定結果')
+    if (MaxMimi_P == 1) :
+        j=0
+        k=0
+        st.write('▶︎ 極大点，極小点')
+        for i in range(len(X0)):
+            try:
+                aa=sympify(F2.subs(x,X0[i-1]))
+            except:
+                st.write(' 判定不能')
+            else:
+                STR_PRINT=''
+                STR_PRINT=STR_PRINT+"$\\left("+latex(X0[i-1])+",\ "+latex(sympify(F0.subs(x,X0[i-1])))
+                STR_PRINT=STR_PRINT+"\\right)$"
+                if (aa < 0 ):
+                    j=j+1
+                    st.write('$\quad$　極大点',latex(j),":",STR_PRINT)
+                elif (aa > 0):
+                    k=k+1
+                    st.write('$\quad$　極小点',latex(k),":",STR_PRINT)
+        
+    Inflection_P=st.sidebar.checkbox('変曲点の判定結果')
+    if (Inflection_P == 1) :
+        st.write('▶︎ 変曲点')
+        l=0
+        for i in range(len(X00)):
+            try:
+                F3 = simplify(diff(F2))
+                aa=sympify(F3.subs(x,X00[i-1]))
+                
+            except:
+                st.write(' 判定不能')
+            else:
+                STR_PRINT=''
+                STR_PRINT=STR_PRINT+"$\\left("+latex(X00[i-1])+",\ "+latex(sympify(F0.subs(x,X00[i-1])))
+                STR_PRINT=STR_PRINT+"\\right)$"
+                if (aa < 0 or aa >0):
+                    l=l+1
+                    st.write('$\quad$　変曲点',latex(l),":",STR_PRINT)
