@@ -52,7 +52,7 @@ else :
             st.write('▶︎ $f^\prime(x)=0$ の解は次の通りです．')
             PRINT_STR1=" "
             for i in range(len(X0)) :
-                PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(sympify(F0.subs(x,X0[i-1])))
+                PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(sympify(X0[i-1]))
                 if (i < len(X0)-1 ):
                     PRINT_STR1=PRINT_STR1+""",\quad """
         st.latex(PRINT_STR1)
@@ -70,7 +70,7 @@ else :
             st.write('▶︎ $f^{\prime\prime}(x)=0$ の解は次の通りです．')
             PRINT_STR1=" "
             for i in range(len(X00)) :
-                PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(sympify(F0.subs(x,X00[i-1])))
+                PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(sympify(X00[i-1]))
                 if (i < len(X00)-1 ):
                     PRINT_STR1=PRINT_STR1+""",\quad """
         st.latex(PRINT_STR1)
