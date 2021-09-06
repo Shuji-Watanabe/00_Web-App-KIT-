@@ -36,7 +36,7 @@ else :
         st.latex(F2)
 
     st.write('\
-        ### \[Step2：$f^\prime(x)=0$, $f^{\prime\prime}(x)=0$の解\]'\
+        ### \[Step2：$f^\prime(x)=0$, $f^{\prime\prime}(x)=0$の解\]'\
         ,unsafe_allow_html=True)
         #<span style="color:yellow"> \[Step2：$f^\prime(x)=0$, $f^{\prime\prime}(x)=0$の解\]</span>'
 
