@@ -36,13 +36,13 @@ else :
     if (R01_check == 1) :
         st.write('$\quad$▶︎ $f(x)\\,$の１次導関数は次の通りです．')
         st.latex("""f^{\\prime}(x)="""+"""\\frac{df(x)}{dx}="""+latex(F1))
-        st.write('$\qquad$導関数の求め方，微分の方法に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/index.html)')
+        st.write('$\qquad$【基礎知識】導関数の求め方，微分の方法に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/index.html)')
         
     R02_check=st.sidebar.checkbox('2次導関数の計算結果')
     if (R02_check == 1) :
         st.write('$\quad$▶︎  $f(x)\\,$の２次導関数は次の通りです．')
         st.latex("""f^{\\prime\\prime}(x)="""+"""\\frac{d^2f(x)}{dx^2}="""+latex(F2))
-        st.write('$\qquad$導関数の求め方，微分の方法に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/index.html)')
+        st.write('$\qquad$【基礎知識】導関数の求め方，微分の方法に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/index.html)')
         
     st.write('\
         ### **\[Step2：$f^\prime(x)=0$, $f^{\prime\prime}(x)=0$の解\]**'\
@@ -90,7 +90,7 @@ else :
     if (MaxMimi_P == 1) :
         j=0
         k=0
-        st.write('$\quad$▶︎  極大点，極小点：極大点，極小点に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/kyokuti.html)')
+        st.write('$\quad$▶︎  極大点，極小点：')
         for i in range(len(X0)):
             try:
                 aa=F2.subs(x,X0[i-1])
@@ -106,15 +106,17 @@ else :
                 elif (aa > 0):
                     k=k+1
                     st.write('$\quad$　極小点',latex(k),":",STR_PRINT)
+                elif( aa==0 ):
+                    st.write("$\qquad f'(x)=0$の解なし，または$f'(x)=0$の解が極大点および極小点となっていない")
+        st.write('$\quad$【基礎知識】極大点，極小点に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/kyokuti.html)')
         
     Inflection_P=st.sidebar.checkbox('変曲点の座標')
     if (Inflection_P == 1) :
-        st.write('$\quad$▶︎  変曲点：変曲点に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/inflection_point.html)')
+        st.write('$\quad$▶︎  変曲点：')
         l=0
         for i in range(len(X00)):
             try:
                 aa=F3.subs(x,X00[i-1])
-                
             except:
                 st.write(' 変曲点であるかどうかの判定不能')
             else:
@@ -124,3 +126,6 @@ else :
                 if (aa < 0 or aa >0):
                     l=l+1
                     st.write('$\quad$　変曲点',latex(l),":",STR_PRINT)
+                else :
+                    st.write("$\qquad f''(x)=0$の解なし，または$f''(x)=0$の解が変曲点となっていない")
+        st.write('$\quad$【基礎知識】変曲点に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/inflection_point.html)')
