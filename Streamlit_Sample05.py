@@ -2,6 +2,8 @@ import streamlit as st
 from sympy import *
 from sympy.solvers import solve
 
+init_printing()
+
 x= symbols('x'); F0, F1 ,F2= symbols('F0 F1 F2', cls=Function)
 
 st.title("""関数の極大点，極小点，変曲点""")
@@ -15,12 +17,12 @@ if not FORM_INPUT:
     st.write("数式をサイドバーに入力してください．")
 else :
     F0 = sympify(FORM_INPUT)
-    F1 = simplify(diff(F0))
+    F1 = diff(F0)
     F1_Expand = expand(simplify(diff(F0)))
     F2 = simplify(diff(F1))
     F3 = simplify(diff(F2))
-    X0 = sympify(solve(Eq(0,sympify(F1)),x))
-    X00 = sympify(solve(Eq(0,sympify(F2)),x))
+    X0 = solve(Eq(0,sympify(F1)),x)
+    X00 = solve(Eq(0,F2),x)
     st.write('入力された関数は次の通りです．')
     st.latex(F0)
     """サイドバーの解答をみたい項目にチェックを入れてください．"""
@@ -50,36 +52,32 @@ else :
     Sol01=st.sidebar.checkbox('f\'(x)=0の解')
     if (Sol01 == 1) :
         try:
-            X0 = sympify(
-                    solve(
-                        Eq(0,sympify(F1)),x
+            X0 = solve(
+                        Eq(0,F1),x
                         )
-                 )
         except:
             st.write(' $f^\prime(x)=0$ の解なし')
         else:
             st.write('▶︎ $f^\prime(x)=0$ の解は次の通りです．')
             PRINT_STR1=" "
             for i in range(len(X0)) :
-                PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(sympify(X0[i-1]))
+                PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(X0[i-1])
                 if (i < len(X0)-1 ):
                     PRINT_STR1=PRINT_STR1+""",\quad """
         st.latex(PRINT_STR1)
     Sol02=st.sidebar.checkbox('f\'\'(x)=0の解')
     if (Sol02 == 1) :
         try:
-            X00 = sympify(
-                    solve(
+            X00 = solve(
                         Eq(0,sympify(F2)),x
                         )
-                 )
         except:
             st.write(' $f^{\prime\prime}(x)=0$ の解なし')
         else:
             st.write('▶︎ $f^{\prime\prime}(x)=0$ の解は次の通りです．')
             PRINT_STR1=" "
             for i in range(len(X00)) :
-                PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(sympify(X00[i-1]))
+                PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(X00[i-1])
                 if (i < len(X00)-1 ):
                     PRINT_STR1=PRINT_STR1+""",\quad """
         st.latex(PRINT_STR1)
@@ -95,12 +93,12 @@ else :
         st.write('▶︎ 極大点，極小点：極大点，極小点に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/kyokuti.html)')
         for i in range(len(X0)):
             try:
-                aa=sympify(F2.subs(x,X0[i-1]))
+                aa=F2.subs(x,X0[i-1])
             except:
                 st.write('　極大点または極小点であるかの判定不能')
             else:
                 STR_PRINT=''
-                STR_PRINT=STR_PRINT+"$\\left("+latex(X0[i-1])+",\ "+latex(sympify(F0.subs(x,X0[i-1])))
+                STR_PRINT=STR_PRINT+"$\\left("+latex(X0[i-1])+",\ "+latex(F0.subs(x,X0[i-1]))
                 STR_PRINT=STR_PRINT+"\\right)$"
                 if (aa < 0 ):
                     j=j+1
@@ -115,13 +113,13 @@ else :
         l=0
         for i in range(len(X00)):
             try:
-                aa=sympify(F3.subs(x,X00[i-1]))
+                aa=F3.subs(x,X00[i-1])
                 
             except:
                 st.write(' 変曲点であるかどうかの判定不能')
             else:
                 STR_PRINT=''
-                STR_PRINT=STR_PRINT+"$\\left("+latex(X00[i-1])+",\ "+latex(sympify(F0.subs(x,X00[i-1])))
+                STR_PRINT=STR_PRINT+"$\\left("+latex(X00[i-1])+",\ "+latex(F0.subs(x,X00[i-1]))
                 STR_PRINT=STR_PRINT+"\\right)$"
                 if (aa < 0 or aa >0):
                     l=l+1
