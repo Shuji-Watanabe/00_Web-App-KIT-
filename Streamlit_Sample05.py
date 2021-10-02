@@ -24,7 +24,7 @@ else :
     X0 = solve(Eq(0,sympify(F1)),x)
     X00 = solve(Eq(0,F2),x)
     st.write('入力された関数は次の通りです．')
-    st.latex(F0)
+    st.latex("""f(x)="""+latex(F0))
     """サイドバーの解答をみたい項目にチェックを入れてください．"""
 
     st.write('\
@@ -34,16 +34,16 @@ else :
 
     R01_check=st.sidebar.checkbox('1次導関数の計算結果')
     if (R01_check == 1) :
-        st.write('▶︎ $f(x)\\,$の１次導関数は次の通りです．')
-        st.write('導関数の求め方，微分の方法に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/index.html)')
-        st.latex(F1)
-
+        st.write('$\quad$▶︎ $f(x)\\,$の１次導関数は次の通りです．')
+        st.latex("""f^{\\prime}(x)="""+"""\\frac{df(x)}{dx}="""+latex(F1))
+        st.write('$\qquad$導関数の求め方，微分の方法に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/index.html)')
+        
     R02_check=st.sidebar.checkbox('2次導関数の計算結果')
     if (R02_check == 1) :
-        st.write('▶︎ $f(x)\\,$の２次導関数は次の通りです．')
-        st.write('導関数の求め方，微分の方法に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/index.html)')
-        st.latex(F2)
-
+        st.write('$\quad$▶︎  $f(x)\\,$の２次導関数は次の通りです．')
+        st.latex("""f^{\\prime\\prime}(x)="""+"""\\frac{d^2f(x)}{dx^2}="""+latex(F2))
+        st.write('$\qquad$導関数の求め方，微分の方法に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/index.html)')
+        
     st.write('\
         ### **\[Step2：$f^\prime(x)=0$, $f^{\prime\prime}(x)=0$の解\]**'\
         ,unsafe_allow_html=True)
@@ -58,7 +58,7 @@ else :
         except:
             st.write(' $f^\prime(x)=0$ の解なし')
         else:
-            st.write('▶︎ $f^\prime(x)=0$ の解は次の通りです．')
+            st.write('$\quad$▶︎ $f^\prime(x)=0$ の解は次の通りです．')
             PRINT_STR1=" "
             for i in range(len(X0)) :
                 PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(X0[i-1])
@@ -74,7 +74,7 @@ else :
         except:
             st.write(' $f^{\prime\prime}(x)=0$ の解なし')
         else:
-            st.write('▶︎ $f^{\prime\prime}(x)=0$ の解は次の通りです．')
+            st.write('$\quad$▶︎ $f^{\prime\prime}(x)=0$ の解は次の通りです．')
             PRINT_STR1=" "
             for i in range(len(X00)) :
                 PRINT_STR1=PRINT_STR1+"""x_"""+latex(i+1)+"""="""+latex(X00[i-1])
@@ -90,7 +90,7 @@ else :
     if (MaxMimi_P == 1) :
         j=0
         k=0
-        st.write('▶︎ 極大点，極小点：極大点，極小点に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/kyokuti.html)')
+        st.write('$\quad$▶︎  極大点，極小点：極大点，極小点に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/kyokuti.html)')
         for i in range(len(X0)):
             try:
                 aa=F2.subs(x,X0[i-1])
@@ -109,7 +109,7 @@ else :
         
     Inflection_P=st.sidebar.checkbox('変曲点の座標')
     if (Inflection_P == 1) :
-        st.write('▶︎ 変曲点：変曲点に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/inflection_point.html)')
+        st.write('$\quad$▶︎  変曲点：変曲点に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/inflection_point.html)')
         l=0
         for i in range(len(X00)):
             try:
