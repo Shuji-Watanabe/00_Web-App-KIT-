@@ -33,11 +33,13 @@ else :
     R01_check=st.sidebar.checkbox('1次導関数の計算結果')
     if (R01_check == 1) :
         st.write('▶︎ $f(x)\\,$の１次導関数は次の通りです．')
+        st.write('導関数の求め方，微分の方法に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/index.html)')
         st.latex(F1)
 
     R02_check=st.sidebar.checkbox('2次導関数の計算結果')
     if (R02_check == 1) :
         st.write('▶︎ $f(x)\\,$の２次導関数は次の通りです．')
+        st.write('導関数の求め方，微分の方法に関する説明は[こちらから](https://w3e.kanazawa-it.ac.jp/math/category/bibun/henkan-tex.cgi?target=/math/category/bibun/index.html)')
         st.latex(F2)
 
     st.write('\
