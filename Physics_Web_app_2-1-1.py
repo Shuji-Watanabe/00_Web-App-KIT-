@@ -3,18 +3,11 @@ from PIL import Image
 from sympy import *
 from sympy.solvers import solve
 import numpy as np
-from IPython.display import Math
 from sympy import I, pi, E
 
 init_printing()
 
-x,y,z,t= symbols('x y z t', real = True)
-theta = symbols(r"\theta")
-theta, m, h, v_0 = symbols('theta, m, h, v_0', real = True)
-g = symbols('g',real=True)
-var('theta m, h, v_0, g', positive = True)
 
-FX, FY ,FZ = symbols('FX FY FZ', cls=Function)
 st.title("""小物体の投射""")
 
 
@@ -28,6 +21,13 @@ with col3:
 with col4:
     PRAM04=st.text_input('速さを入力')
 
+x,y,z,t= symbols('x y z t', real = True)
+theta = symbols(r"\theta")
+theta, m, h, v_0 = symbols('theta, m, h, v_0', real = True)
+g = symbols('g',real=True)
+var('theta m, h, v_0, g', positive = True)
+FX, FY ,FZ = symbols('FX FY FZ', cls=Function)
+
 if not PRAM01:
     PRAM01=sympify(m)
 else :
@@ -37,11 +37,16 @@ if not PRAM02:
 else :
     PRAM02=sympify(PRAM02)
 if not PRAM03:
+    CK_P03=0
     PRAM03_0=sympify(theta)
     PRAM03=PRAM03_0
 else :
     PRAM03_0=sympify(PRAM03)
-    PRAM03=Rational(sympify(PRAM03),180)*pi
+    try :
+        PRAM03=Rational(sympify(PRAM03),180)*pi
+    except :
+        PRAM03=sympify(PRAM03)
+        PRAM03_0=sympify(PRAM03)
 if not PRAM04:
     PRAM04=sympify(v_0)
 else :
@@ -132,6 +137,7 @@ with col2_1:
     if Disp_Ans04:
         for i in range(len(Ans04)):
             # 何か良い方法がないものか．．．
-            CK_val = Ans04[i].subs([ (theta,pi/6),(m,1),(h,1),(v_0,1),(g,10)])
+            # CK_val = Ans04[i].subs([ (theta,pi/6),(m,1),(h,1),(v_0,1),(g,10)])
+            CK_val = Ans04[i].subs([ (PRAM01,1),(PRAM02,1),(PRAM03,pi/6),(PRAM04,1),(g,10)])
             if 0 <= CK_val:
                 st.latex(latex(Ans04[i]))
