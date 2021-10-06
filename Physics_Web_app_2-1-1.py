@@ -139,5 +139,5 @@ with col2_1:
             # 何か良い方法がないものか．．．
             # CK_val = Ans04[i].subs([ (theta,pi/6),(m,1),(h,1),(v_0,1),(g,10)])
             CK_val = Ans04[i].subs([ (PRAM01,1),(PRAM02,1),(PRAM03,pi/6),(PRAM04,1),(g,10)])
-            if 0 <= CK_val:
+            if 0 < CK_val:
                 st.latex(latex(Ans04[i]))
