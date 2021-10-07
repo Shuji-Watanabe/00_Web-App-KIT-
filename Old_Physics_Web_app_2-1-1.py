@@ -111,7 +111,7 @@ with col2_1:
 
     #第2問
     Q_STR2="(2) 最高点に達する時刻 $$t_{\\rm top}$$ を求めよ．"
-    st.markdown(Q_STR2)
+    st.write(Q_STR2)
 
     ## 解答
     Disp_Ans02 = st.checkbox('--> (2)の解答を見る')
@@ -144,3 +144,7 @@ with col2_1:
             CK_val = Ans04[i].subs([ (PRAM01,1),(PRAM02,1),(PRAM03,pi/6),(PRAM04,1),(g,10)])
             if 0 < CK_val:
                 st.latex(r"t_{1}=%s {[\rm s]}" % latex(Ans04[i]))
+    p=plot(x,x**2, (x, -5, 5), show=False);
+    p[0].line_color='b'
+    p[1].line_color='r'
+    st.write(p)

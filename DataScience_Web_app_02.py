@@ -127,6 +127,7 @@ if Data_file00:
         x_i = Data_00.iat[i,0]
         Ave_sq_x = Ave_sq_x + float(x_i)**2
     Ave_sq_x = Ave_sq_x / float(N)
+    Variance_2 = float(Ave_sq_x) - float(Ave_x)**2
     st.write("$\ \ \quad$**計算結果**"r"""：(標本)分散$s^2$=$%r$""" % (Variance))
     N_CK06_1=st.checkbox("補足情報1：標本分散の定義")
     if N_CK06_1:
@@ -168,7 +169,7 @@ if Data_file00:
         st.write( "$\ \ \\quad$=$" +str(Variance)+ "$ " )
     N_CK06_3=st.checkbox("補足情報3：標本分散の計算過程(方法２）")
     if N_CK06_3:
-        Variance_2 = float(Ave_sq_x) - float(Ave_x)**2
+        
         st.write("$\ \ \\quad$ 途中計算１"r"""：算術平均の２乗 $(\overline{x})^2$=$%r$""" % (float(Ave_x)**2))
         st.write("$\ \ \\quad$ 途中計算２"r"""：2乗平均 $\overline{x^2}$=$%r$""" % (float(Ave_sq_x)))
         st.write("$\ \ \\quad$ 途中計算３"r"""：分散 $s^2$=$\overline{x^2}-(\overline{x})^2$=$%r$""" % (round(float(Variance_2),1) ))
