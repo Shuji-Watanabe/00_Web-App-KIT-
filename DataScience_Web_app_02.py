@@ -177,7 +177,7 @@ if Data_file00:
 
     ##### 7)範囲の計算（開始）#####
     st.write("## **Step07:標準偏差の計算**")
-    st.write("$\ \ \quad$**計算結果**"r"""：標準偏差 $s$=$\sqrt{s^2}$=$%r$""" % (float(Variance_2)**0.5))
+    st.write("$\ \ \quad$**計算結果**"r"""：標準偏差 $s$=$\sqrt{s^2}$=$\sqrt{%r}$=$%r$""" % (round(float(Variance_2),1),float(Variance_2)**0.5))
     ##### 範囲の計算（終了）#####
 else:
     st.write("データファイルをアップロードしてください．")
