@@ -78,10 +78,10 @@ if Data_file00:
         st.write(
             r"""
                 $\ \ \quad$ 
-                ▶︎ $X$ = $(1 - %r) \times  %r$ + $%r \times %r = %r$
+                ▶︎ 第%s四分位数 = $%r$ + $%r \times \big( %r - %r\big) = %r$
             """
-            % (float(s), D00_sort.iat[int(r)-1,0], \
-                float(s), D00_sort.iat[int(r),0],\
+            % (X, D00_sort.iat[int(r)-1,0], \
+                D00_sort.iat[int(r),0],D00_sort.iat[int(r)-1,0],float(s),\
                 X_num )
             )
     ##### 分位数の計算（終了）#####
