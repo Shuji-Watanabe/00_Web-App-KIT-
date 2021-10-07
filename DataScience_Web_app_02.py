@@ -78,7 +78,7 @@ if Data_file00:
         st.write(
             r"""
                 $\ \ \quad$ 
-                ▶︎ 第%s四分位数 = $%r$ + $%r \times \big( %r - %r\big) = %r$
+                ▶︎ 第%s四分位数 = $%r$ + \big( %r - %r\big)  \times  $%r= %r$
             """
             % (X, D00_sort.iat[int(r)-1,0], \
                 D00_sort.iat[int(r),0],D00_sort.iat[int(r)-1,0],float(s),\
