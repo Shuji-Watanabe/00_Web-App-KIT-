@@ -196,10 +196,15 @@ if Data_file00:
         st.write(
             r"""
                 $\ \ \quad$ 
-                ▶︎ 第%s四分位数$Q_{%s}$= $%r$ + $\big(%r-%r\big)\times%r$=$%r$
+                ▶︎ 第%s四分位数$Q_{%s}$
+                 =
+                 $X_%s$ + $\big(X_%s-X_%s\big)\times s$
+                 =
+                 $%r$ + $\big(%r-%r\big)\times%r$=$%r$
             """
-            % (X, X, D00_sort.iat[int(r)-1,0], \
-                D00_sort.iat[int(r),0],D00_sort.iat[int(r)-1,0],float(s),\
+            % (X, X,\
+                int(r), int(r)+1, int(r),\
+                D00_sort.iat[int(r)-1,0],D00_sort.iat[int(r),0],D00_sort.iat[int(r)-1,0],float(s),\
                 X_num )
             )
     ##### 9)四分位偏差の計算（開始）#####
