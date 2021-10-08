@@ -198,7 +198,7 @@ if Data_file00:
                 $\ \ \quad$ 
                 ▶︎ 第%s四分位数$Q_{%s}$
                  =
-                 $X_%s$ + $\big(X_%s-X_%s\big)\times s$
+                 $X_{%s}$ + $\big(X_{%s}-X_{%s}\big)\times s$
                  =
                  $%r$ + $\big(%r-%r\big)\times%r$=$%r$
             """
