@@ -1,3 +1,6 @@
 streamlit
 sympy
 pandas
+PHYS_Functions01
+PHYS_V_Ave
+PHYS_A_Ave
