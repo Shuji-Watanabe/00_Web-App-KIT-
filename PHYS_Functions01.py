@@ -18,22 +18,17 @@ def List_to_vec01(Val):
     List_to_vec01_STR=List_to_vec01_STR+"\\end{pmatrix}"
     return List_to_vec01_STR
 
-#### 平均速度を計算する関数 ##########################################
+#### 時間に依存する物理量の平均変化率を計算する関数 #######################
 ## 入力値：delta_t:時間の変化量
-## 入力値：V_i：変化前の速度，リスト型変数
-## 入力値：V_f：変化後の速度，リスト型変数
-## 返り値：Average_V
+## 入力値：delta_Q：Qの変化量，リスト型変数
+## 返り値：Average_Q：平均変化率，リスト型変数
 ## 使い方
-##   A = Cal_V_Average_ver01(dt,v1,v2)
-##   A <- 平均速度がリスト型でAに格納される
+##   A = Cal_Q_Average_ver01(dt,dQ)
+##   A <- 平均変化率がリスト型でAに格納される
  #################################################################
-def Cal_V_Average_ver01(delta_t,V_i,V_f):
-    Add_1_Num00=len(V_i)
-    Average_V=[]
-    for i in range(Add_1_Num00):
-        Average_V.append(
-              (sympify(V_f[i]) - sympify(V_i[i]))
-                /
-                delta_t
-         )
-    return Average_V
+def Cal_Q_Average_ver01(delta_t,delta_Q):
+    Q_A_Num00=len(delta_Q)
+    Average_Q=[]
+    for i in range(Q_A_Num00):
+        Average_Q.append(delta_Q[i]/delta_t)
+    return Average_Q
