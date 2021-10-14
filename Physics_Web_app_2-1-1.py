@@ -111,7 +111,7 @@ with col2_1:
 
     #第2問
     Q_STR2="(2) 最高点に達する時刻 $$t_{\\rm top}$$ を求めよ．"
-    st.markdown(Q_STR2)
+    st.(Q_STR2)
 
     ## 解答
     Disp_Ans02 = st.checkbox('--> (2)の解答を見る')
