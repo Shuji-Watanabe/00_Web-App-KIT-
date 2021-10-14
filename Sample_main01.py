@@ -4,9 +4,10 @@ from sympy import *
 
 
 ############# 典型的なエラー：開始
-Error_Str = "　　▷　全ての変数に，値または式が入力されていますか？\n\n "
-Error_Str = Error_Str + "▷　半角で入力されていますか？\n\n "
-Error_Str = Error_Str + "▷　式の書き方に問題ありませんか？ "
+Error_Str = "　$\qquad$Check.1　全ての変数に，値または式が入力されていますか？\n\n "
+Error_Str = Error_Str + "$\qquad$Check.2　半角で入力されていますか？\n\n "
+Error_Str = Error_Str + "$\qquad$Check.3　式の書き方に問題ありませんか？ \n\n"
+Error_Str = Error_Str + "$\qquad$※　\"$\Delta x$\"　は　Symbol(\"\Delta x\")　と書く．"
 ############# 終了
 #
 ############# 空間次元の指定：開始
