@@ -33,7 +33,10 @@ if CB[0]:
     App_num=App_num+1
     st.write(r"# **平均速度(%s)**"%(App_num))
     PHYS_V_Ave_ver2.Cal_Velocity_Ave(Dim_Num,Error_Str,App_num)
-    st.write(r" ----------------------------------------アプリ(%s) End------------------------------------------"%(App_num))
+    end01 ="<div style= \"text-align: center;\"> "
+    end01+=" ----------------------------------------アプリ(%s) End------------------------------------------"%(App_num)
+    end01+=" </div>"
+    st.markdown(end01,unsafe_allow_html=True)
 ############# コンテンツ終了
 #
 ############# 平均加速度の計算コンテンツ：開始
@@ -42,7 +45,10 @@ if CB[1]:
     st.write(r"# **平均加速度(%s)**"%(App_num))
     import PHYS_A_Ave_ver2
     PHYS_A_Ave_ver2.Cal_Acceleration_Ave(Dim_Num,Error_Str,App_num)
-    st.write(r" ------------------------------------------アプリ(%s) End------------------------------------------"%(App_num))
+    end02 ="<div style= \"text-align: center;\"> "
+    end02+=" ----------------------------------------アプリ(%s) End------------------------------------------"%(App_num)
+    end02+=" </div>"
+    st.markdown(end02,unsafe_allow_html=True)
 ############# コンテンツ終了
 #
 ############# 位置，速度，加速度の計算コンテンツ：開始
