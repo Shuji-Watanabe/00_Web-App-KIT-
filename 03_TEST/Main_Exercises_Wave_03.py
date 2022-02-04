@@ -39,8 +39,8 @@ def sympy_extractsymbols(str00):
 
 #################### begin main program ##############
 st.markdown("##### 単振動(ばね振り子の運動)")
-image = Image.open('./Shuji-Watanabe/00_Web-App-KIT-/03_TEST/fig01.jpg')
-st.image(image)
+#image = Image.open('./Shuji-Watanabe/00_Web-App-KIT-/03_TEST/fig01.jpg')
+#st.image(image)
 st.markdown("""
     ##### 状況設定
     ばね定数 $k\\rm \ [N/m]$ の軽いばねを，水平で滑らかな床の上に置いた．ばねの一端を壁に取り付け，
@@ -48,7 +48,7 @@ st.markdown("""
     小物体が静止する位置を原点$\\rm O$ とする．小物体が運動を開始した時刻を $t=0 \\rm\ s$ とするとき，
     時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
 """)
-#st.image('単振動01.png',use_column_width=True,caption='ある時刻における小物体の様子')
+st.image('Fig01.svg',use_column_width=True,caption='ある時刻における小物体の様子')
 
 
 tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
