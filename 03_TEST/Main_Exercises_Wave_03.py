@@ -66,6 +66,10 @@ else:
     x_ini = "x_0"
     v_ini = "v_0"
 
+st.info("質量，ばね定数，初期位置，初速度の値等を変更し，その値に対する運動方程式や微分方程式の一般解，特殊解，周期等を求めてみましょう．\
+初期設定は，$m,\ k,\ x_0,\ v_0$ です．\
+入力欄には$12.5$や$1.3 * 10^{(4)}$のような数値が入力可能です．文字は2\*m，x_0\*10^(-3)のように文字の数値倍の範囲で入力可能です．")
+
 Mass_val = sympy_extractsymbols(Mass)
 if len(Mass_val) == 0:
     Mass = sympify(Mass)
@@ -178,9 +182,9 @@ Ans_A = sqrt( sympify(x_ini)**2 + sympify(v_ini)**2/omega**2 )
 # set_Ans_Eqv = asin(-powdenest(v_ini/(Ans_A*omega),force =True) )
 
 Ans_A_1 = Ans_A.subs(omega,sqrt(omega_0))
-Eqx = Eq(cos(phi), x_ini/Ans_A_1)
+Eqx = Eq(cos(phi), sympify(powdenest( x_ini/Ans_A_1,force=True)))
 set_Ans_Eqx = solve( Eqx,phi) 
-Eqv = Eq(sin(phi), -v_ini/(Ans_A_1 * sqrt(omega_0)))
+Eqv = Eq(sin(phi), sympify(powdenest(-v_ini/(Ans_A_1 * sqrt(omega_0)) ,force=True)))
 set_Ans_Eqv = solve( Eqv,phi )
 
 
@@ -214,7 +218,7 @@ CB_Step04_1 = st.sidebar.checkbox("特殊解を表示")
 if CB_Step04_1 :
    
     Ans_A =  sympify(powdenest(Ans_A.subs(omega,sqrt(omega_0)),force=True))
-    theta =  sympify(powdenest(theta.subs(omega,sqrt(omega_0)),force=True))
+    theta =  theta.subs(omega,sqrt(omega_0))
     st.latex(r"x(t) = %s \cdot \cos\left( %s \right)"%(latex( simplify(Ans_A)),latex(theta )) )
     if Ans_phi == phi:
         st.markdown("$\\phi$ は，$\\displaystyle \\cos \\phi = %s$ かつ $\\displaystyle \\sin \\phi = %s$ を満たす $-\\pi < \\phi \\le \\pi$ の角度である．"\
@@ -264,8 +268,8 @@ if CB_Step06_1 :
         ys = lambdify(t, function0, "numpy")(ts)
         
     except:
-        st.error("エラー：質量，ばね定数，初期位置，初速度を数値で指定してください．")
-        st.error("この図は $\\displaystyle A = 1.0,\ \\omega = \\frac{2\\pi}{10} ,\ \\phi = 0$の図です．")
+        st.error("注意：質量，ばね定数，初期位置，初速度を数値で指定してください．")
+        st.error("注意：この図は $\\displaystyle A = 1.0,\ \\omega = \\frac{2\\pi}{10} ,\ \\phi = 0$ の図です．")
         function0 = cos( pi/5 * t )
         col2_01,col2_02=st.columns([3,1]) 
         with col2_02:
