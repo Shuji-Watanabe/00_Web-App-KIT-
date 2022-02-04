@@ -45,7 +45,7 @@ st.markdown("""
     小物体が静止する位置を原点$\\rm O$ とする．小物体が運動を開始した時刻を $t=0 \\rm\ s$ とするとき，
     時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
 """)
-#st.image('単振動01.svg',use_column_width=True,caption='ある時刻における小物体の様子')
+st.image('単振動01.png',use_column_width=True,caption='ある時刻における小物体の様子')
 
 
 
