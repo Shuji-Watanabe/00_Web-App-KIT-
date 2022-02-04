@@ -54,7 +54,7 @@ else :
 
 col2_1, col2_2= st.columns([3,1])
 with col2_2:
-    image = Image.open('./Figs/projectile_motion1.png')
+    image = Image.open('https://github.com/Shuji-Watanabe/00_Web-App-KIT-/blob/main/03_TEST/Fig01.svg')
     st.image(image)
 
 with col2_1:
