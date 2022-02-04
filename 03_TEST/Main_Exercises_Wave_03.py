@@ -212,8 +212,9 @@ theta = omega * t + Ans_phi
 
 CB_Step04_1 = st.sidebar.checkbox("特殊解を表示")
 if CB_Step04_1 :
-    Ans_A = Ans_A.subs(omega,sqrt(omega_0))
-    theta = theta.subs(omega,sqrt(omega_0))
+   
+    Ans_A =  sympify(powdenest(Ans_A.subs(omega,sqrt(omega_0)),force=True))
+    theta =  sympify(powdenest(theta.subs(omega,sqrt(omega_0)),force=True))
     st.latex(r"x(t) = %s \cdot \cos\left( %s \right)"%(latex( simplify(Ans_A)),latex(theta )) )
     if Ans_phi == phi:
         st.markdown("$\\phi$ は，$\\displaystyle \\cos \\phi = %s$ かつ $\\displaystyle \\sin \\phi = %s$ を満たす $-\\pi < \\phi \\le \\pi$ の角度である．"\
