@@ -48,7 +48,7 @@ st.markdown("""
     小物体が静止する位置を原点$\\rm O$ とする．小物体が運動を開始した時刻を $t=0 \\rm\ s$ とするとき，
     時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
 """)
-st.image('shuji-watanabe/00_web-app-kit-/main/03_TEST/Fig01.svg',use_column_width=True,caption='ある時刻における小物体の様子')
+st.image('https://github.com/Shuji-Watanabe/00_Web-App-KIT-/blob/main/03_TEST/Fig01.svg',use_column_width=True,caption='ある時刻における小物体の様子')
 
 
 tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
