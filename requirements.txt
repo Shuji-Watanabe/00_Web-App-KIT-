@@ -3,4 +3,4 @@ sympy
 pandas
 numpy
 matplotlib 
-image
+Image

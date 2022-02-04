@@ -5,6 +5,7 @@ from sympy.simplify.sqrtdenest import sqrtdenest
 import numpy as np
 from matplotlib import pyplot as plt
 from sympy.utilities.lambdify import lambdify
+from PIL import Image
 #from sympy.abc import _clash1, _clash2 
 init_printing()
 
@@ -45,8 +46,9 @@ st.markdown("""
     小物体が静止する位置を原点$\\rm O$ とする．小物体が運動を開始した時刻を $t=0 \\rm\ s$ とするとき，
     時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
 """)
+image = Image.open('./単振動01.svg')
 #st.image('単振動01.png',use_column_width=True,caption='ある時刻における小物体の様子')
-#st.image('単振動01.png',caption='ある時刻における小物体の様子')
+st.image(image,caption='ある時刻における小物体の様子')
 
 
 
