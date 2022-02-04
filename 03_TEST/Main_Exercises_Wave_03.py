@@ -39,7 +39,7 @@ def sympy_extractsymbols(str00):
 
 #################### begin main program ##############
 st.markdown("##### 単振動(ばね振り子の運動)")
-image = Image.open('./00_Web-App-KIT-/03_TEST/fig01.jpg')
+image = Image.open('Shuji-Watanabe/00_Web-App-KIT-/03_TEST/fig01.jpg')
 st.image(image)
 st.markdown("""
     ##### 状況設定
