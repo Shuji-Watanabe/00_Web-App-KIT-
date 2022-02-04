@@ -47,7 +47,7 @@ st.markdown("""
     時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
 """)
 IMAGE_URL = 'https://github.com/Shuji-Watanabe/00_Web-App-KIT-/03_TEST/fig01.jpg'
-st.image(IMAGE_URL,caption='ある時刻における小物体の様子')
+st.image(IMAGE_URL,caption='ある時刻における小物体の様子',output_format='JPEG')
 
 tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
 if tmp_CB01 :
