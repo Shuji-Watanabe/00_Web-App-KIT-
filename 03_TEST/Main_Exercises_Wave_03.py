@@ -39,9 +39,8 @@ def sympy_extractsymbols(str00):
 
 #################### begin main program ##############
 st.markdown("##### 単振動(ばね振り子の運動)")
-image = Image.open('fig01.jpg')
+image = Image.open('./00_Web-App-KIT-/03_TEST/fig01.jpg')
 st.image(image)
-
 st.markdown("""
     ##### 状況設定
     ばね定数 $k\\rm \ [N/m]$ の軽いばねを，水平で滑らかな床の上に置いた．ばねの一端を壁に取り付け，
