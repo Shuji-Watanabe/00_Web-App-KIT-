@@ -48,7 +48,7 @@ st.markdown("""
     小物体が静止する位置を原点$\\rm O$ とする．小物体が運動を開始した時刻を $t=0 \\rm\ s$ とするとき，
     時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
 """)
-image = 'https://github.com/Shuji-Watanabe/00_Web-App-KIT-/blob/main/03_TEST/Fig01.svg'
+image = 'https://github.com/Shuji-Watanabe/00_Web-App-KIT-/blob/2202f6154c25d0fdca56f28fdf994e41da7eb15c/03_TEST/Fig01.svg'
 st.image(image,use_column_width=True,caption='ある時刻における小物体の様子')
 
 
