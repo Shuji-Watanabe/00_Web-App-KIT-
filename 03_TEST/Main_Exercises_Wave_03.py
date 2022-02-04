@@ -48,7 +48,7 @@ st.markdown("""
 """)
 
 IMAGE_URL = 'https://raw.githubusercontent.com/Shuji-Watanabe/00_Web-App-KIT-/5866bb8124a24282d99f82d782b1ba47263d1040/03_TEST/Fig01.svg'
-st.image(IMAGE_URL,caption='ある時刻における小物体の様子',output_format='JPEG')
+st.image(IMAGE_URL,use_column_width=True,caption='ある時刻における小物体の様子',output_format='JPEG')
 tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
 if tmp_CB01 :
     col01,col02,col03,col04 = st.columns(4)
