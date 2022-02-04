@@ -149,9 +149,7 @@ if CB_Step03_1 :
         st.latex( "x(t)=c_1 e^{-i\omega t} + c_2e^{i \omega t}" )
 
         """
-        　　- さらに
-            [オイラーの公式](https://w3e.kanazawa-it.ac.jp/math/category/fukusosuu/henkan-tex.cgi?target=/math/category/fukusosuu/euler-no-kousiki.html)
-        より\n
+        　　- さらに[オイラーの公式](https://w3e.kanazawa-it.ac.jp/math/category/fukusosuu/henkan-tex.cgi?target=/math/category/fukusosuu/euler-no-kousiki.html)より\n
         　　$x(t) = c_1 e^{-i\omega t} + c_2e^{i \omega t}$\n
         　　$\\phantom{x(t)} = c_1 \cos \omega t + i c_1 \sin \omega t + c_2 \cos (-\omega t ) + i c_2 \sin(-\omega t)$\n
         　　$\\phantom{x(t)} = \\big( c_1 + c_2 \\big) \cos \omega t + i\\big(c_1 - c_2\\big) \sin (-\omega t)$\n
