@@ -55,7 +55,7 @@ if tmp_CB01 :
     with col01:
         Mass = st.text_input("質量","m")
     with col02:
-        Sp_const = st.text_input(latex(r"バネ定数"),"k")
+        Sp_const = st.text_input("バネ定数","k")
     with col03:
         x_ini = st.text_input("初期位置","x_0")
     with col04:
