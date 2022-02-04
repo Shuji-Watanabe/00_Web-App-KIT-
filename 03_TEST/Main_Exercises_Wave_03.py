@@ -39,17 +39,19 @@ def sympy_extractsymbols(str00):
 
 #################### begin main program ##############
 st.markdown("##### 単振動(ばね振り子の運動)")
-st.markdown("""
-    ##### 状況設定
-    ばね定数 $k\\rm \ [N/m]$ の軽いばねを，水平で滑らかな床の上に置いた．ばねの一端を壁に取り付け，
-    もう一端に質量 $m \\rm\  [kg]$ の小物体を取り付ける．水平右向きを $x$ 軸方向とし，ばねが自然長で
-    小物体が静止する位置を原点$\\rm O$ とする．小物体が運動を開始した時刻を $t=0 \\rm\ s$ とするとき，
-    時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
-""")
-
-#st.image('単振動01.png',use_column_width=True,caption='ある時刻における小物体の様子')
-image = Image.open('fig01.jpg')
-st.image(image)
+col1_01, col1_02 = st.columns([2,1])
+with col1_01:
+    st.markdown("""
+        ##### 状況設定
+        ばね定数 $k\\rm \ [N/m]$ の軽いばねを，水平で滑らかな床の上に置いた．ばねの一端を壁に取り付け，
+        もう一端に質量 $m \\rm\  [kg]$ の小物体を取り付ける．水平右向きを $x$ 軸方向とし，ばねが自然長で
+        小物体が静止する位置を原点$\\rm O$ とする．小物体が運動を開始した時刻を $t=0 \\rm\ s$ とするとき，
+        時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
+    """)
+with col1_02:
+    #st.image('単振動01.png',use_column_width=True,caption='ある時刻における小物体の様子')
+    image = Image.open('fig01.jpg')
+    st.image(image)
 
 
 tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
