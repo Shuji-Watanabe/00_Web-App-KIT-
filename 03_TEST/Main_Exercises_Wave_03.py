@@ -214,7 +214,7 @@ else :
 
 theta = omega * t + Ans_phi
 
-CB_Step04_1 = st.sidebar.checkbox("特殊解を表示")
+CB_Step04_1 = st.checkbox("特殊解を表示")
 if CB_Step04_1 :
    
     Ans_A =  sympify(powdenest(Ans_A.subs(omega,sqrt(omega_0)),force=True))
@@ -260,7 +260,7 @@ if CB_Step05_1 :
 
 ##### Step 06
 st.markdown("##### ▷ Step 6：特殊解のグラフ")
-CB_Step06_1 = st.sidebar.checkbox("特殊解のグラフを表示")
+CB_Step06_1 = st.checkbox("特殊解のグラフを表示")
 if CB_Step06_1 :
     try:
         function0 = Ans_A_1 * cos( sqrt(omega_0) * t + Ans_phi)
