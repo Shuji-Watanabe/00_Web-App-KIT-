@@ -49,7 +49,7 @@ st.markdown("""
 
 IMAGE_URL = 'https://raw.githubusercontent.com/Shuji-Watanabe/00_Web-App-KIT-/5866bb8124a24282d99f82d782b1ba47263d1040/03_TEST/Fig01.svg'
 st.image(IMAGE_URL,use_column_width=True,caption='ある時刻における小物体の様子',output_format='JPEG')
-tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
+tmp_CB01=st.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
 if tmp_CB01 :
     col01,col02,col03,col04 = st.columns(4)
     st.info("質量，ばね定数，初期位置，初速度の値等を変更し，その値に対する運動方程式や微分方程式の一般解，特殊解，周期等を求めてみましょう．\
@@ -112,7 +112,7 @@ elif len(x_ini_val) >= 2 :
 ##### Step 01 
 st.markdown("##### ▷ Step 1：バネに繋がれた小物体の運動方程式")
 STR1_01 = "%s \\cdot \\frac{d^2 x}{dt^2} = -%s \\cdot x"%(converttotex(Mass),converttotex(Sp_const))
-CB_Step01_1 = st.sidebar.checkbox("運動方程式を表示")
+CB_Step01_1 = st.checkbox("運動方程式を表示")
 if CB_Step01_1 :
     st.latex(STR1_01)
 
@@ -122,7 +122,7 @@ if CB_Step01_1 :
 
 ##### Step 02
 st.markdown("##### ▷ step 2：特性方程式")
-CB_Step01_2 = st.sidebar.checkbox("特性方程式とその解を表示")
+CB_Step01_2 = st.checkbox("特性方程式とその解を表示")
 
 
 lambda_0 = Symbol(r"\lambda")
@@ -130,7 +130,7 @@ lambda_0 = symbols('lambda_0')
 omega = Symbol(r"\omega")
 omega = symbols('omega', positive=True)
 
-omega_0 = simplify(sympify(Mass)/sympify(Sp_const))
+omega_0 = simplify(sympify(Sp_const)/sympify(Mass))
 eq01 = lambda_0**2 + omega**2
 Ans01 = solve( Eq(0,sympify(eq01)),lambda_0)
 
@@ -143,7 +143,7 @@ if CB_Step01_2 :
 
 ##### Step 03
 st.markdown("##### ▷ Step 3：微分方程式の一般解")
-CB_Step03_1 = st.sidebar.checkbox("一般解を表示")
+CB_Step03_1 = st.checkbox("一般解を表示")
 if CB_Step03_1 :
     st.latex(r"x(t)= A\cos \big(  \omega t +  \phi \big) = A\cos \left(  %s t +  \phi\right)"%(latex(omega_0)))
     if st.checkbox("一般解を求める過程を表示"):
@@ -250,7 +250,7 @@ if CB_Step04_1 :
 
 ##### Step 05
 st.markdown("##### ▷ Step 5：角振動数と周期")
-CB_Step05_1 = st.sidebar.checkbox("角振動数と周期を表示")
+CB_Step05_1 = st.checkbox("角振動数と周期を表示")
 if CB_Step05_1 :
     T = 2*pi/sqrt(omega_0)
     st.latex(r"\displaystyle \text{角振動数：} \omega = %s，\text{周期：}  T = \frac{2\pi}{\omega} = %s"%( latex(sqrt(omega_0)),latex(T) ))
