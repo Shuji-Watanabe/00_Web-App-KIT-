@@ -9,6 +9,15 @@ from PIL import Image
 #from sympy.abc import _clash1, _clash2 
 init_printing()
 
+def sigfigures (str001):
+    import re as Re
+    import math
+    import sympy
+    sigfig = Re.findall(r'\d+.\d+',str001)[0]
+    sigdig  = len(str(sigfig).split('*')[0].replace(".",""))
+    index_val = math.floor(math.log10(sympify(sigfig))) 
+    return sigfig,sigdig,index_val 
+
 def pitonegapi(rad00):
     if rad00 >= pi:
         rad01 = rad00 - 2*pi
@@ -145,7 +154,7 @@ if CB_Step01_2 :
 st.markdown("##### ▷ Step 3：微分方程式の一般解")
 CB_Step03_1 = st.checkbox("一般解を表示")
 if CB_Step03_1 :
-    st.latex(r"x(t)= A\cos \big(  \omega t +  \phi \big) = A\cos \left(  %s t +  \phi\right)"%(latex(omega_0)))
+    st.latex(r"x(t)= A\cos \big(  \omega t +  \phi \big) = A\cos \left(  %s t +  \phi\right)"%(latex(sqrt(omega_0))))
     if st.checkbox("一般解を求める過程を表示"):
         """
         　　- 特製方程式が２つの複素数解 $\lambda_1=-i\omega,\ \lambda_2=i\omega$ を持つことから，求める$x(t)$の一般解は次のようになる．
@@ -155,11 +164,12 @@ if CB_Step03_1 :
         """
         　　- さらに[オイラーの公式](https://w3e.kanazawa-it.ac.jp/math/category/fukusosuu/henkan-tex.cgi?target=/math/category/fukusosuu/euler-no-kousiki.html)より\n
         　　$x(t) = c_1 e^{-i\omega t} + c_2e^{i \omega t}$\n
-        　　$\\phantom{x(t)} = c_1 \cos \omega t + i c_1 \sin \omega t + c_2 \cos (-\omega t ) + i c_2 \sin(-\omega t)$\n
-        　　$\\phantom{x(t)} = \\big( c_1 + c_2 \\big) \cos \omega t + i\\big(c_1 - c_2\\big) \sin (-\omega t)$\n
+        　　$\\phantom{x(t)} = c_1 \cos (-\omega t ) + i c_1 \sin(-\omega t) +c_2 \cos \omega t + i c_2 \sin \omega t$\n
+        　　$\\phantom{x(t)} = c_1 \cos \omega t - i c_1 \sin\omega t +c_2 \cos \omega t + i c_2 \sin \omega t$\n
+        　　$\\phantom{x(t)} = \\big( c_1 + c_2 \\big) \cos \omega t + i\\big( - c_1 + c_2\\big) \sin \omega t$\n
         　　$\\phantom{x(t)} = C_1 \cos \omega t + C_2 \sin \omega t$\n
-        　　$\\displaystyle \\phantom{x(t)} = \\sqrt{C_1^2 + C_2^2}\\bigg( \\frac{C_1}{\\sqrt{C_1^2 + C_2^2} } \cos \omega t + \\frac{C_2}{\\sqrt{C_1^2 + C_2^2} } \sin \omega t \\bigg)$\n
-        　　$\\displaystyle \\phantom{x(t)} = A\\Big( \cos \phi\cos \omega t + \sin \phi \sin \omega t \\Big)$\n
+        　　$\\displaystyle \\phantom{x(t)} = \\sqrt{C_1^2 + C_2^2}\\Bigg\{ \\frac{C_1}{\\sqrt{C_1^2 + C_2^2} } \cos \omega t - \Bigg( -\\frac{C_2}{\\sqrt{C_1^2 + C_2^2} } \Bigg) \sin \omega t \\Bigg\}$\n
+        　　$\\displaystyle \\phantom{x(t)} = A\\Big( \cos \phi\cos \omega t - \sin \phi \sin \omega t \\Big)$\n
         　　$\\displaystyle \\phantom{x(t)} = A\cos\\big( \phi + \omega t  \\big)$\n
         　　$\\displaystyle \\phantom{x(t)} = A\cos\\big(  \omega t +  \phi\\big)$\n
         """
@@ -221,8 +231,8 @@ if CB_Step04_1 :
     theta =  theta.subs(omega,sqrt(omega_0))
     st.latex(r"x(t) = %s \cdot \cos\left( %s \right)"%(latex( simplify(Ans_A)),latex(theta )) )
     if Ans_phi == phi:
-        st.markdown("$\\phi$ は，$\\displaystyle \\cos \\phi = %s$ かつ $\\displaystyle \\sin \\phi = %s$ を満たす $-\\pi < \\phi \\le \\pi$ の角度である．"\
-            %(latex( simplify( sympify(x_ini)/Ans_A)) ,latex( simplify(sympify(v_ini)/(Ans_A*sqrt(omega_0))) ))
+        st.markdown("$\\phi$ は，$\\displaystyle \\cos \\phi = %s$ かつ $\\displaystyle \\sin \\phi =  %s$ を満たす $-\\pi < \\phi \\le \\pi$ の角度である．"\
+            %(latex( powdenest( sympify(x_ini)/Ans_A, force=True)) ,latex( powdenest(-sympify(v_ini)/(Ans_A*sqrt(omega_0)), force = True) ))
             )
     if st.checkbox("特殊解を得るまでの途中計算を表示(一般的な初期条件に対する特殊解の求め方)"):
         st.markdown("""\
@@ -253,7 +263,8 @@ st.markdown("##### ▷ Step 5：角振動数と周期")
 CB_Step05_1 = st.checkbox("角振動数と周期を表示")
 if CB_Step05_1 :
     T = 2*pi/sqrt(omega_0)
-    st.latex(r"\displaystyle \text{角振動数：} \omega = %s，\text{周期：}  T = \frac{2\pi}{\omega} = %s"%( latex(sqrt(omega_0)),latex(T) ))
+    style_05_01 = r"\displaystyle \text{角振動数：} \omega = %s，\text{周期：}  T = \frac{2\pi}{\omega} = %s"
+    st.latex( style_05_01 %( latex(sqrt(omega_0)),latex(T) ))
 
 
 
