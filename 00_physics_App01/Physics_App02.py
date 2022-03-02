@@ -54,7 +54,8 @@ else :
 
 col2_1, col2_2= st.columns([3,1])
 with col2_2:
-    image = Image.open('./Figs/projectile_motion1.png')
+    IMAGE_URL = 'https://github.com/Shuji-Watanabe/00_Web-App-KIT-/blob/main/00_physics_App01/Figs/projectile_motion1.png?raw=true'
+    image = Image.open(IMAGE_URL)
     st.image(image)
 
 with col2_1:
