@@ -6,6 +6,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from sympy.utilities.lambdify import lambdify
 from PIL import Image
+import lib_to_cal 
 #from sympy.abc import _clash1, _clash2 
 init_printing()
 
