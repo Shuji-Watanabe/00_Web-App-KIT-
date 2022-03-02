@@ -4,5 +4,5 @@ pandas
 numpy
 matplotlib 
 Image
-math 
+math
 re
