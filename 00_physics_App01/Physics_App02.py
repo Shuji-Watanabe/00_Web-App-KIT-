@@ -55,8 +55,8 @@ else :
 col2_1, col2_2= st.columns([3,1])
 with col2_2:
     IMAGE_URL = 'https://github.com/Shuji-Watanabe/00_Web-App-KIT-/blob/main/00_physics_App01/Figs/projectile_motion1.png'
-    image = Image.open(IMAGE_URL)
-    st.image(image)
+    #image = Image.open(IMAGE_URL)
+    st.image(IMAGE_URL)
 
 with col2_1:
     #問題文
