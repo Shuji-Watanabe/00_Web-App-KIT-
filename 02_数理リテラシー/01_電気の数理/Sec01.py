@@ -3,7 +3,7 @@ from sympy import *
 import numpy as np
 from fractions import Fraction
 from sympy.codegen.cfunctions import log10
-
+import lib_to_cal_2 
 
 def converttotex(Str00):
     Str00=str(Str00).replace("(","{")

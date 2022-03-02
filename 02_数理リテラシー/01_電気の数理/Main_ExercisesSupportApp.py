@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from sympy import *
 
+
 ############# 典型的なエラー：開始
 Error_Str = "　$\qquad$Check.1　全ての変数に，値または式が入力されていますか？\n\n "
 Error_Str = Error_Str + "$\qquad$Check.2　半角で入力されていますか？\n\n "
