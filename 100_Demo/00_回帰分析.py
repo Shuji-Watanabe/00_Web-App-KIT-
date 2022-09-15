@@ -11,7 +11,7 @@ single_regression_ana_tab = []
 single_regression_ana_tab = st.tabs(single_regression_ana_list)
 
 with single_regression_ana_tab[0]:
-    st.markdown("####　単回帰分析とは")
+    st.markdown("#### 単回帰分析とは")
     """
     身長と体重や，価格と売り上げのように，
     ２つの変量$~X,\ Y~$の組み$~\\big(X,\ Y\\big)~$で得られるデータがあるとき，
@@ -81,8 +81,6 @@ with single_regression_ana_tab[2]:
         try:
             Data_00= pd.read_csv("./data0000.csv")
         except:
-            data_link = 'https://github.com/Shuji-Watanabe/00_Web-App-KIT-/blob/main/100_Demo/data0000.csv'
-            data_link = 'https://github.com/Shuji-Watanabe/00_Web-App-KIT-/blob/1e6375edb1bd71032c190e0ef78bddf8948dc60b/100_Demo/data0000.csv'
             data_link = "100_Demo/data0000.csv"
             Data_00= pd.read_csv(data_link)
         tmp_title_tub01="#### 入力データの確認（サンプルデータ）を利用"
