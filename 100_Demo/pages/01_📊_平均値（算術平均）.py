@@ -30,7 +30,8 @@ with variance_tab[0]:
 """
 with variance_tab[1]:
     Data_00=st.session_state["Data_00"]
+    
     st.dataframe(Data_00.T)
-
+    Data_00_N = len(Data_00) 
 with variance_tab[2]:
     st.markdown("#### データ分析")

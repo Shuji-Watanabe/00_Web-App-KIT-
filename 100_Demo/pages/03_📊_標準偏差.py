@@ -54,6 +54,3 @@ with standard_deviation_tab[2]:
 
 with standard_deviation_tab[3]:
     st.write("標本標準偏差と母標準偏差")
-
-with standard_deviation_tab[4]:
-    st.write("標準偏差によるデータの評価")
