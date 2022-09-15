@@ -79,7 +79,7 @@ with single_regression_ana_tab[2]:
                             )
     if select_data_00==select_data_list[0]:
         try:
-            Data_00= pd.read_csv("data0000.csv")
+            Data_00= pd.read_csv("./data0000.csv")
         except:
             data_link = 'https://github.com/Shuji-Watanabe/00_Web-App-KIT-/blob/main/100_Demo/data0000.csv'
             data_link = 'https://github.com/Shuji-Watanabe/00_Web-App-KIT-/blob/1e6375edb1bd71032c190e0ef78bddf8948dc60b/100_Demo/data0000.csv'
