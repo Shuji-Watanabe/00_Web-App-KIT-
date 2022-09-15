@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import japanize_matplotlib
 #from sklearn.linear_model import LinearRegression
 
 ### 使用するファイルの選択 ###
