@@ -43,11 +43,7 @@ with variance_tab[1]:
     tmp_01 = st.radio("選択：",("最初の３項程度を示す","全ての項を示す"),horizontal=True)
 
     if tmp_01:
-        #Form_Average_str = ""
-        #Form_Average_str = "$$ \\begin{align}"
         Form_Average_str = ""
-        # Form_Average_str += "\\overline{x} = \\frac{1}{" + str(Data_11_N ) + "}"
-        # Form_Average_str += "\\Big("
         if tmp_01_list[tmp_01] == 0 :
             Form_Average_str += str( '{:}'.format(Data_11[0]) )
             Form_Average_str += str("+")
@@ -62,11 +58,6 @@ with variance_tab[1]:
                     Form_Average_str += str( '{:}'.format(Data_11[i]) )
                 else:
                     Form_Average_str += str( '{:+}'.format(Data_11[i]) )
-        # Form_Average_str += "\\Big)"
-        # Form_Average_str += '= \\frac{'+str(Data_11_Total)+'}{' + str(Data_11_N) +"}"
-        # #Form_Average_str += "\\end{align}$$"
-        # Form_Average_str += "$$"
-        #st.markdown(Form_Average_str)
         """
             $$
                 \\begin{align*}
@@ -76,13 +67,13 @@ with variance_tab[1]:
                     &=\\frac{%s}{%s}
                     \\\\
                     \\\\
-                    &\\fallingdotseq %s
+                    &=%s
                 \\end{align*}
             $$
         """\
         %(  Data_11_N,Form_Average_str,\
             Data_11_Total,Data_11_N,\
-            '{:.1f}'.format(Data_11_Total/Data_11_N)
+            Data_11_Total/Data_11_N
         )
 
 with variance_tab[2]:

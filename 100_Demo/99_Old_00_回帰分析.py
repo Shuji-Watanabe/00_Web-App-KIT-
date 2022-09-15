@@ -4,40 +4,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 #from sklearn.linear_model import LinearRegression
 
-### 使用するファイルの選択 ###
+add_selectbox = st.sidebar.selectbox(
+    "How would you like to be contacted?",
+    ("Email", "Home phone", "Mobile phone")
+)
 
-select_data_list={"サンプルデータを利用":0,\
-                    "CSVファイルをアップロードし利用":1
-                    }
-select_data_00 = st.sidebar.selectbox("📝　実例の計算に使用するデータを選択",
-                                    (list(select_data_list.keys()))
-                                    )
-Data_00 = None
-if select_data_list[select_data_00] == 0:
-    try:
-        Data_00= pd.read_csv("./data0000.csv")
-    except:
-        data_link = "100_Demo/data0000.csv"
-        Data_00= pd.read_csv(data_link)
-    tmp_title_tub01="#### 入力データの確認（サンプルデータ）を利用"
-
-elif select_data_list[select_data_00] == 1:
-    Data_00= pd.read_csv("./data0000.csv")
-    uploaded_file = st.sidebar.file_uploader("CSVファイルを選択", type={"csv"})
-    if uploaded_file:
-        try :
-            Data_00= pd.read_csv(uploaded_file)
-        except:
-            Data_00= pd.read_csv(uploaded_file,encoding="SHIFT-JIS")          
-        tmp_title_tub01="#### 入力データの確認（"+str(uploaded_file.name)+"）を利用"
-    
-
-### グローバル変数の定義 ###
-st.session_state["Data_00"] = Data_00
 
 ### Main program ###
 st.title("### 単回帰分析")
-single_regression_ana_list=["単回帰分析とは","単回帰式の導出","単回帰分析の例（実行結果）"]
+single_regression_ana_list=["単回帰分析とは","単回帰式の導出","単回帰分析の例（データの選択）","単回帰分析の例（実行結果）"]
 single_regression_ana_tab = []
 single_regression_ana_tab = st.tabs(single_regression_ana_list)
 
@@ -57,7 +32,7 @@ with single_regression_ana_tab[0]:
     """
 
 with single_regression_ana_tab[1]:
-    st.markdown("#### 単回帰式")
+    st.markdown("#### 単回帰式の導出の流れ")
     """
         ２つの変量$~X,\ Y~$の組み$~\\big(X,\ Y\\big)~$について，$~N~$個のデータがあり，
         変量$~X~$を説明変数，変量$~Y~$を目的変数とする．
@@ -101,8 +76,49 @@ with single_regression_ana_tab[1]:
             という量$~E~$を求める．ここで$~N~$はデータ数である．
         3.  $~E~$が最小となる$~a,\ b~$を求める．
     """
-
 with single_regression_ana_tab[2]:
+    Data_00 = None
+    select_data_list=["サンプルデータの利用","CSVファイルをアップロード"]
+    select_data_00=st.selectbox(
+                            "分析に使用するデータを選択してください．",
+                            select_data_list
+                            )
+    if select_data_00==select_data_list[0]:
+        try:
+            Data_00= pd.read_csv("./data0000.csv")
+        except:
+            data_link = "100_Demo/data0000.csv"
+            Data_00= pd.read_csv(data_link)
+        tmp_title_tub01="#### 入力データの確認（サンプルデータ）を利用"
+    elif select_data_00==select_data_list[1]:
+        uploaded_file = None
+        uploaded_file = st.file_uploader("CSVファイルを選択してください．", type={"csv"})
+        if uploaded_file:
+            try :
+                Data_00= pd.read_csv(uploaded_file)
+            except:
+                Data_00= pd.read_csv(uploaded_file,encoding="SHIFT-JIS")          
+            tmp_title_tub01="#### 入力データの確認（"+str(uploaded_file.name)+"）を利用"
+            st.markdown(tmp_title_tub01)
+    if "Data_00" not in st.session_state:
+        st.session_state["Data_00"] = Data_00
+    st.dataframe(Data_00.T)
+
+    Variables_Data_00 = list(Data_00.columns.values)
+    Variables_Data_01 =""
+    for i in range(len(Variables_Data_00)):
+        if i < len(Variables_Data_00)-1:
+            Variables_Data_01 += "変量"+str(i+1)+"「"+str(Variables_Data_00[i])+"」，"
+        else:
+            Variables_Data_01 += "変量"+str(i+1)+"「"+str(Variables_Data_00[i])+"」"
+    
+    st.markdown("##### 入力データの基本情報")
+    st.write(Variables_Data_01)
+    st.write("データ数＝",str(len(Data_00)))
+
+
+
+with single_regression_ana_tab[3]:
     ### 説明変数（X）と目的変数（Y）の設定 
     if Data_00 is None:
         st.write("データなし．「データの選択」で利用するデータを選択してください．")
