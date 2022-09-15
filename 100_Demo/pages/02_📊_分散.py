@@ -2,7 +2,7 @@ import streamlit as st
 
 ### Main program ###
 st.markdown("### ２．分散$~s^2~$について")
-variance_list00=["定義","その他の統計量との関係","計算方法の実例","データ分析"]
+variance_list00=["定義","その他の統計量との関係","計算方法の実例"]
 variance_tab=[]
 variance_tab=st.tabs(variance_list00)
 with variance_tab[0]:
@@ -67,5 +67,3 @@ with variance_tab[2]:
     Data_00=st.session_state["Data_00"]
     st.dataframe(Data_00.T)
 
-with variance_tab[3]:
-    st.write("分散によるデータの評価")
