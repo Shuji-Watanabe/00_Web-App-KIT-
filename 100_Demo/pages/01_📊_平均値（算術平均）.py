@@ -4,7 +4,6 @@ import streamlit as st
 st.markdown("### １．平均値$~\\overline{x}~$について")
 variance_list00=["平均値の定義","計算方法の実例","データ分析例"]
 variance_tab=[]
-# variance_tab1, variance_tab2, variance_tab3=st.tabs(variance_list00)
 variance_tab=st.tabs(variance_list00)
 with variance_tab[0]:
     st.markdown("#### 変量$~X~$の平均値$~\\overline{x}~$の定義")
@@ -30,8 +29,61 @@ with variance_tab[0]:
 """
 with variance_tab[1]:
     Data_00=st.session_state["Data_00"]
-    
     st.dataframe(Data_00.T)
-    Data_00_N = len(Data_00) 
+    val_name = st.selectbox(
+                "平均値を計算したい変量を選択してください",
+                list(Data_00.columns.values),
+                key=1)
+    Data_11 = Data_00[val_name]
+    Data_11_N = len(Data_11)
+    Data_11_Total = Data_11.sum()
+
+    ####  平均値の計算例　１行目　####
+    tmp_01_list = { "最初の３項程度を示す":0,"全ての項を示す":1}
+    tmp_01 = st.radio("選択：",("最初の３項程度を示す","全ての項を示す"),horizontal=True)
+
+    if tmp_01:
+        #Form_Average_str = ""
+        #Form_Average_str = "$$ \\begin{align}"
+        Form_Average_str = ""
+        # Form_Average_str += "\\overline{x} = \\frac{1}{" + str(Data_11_N ) + "}"
+        # Form_Average_str += "\\Big("
+        if tmp_01_list[tmp_01] == 0 :
+            Form_Average_str += str( '{:}'.format(Data_11[0]) )
+            Form_Average_str += str("+")
+            Form_Average_str += str( '{:}'.format(Data_11[1]) )
+            Form_Average_str += str("+")
+            Form_Average_str += str( '{:}'.format(Data_11[2]) )
+            Form_Average_str += str( "+\cdots+" )
+            Form_Average_str += str( '{:}'.format(Data_11[Data_11_N-1]) )
+        else :
+            for i in range(Data_11_N):
+                if i == 0 :
+                    Form_Average_str += str( '{:}'.format(Data_11[i]) )
+                else:
+                    Form_Average_str += str( '{:+}'.format(Data_11[i]) )
+        # Form_Average_str += "\\Big)"
+        # Form_Average_str += '= \\frac{'+str(Data_11_Total)+'}{' + str(Data_11_N) +"}"
+        # #Form_Average_str += "\\end{align}$$"
+        # Form_Average_str += "$$"
+        #st.markdown(Form_Average_str)
+        """
+            $$
+                \\begin{align*}
+                    \\overline{x} &= \\frac{1}{%s}\\Big( %s \\Big)
+                    \\\\
+                    \\\\
+                    &=\\frac{%s}{%s}
+                    \\\\
+                    \\\\
+                    &\\fallingdotseq %s
+                \\end{align*}
+            $$
+        """\
+        %(  Data_11_N,Form_Average_str,\
+            Data_11_Total,Data_11_N,\
+            '{:.1f}'.format(Data_11_Total/Data_11_N)
+        )
+
 with variance_tab[2]:
-    st.markdown("#### データ分析")
+    st.markdown("#### 平均値から推測できること")

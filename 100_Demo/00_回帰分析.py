@@ -26,7 +26,7 @@ with single_regression_ana_tab[0]:
     """
 
 with single_regression_ana_tab[1]:
-    st.markdown("#### 単回帰式とは")
+    st.markdown("#### 単回帰式の導出の流れ")
     """
         ２つの変量$~X,\ Y~$の組み$~\\big(X,\ Y\\big)~$について，$~N~$個のデータがあり，
         変量$~X~$を説明変数，変量$~Y~$を目的変数とする．
