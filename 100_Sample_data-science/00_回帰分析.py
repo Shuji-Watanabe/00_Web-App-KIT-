@@ -19,7 +19,7 @@ if select_data_list[select_data_00] == 0:
     try:
         Data_00= pd.read_csv("./data0000.csv")
     except:
-        data_link = "100_Demo/data0000.csv"
+        data_link = "100_Sample_data-science/data0000.csv"
         Data_00= pd.read_csv(data_link)
     tmp_title_tub01="#### 入力データの確認（サンプルデータ）を利用"
 
