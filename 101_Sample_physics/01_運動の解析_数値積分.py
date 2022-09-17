@@ -60,9 +60,9 @@ with acceleration_motion_ana_tab[2]:
     num_elev=st.number_input("視点の変更（縦）",min_value=-90,max_value=90,step=1)
     num_azim=st.slider("視点の変更（横）",min_value=-90,max_value=90,step=1)
     ax.view_init(elev=num_elev, azim=num_azim)
-
     ax.plot_surface(X, Y, Z,cmap='bwr', linewidth=0)
-    st.write(fig)
+    st.pyplot(fig)
+
 with acceleration_motion_ana_tab[3]:
     Data_00,select_data_n = import_data()
     select_data_n = int(select_data_n)
