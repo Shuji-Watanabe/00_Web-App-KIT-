@@ -46,6 +46,7 @@ acceleration_motion_ana_tab =[]
 acceleration_motion_ana_tab = st.tabs(acceleration_motion_ana_list)
 
 with acceleration_motion_ana_tab[2]:
+    placeholder = st.empty()
     def func1(x,y):
         return x**2+y**2
     x = np.arange(-30,30,1)
@@ -61,7 +62,7 @@ with acceleration_motion_ana_tab[2]:
     num_azim=st.slider("視点の変更（横）",min_value=-90,max_value=90,step=1)
     ax.view_init(elev=num_elev, azim=num_azim)
     ax.plot_surface(X, Y, Z,cmap='bwr', linewidth=0)
-    st.pyplot(fig)
+    placeholder.pyplot(fig)
 
 with acceleration_motion_ana_tab[3]:
     Data_00,select_data_n = import_data()
