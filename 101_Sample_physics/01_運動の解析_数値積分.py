@@ -23,7 +23,7 @@ def import_data():
         try:
             Data_00= pd.read_csv("./Sample_data_01.csv")
         except:
-            data_link = "100_Sample_data-science/Sample_data_01.csv"
+            data_link = "101_Sample_physics/Sample_data_01.csv"
             Data_00= pd.read_csv(data_link)
         tmp_title_tub01="#### 入力データの確認（サンプルデータ）を利用"
 
