@@ -4,6 +4,8 @@ import numpy as np
 from decimal import Decimal
 import matplotlib.pyplot as plt
 import japanize_matplotlib
+from matplotlib import patches
+# from matplotlib.patches import Ellipse, Polygon
 from mpl_toolkits.mplot3d import Axes3D
 
 
@@ -44,26 +46,20 @@ st.title("#### 加速度運動の解析")
 acceleration_motion_ana_list=["等加速度運動直線運動","等加速度運動","加速度運動","実験データの解析"]
 acceleration_motion_ana_tab =[]
 acceleration_motion_ana_tab = st.tabs(acceleration_motion_ana_list)
-
 with acceleration_motion_ana_tab[2]:
-    placeholder = st.empty()
-    def func1(x,y):
-        return x**2+y**2
-    x = np.arange(-30,30,1)
-    y = np.arange(-30,30,1)
-    X, Y = np.meshgrid(x, y)
-    Z = func1(X,Y)
-    fig = plt.figure()
-    ax = Axes3D(fig)
-    ax.set_xlabel("x")
-    ax.set_ylabel("y")
-    ax.set_zlabel("f(x, y)")
-    num_elev=st.number_input("視点の変更（縦）",min_value=-90,max_value=90,step=1)
-    num_azim=st.slider("視点の変更（横）",min_value=-90,max_value=90,step=1)
-    ax.view_init(elev=num_elev, azim=num_azim)
-    ax.plot_surface(X, Y, Z,cmap='bwr', linewidth=0)
-    placeholder.pyplot(fig)
-
+    st.markdown("#### 一般の加速度運動について")
+    """
+    空間中を運動する質量$~m\ \\rm [kg]~$を考える．時刻$~t\\rm [s]~$での，
+    この質点の加速度を$~\overrightarrow{a}\ \\rm [m/s]~$，
+    速度を$~\overrightarrow{v} \ \\rm[m/s]~$，
+    位置を$~\overrightarrow{r} \ \\rm[m]~$とする．
+    $$
+        \\begin{align*}
+            \overrightarrow{v} = \\frac{dr}{dt}
+        \\end{align*}
+    $$
+    という関係がある．
+    """
 with acceleration_motion_ana_tab[3]:
     Data_00,select_data_n = import_data()
     select_data_n = int(select_data_n)

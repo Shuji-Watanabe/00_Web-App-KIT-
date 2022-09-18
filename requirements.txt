@@ -5,4 +5,4 @@ numpy
 matplotlib 
 Image
 japanize_matplotlib
-LinearRegression
+scipy
