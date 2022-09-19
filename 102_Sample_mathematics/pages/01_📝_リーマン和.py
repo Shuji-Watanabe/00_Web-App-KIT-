@@ -348,7 +348,7 @@ with Riemann_sum_tab[2]:
     if tmp_Rsum:
         str_fxi = ""
         if tmp_Rsum_list[tmp_Rsum] == 0 :
-            if Num_separate < 4 :
+            if Num_separate < 5 :
                 for i in range(Num_separate):
                     if i == 0 :
                         str_fxi += "\\Big(" + y_form01.replace('x', '{x_{%s}}'%(i+1)) + "\\Big)"
