@@ -336,18 +336,31 @@ with Riemann_sum_tab[2]:
         $$
     """%(str_xi)
 
-
-
     tmp_Rsum_list = { "最初の３項程度を示す":0,"全ての項を示す":1}
     tmp_Rsum = st.radio("▶︎ 計算過程の表示設定２",tmp_Rsum_list.keys(),key=2,horizontal=True)
     if tmp_Rsum:
         str_fxi = ""
         if tmp_Rsum_list[tmp_Rsum] == 0 :
-            str_fxi += "\\Big(" + y_form01.replace('x', '{x_{%s}}'%(1)) + "\\Big)"
-            str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(2)) + "\\Big)"
-            str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(3)) + "\\Big)"
-            str_fxi += "+\\cdots"
-            str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(Num_separate)) + "\\Big)"
+            if Num_separate == 1 :
+                str_fxi += "\\Big(" + y_form01.replace('x', '{x_{%s}}'%(i+1)) + "\\Big)"
+            elif Num_separate == 2 :
+                str_fxi += "\\Big(" + y_form01.replace('x', '{x_{%s}}'%(i+1)) + "\\Big)"
+                str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(2)) + "\\Big)" 
+            elif Num_separate == 3:
+                str_fxi += "\\Big(" + y_form01.replace('x', '{x_{%s}}'%(1)) + "\\Big)"
+                str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(2)) + "\\Big)"
+                str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(3)) + "\\Big)"
+            elif Num_separate == 4:
+                str_fxi += "\\Big(" + y_form01.replace('x', '{x_{%s}}'%(1)) + "\\Big)"
+                str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(2)) + "\\Big)"
+                str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(3)) + "\\Big)"
+                str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(4)) + "\\Big)"
+            else:        
+                str_fxi += "\\Big(" + y_form01.replace('x', '{x_{%s}}'%(1)) + "\\Big)"
+                str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(2)) + "\\Big)"
+                str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(3)) + "\\Big)"
+                str_fxi += "+\\cdots"
+                str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(Num_separate)) + "\\Big)"
         elif tmp_Rsum_list[tmp_Rsum] == 1 :
             for i in range(Num_separate):
                 if i == 0 :
