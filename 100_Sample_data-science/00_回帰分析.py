@@ -24,7 +24,6 @@ if select_data_list[select_data_00] == 0:
     tmp_title_tub01="#### 入力データの確認（サンプルデータ）を利用"
 
 elif select_data_list[select_data_00] == 1:
-    Data_00= pd.read_csv("./data0000.csv")
     uploaded_file = st.sidebar.file_uploader("CSVファイルを選択", type={"csv"})
     if uploaded_file:
         try :
