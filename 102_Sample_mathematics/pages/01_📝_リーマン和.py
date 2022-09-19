@@ -329,7 +329,7 @@ with Riemann_sum_tab[2]:
                 if i == 0 :
                     str_xi += '{x_{%s}}=%s'%(i+1,'{:.2f}'.format(Interval_left + float(i)*dx))
                 else:
-                    str_xi += ',\ \ {x_{%s}}=%s'%(i+1,'{:.2}'.format(Interval_left + float(i)*dx))
+                    str_xi += ',\ \ {x_{%s}}=%s'%(i+1,'{:.2f}'.format(Interval_left + float(i)*dx))
     """
         $$
             %s
