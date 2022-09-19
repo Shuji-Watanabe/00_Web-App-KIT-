@@ -319,11 +319,18 @@ with Riemann_sum_tab[2]:
     if tmp_xi:
         str_xi = ""
         if tmp_xi_list[tmp_xi] == 0 :
-            str_xi += '{x_{%s}}=%s,\ \ '%(1,'{:.2f}'.format(Interval_left + 0*dx)) 
-            str_xi += '{x_{%s}}=%s,\ \ '%(2,'{:.2f}'.format(Interval_left + 1*dx)) 
-            str_xi += '{x_{%s}}=%s,\ \ '%(3,'{:.2f}'.format(Interval_left + 2*dx)) 
-            str_xi += "\\cdots,\ \ "
-            str_xi += '{x_{%s}}=%s'%(Num_separate,'{:.2f}'.format(Interval_left + float(Num_separate)*dx)) 
+            if Num_separate < 5:
+                for i in range(Num_separate):
+                    if i == 0 :
+                        str_xi += '{x_{%s}}=%s'%(i+1,'{:.2f}'.format(Interval_left + float(i)*dx))
+                    else:
+                        str_xi += ',\ \ {x_{%s}}=%s'%(i+1,'{:.2f}'.format(Interval_left + float(i)*dx))    
+            else:
+                str_xi += '{x_{%s}}=%s,\ \ '%(1,'{:.2f}'.format(Interval_left + 0*dx)) 
+                str_xi += '{x_{%s}}=%s,\ \ '%(2,'{:.2f}'.format(Interval_left + 1*dx)) 
+                str_xi += '{x_{%s}}=%s,\ \ '%(3,'{:.2f}'.format(Interval_left + 2*dx)) 
+                str_xi += "\\cdots,\ \ "
+                str_xi += '{x_{%s}}=%s'%(Num_separate,'{:.2f}'.format(Interval_left + float(Num_separate)*dx)) 
         elif tmp_xi_list[tmp_xi] == 1 :
             for i in range(Num_separate):
                 if i == 0 :
