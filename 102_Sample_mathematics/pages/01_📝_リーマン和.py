@@ -7,6 +7,7 @@ import japanize_matplotlib
 from matplotlib import patches
 import math
 
+#### 関数の定義
 def y_function(select_num,x_range,x_val):
     num_01 = select_num
     xr = x_range
@@ -56,7 +57,7 @@ Riemann_sum_list=["総和記号","リーマン和と定積分","リーマン和�
 Riemann_sum_tab =[]
 Riemann_sum_tab = st.tabs(Riemann_sum_list)
 
-## リーマン和の説明
+### 総和記号の説明
 with Riemann_sum_tab[0]:
     st.markdown("#### 総和記号（$~\\Sigma~$）の定義")
     """
@@ -98,6 +99,7 @@ with Riemann_sum_tab[0]:
 
         **その他の公式については数学ナビゲーションの"数列"を参照：**[クリック](https://w3e.kanazawa-it.ac.jp/math/category/suuretu/henkan-tex.cgi?target=/math/category/suuretu/index.html)
     """
+### リーマン和とリーマン積分の説明
 with Riemann_sum_tab[1]:
     """
         #### リーマン和と定積分の定義
@@ -149,6 +151,7 @@ with Riemann_sum_tab[1]:
 with Riemann_sum_tab[2]:
     st.markdown("#### リーマン和とリーマン積分の視覚的理解")
     st.markdown("##### 各種設定")
+    ###　サイドバーによる関数の選択
     select_f_list01={
                         "例１：一次関数":0,\
                         "例２：二次関数":1,\
@@ -164,6 +167,7 @@ with Riemann_sum_tab[2]:
                                     )
     select_f_num = select_f_list01[select_f]
     
+    ### 各種パラメータの設定（グラフの範囲）
     set_param_graph_col01 = st.columns(4)
     with set_param_graph_col01[0]:
         x_axis_min = st.number_input("x軸の最小値",value=-5)
@@ -174,6 +178,7 @@ with Riemann_sum_tab[2]:
     with set_param_graph_col01[3]:
         y_axis_max = st.number_input("y軸の最大値",value=5)
 
+    ### 各種パラメータの設定（積分範囲とリーマン和についての設定：分割数，代表値，区間の左端，区間の右端）
     set_param_graph_col02 = st.columns(4)
     with set_param_graph_col02[0]:
         Num_separate = st.number_input("区間の分割数",value=10,min_value=1)
@@ -194,11 +199,13 @@ with Riemann_sum_tab[2]:
         Interval_right = st.text_input("積分区間の右端","3")
         Interval_right = float(Interval_right)
 
+    ### リーマン和とリーマン積分の例（グラフ）
     st.write("")
     '''
         ##### リーマン和とリーマン積分
     '''
     Riemann_col01=[] ; Riemann_col01=st.columns(2)
+    ### リーマン積分（グラフと値）
     with Riemann_col01[1]:
         st.markdown("##### リーマン積分 $~\\big(\\text{%s}\\big)~$"%("定積分"))
         plt.rcParams['font.family'] = 'Times New Roman' # font familyの設定
@@ -253,6 +260,7 @@ with Riemann_sum_tab[2]:
         """%\
             (Interval_left,Interval_right,y_form01,'{:.6f}'.format(Integrate_out))
 
+    ### リーマン和（グラフと値）
     with Riemann_col01[0]:
         st.markdown( ("##### %s $~\\big(N=%s\\big)~$")%(Type_riemann,Num_separate))
         plt.rcParams['font.family'] = 'Times New Roman' # font familyの設定
@@ -337,9 +345,34 @@ with Riemann_sum_tab[2]:
         ### リーマン和の式と結果　###
         S_riemann = 0
         dx = (Interval_right -Interval_left ) / Num_separate
-        for i in range(Num_separate):    
-            xi = Interval_left + float(i)*dx
-            S_riemann += y_function(select_num=select_f_num,x_range=x,x_val=xi)[1]*dx
+        for i in range(Num_separate):
+            n0=int(i)
+            xr_l = Interval_left + float(n0)*dx
+            xr_r = Interval_left + float(n0+1)*dx
+            if Num_Type_riemann  == 0 :
+                select_point = xr_l
+                yr_t = y_function(select_num=select_f_num,x_range=x,x_val=select_point)[1]
+            elif Num_Type_riemann  == 1:
+                select_point = (xr_l+xr_r)/2
+                yr_t = y_function(select_num=select_f_num,x_range=x,x_val=select_point)[1]
+            elif Num_Type_riemann  == 2:
+                select_point = xr_r
+                yr_t = y_function(select_num=select_f_num,x_range=x,x_val=select_point)[1]                
+            elif Num_Type_riemann  == 3:
+                xi_range=np.arange(xr_l,xr_r,0.001*(xr_r-xr_l))
+                yi = y_function(select_num=select_f_num,x_range=xi_range,x_val=1)[0]
+                yi_max_index = np.argmax(yi)
+                select_point = xi_range[yi_max_index]
+                yr_t = y_function(select_num=select_f_num,x_range=x,x_val=select_point)[1]              
+            elif Num_Type_riemann  == 4:
+                xi_range=np.arange(xr_l,xr_r,0.001*(xr_r-xr_l))
+                yi = y_function(select_num=select_f_num,x_range=xi_range,x_val=1)[0]
+                yi_max_index = np.argmin(yi)
+                select_point = xi_range[yi_max_index]
+                yr_t = y_function(select_num=select_f_num,x_range=x,x_val=select_point)[1]         
+            else:
+                st.write("エラー")
+            S_riemann += yr_t*dx
         """
             $$
                 \\sum_{i=1}^{\\color{red}%s}
@@ -353,6 +386,7 @@ with Riemann_sum_tab[2]:
                 '{:.6f}'.format(S_riemann)
             )
     
+### リーマン和の途中計算の表示
     st.markdown("##### リーマン和の途中計算")
     tmp_xi_list = { "最初の３項程度を示す":0,"全ての項を示す":1}
     tmp_xi = st.radio("▶︎ 計算過程の表示設定１（分割されたxの値を小数第2位まで表示）",tmp_xi_list.keys(),horizontal=True)
@@ -421,3 +455,129 @@ with Riemann_sum_tab[2]:
                     str_fxi,\
                     '{:.6f}'.format(S_riemann)
                 )
+
+### リーマン和の極限とリーマン積分
+    st.markdown("##### リーマン和の極限のイメージ")
+    Rsum_lim_col = st.columns(2)
+    with Rsum_lim_col[0]:
+        Num_separate02 = int(st.text_input("十分大きな分割数を入力",50))
+    with Rsum_lim_col[1]:
+        Rsum_lim_disp_list={"N=5まで":5,"N=20まで":20,"すべて":Num_separate02}
+        Rsum_lim_disp_keys = st.radio("各分割数におけるリーマン和の表示",Rsum_lim_disp_list.keys(),horizontal=True)
+
+    ### 各分割数におけるリーマン和
+    Rsum_lim_RsN = []
+    x = np.arange(x_axis_min,x_axis_max, x_axis_dx ) 
+    for j in range(1,Num_separate02+1):
+        S_riemann = 0
+        dx = (Interval_right -Interval_left ) / j
+        for i in range(1,j+1):
+            n0=int(i)
+            xr_l = Interval_left + float(n0-1)*dx
+            xr_r = Interval_left + float(n0)*dx
+            if Num_Type_riemann  == 0 :
+                select_point = xr_l
+                yr_t = y_function(select_num=select_f_num,x_range=x,x_val=select_point)[1]
+            elif Num_Type_riemann  == 1:
+                select_point = (xr_l+xr_r)/2
+                yr_t = y_function(select_num=select_f_num,x_range=x,x_val=select_point)[1]
+            elif Num_Type_riemann  == 2:
+                select_point = xr_r
+                yr_t = y_function(select_num=select_f_num,x_range=x,x_val=select_point)[1]                
+            elif Num_Type_riemann  == 3:
+                xi_range=np.arange(xr_l,xr_r,0.001*(xr_r-xr_l))
+                yi = y_function(select_num=select_f_num,x_range=xi_range,x_val=1)[0]
+                yi_max_index = np.argmax(yi)
+                select_point = xi_range[yi_max_index]
+                yr_t = y_function(select_num=select_f_num,x_range=x,x_val=select_point)[1]              
+            elif Num_Type_riemann  == 4:
+                xi_range=np.arange(xr_l,xr_r,0.001*(xr_r-xr_l))
+                yi = y_function(select_num=select_f_num,x_range=xi_range,x_val=1)[0]
+                yi_max_index = np.argmin(yi)
+                select_point = xi_range[yi_max_index]
+                yr_t = y_function(select_num=select_f_num,x_range=x,x_val=select_point)[1]         
+            else:
+                st.write("エラー")
+            S_riemann += yr_t*dx
+        Rsum_lim_RsN.append(S_riemann)
+    ### リーマン積分の値
+    Integrate_out = integrate.quad(y3,Interval_left,Interval_right)[0]
+    Rsum_lim_integrate = [ (Integrate_out) for i in range(1,Num_separate02+1)]
+    Rsum_lim_datas ={
+                    'リーマン積分':Rsum_lim_integrate,
+                    'リーマン和':Rsum_lim_RsN
+                    }
+    Dataframe_Rsums = pd.DataFrame(Rsum_lim_datas)
+    ### 計算結果の表示
+    Rsum_lim_result=""
+    if Num_separate02 < Rsum_lim_disp_list[Rsum_lim_disp_keys]:
+        tmp_num00 = Num_separate02
+    else :
+        tmp_num00 = Rsum_lim_disp_list[Rsum_lim_disp_keys]
+    
+    for j in range(tmp_num00 ):
+        str_fxi = ""
+        if j < 3 :
+            for i in range(j+1):
+                if i == 0 :
+                    str_fxi += "\\Big(" + y_form01.replace('x', '{x_{%s}}'%(i+1)) + "\\Big)"
+                else:
+                    str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(i+1)) + "\\Big)"
+        else:        
+            str_fxi += "\\Big(" + y_form01.replace('x', '{x_{%s}}'%(1)) + "\\Big)"
+            str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(2)) + "\\Big)"
+            # str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(3)) + "\\Big)"
+            str_fxi += "+\\cdots"
+            str_fxi += "+\\Big(" + y_form01.replace('x', '{x_{%s}}'%(j+1)) + "\\Big)"
+        
+        Rsum_lim_result +="\
+                            \\sum_{i=1}^{\\color{red}%s}\
+                                    \\Big(%s \\Big) \\cdot \\Delta x\
+                            &= %s\
+                            &&= %s\
+                            &&&: %s\
+                            \\\\\
+                             "%(\
+                                j+1,\
+                                y_form01.replace('x', '{x_{i}}'),\
+                                str_fxi,\
+                                '{:.6f}'.format(Dataframe_Rsums['リーマン和'][j]),\
+                                '{:.6f}'.format(Dataframe_Rsums['リーマン積分'][j])
+                                )
+    st.markdown("$\phantom{a}$\n")
+    st.markdown("##### リーマン和の極限 ")
+    """
+        $$
+            \\lim_{N \\to \\infty}
+            \\sum_{i=1}^{N}\\Big( %s \\Big)
+            =
+            %s
+        $$
+    """%(
+            y_form01.replace('x', '{x_{i}}'),
+            '{:.6f}'.format(Dataframe_Rsums['リーマン積分'][0])
+        )
+    st.markdown("$\phantom{a}$\n")
+    st.markdown("##### 各分割数におけるリーマン和とリーマン積分の値の比較")
+    if Num_separate02 <= Rsum_lim_disp_list[Rsum_lim_disp_keys]:
+        """
+            $$
+            \\begin{align*}
+                & &&\\text{リーマン和の結果} &&& \\text{リーマン積分の値} 
+                \\\\
+                %s
+            \\end{align*}
+            $$
+        """%(Rsum_lim_result)
+    else:
+        """
+            $$
+            \\begin{align*}
+                & &&\\text{リーマン和の結果} &&& \\text{リーマン積分の値} 
+                \\\\
+                %s
+                \\\\
+                \\vdots
+            \\end{align*}
+            $$
+        """%(Rsum_lim_result)
