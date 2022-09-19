@@ -213,7 +213,7 @@ with Riemann_sum_tab[2]:
             (Interval_left,Interval_right,y_form01,'{:.6f}'.format(Integrate_out))
 
     with Riemann_col01[0]:
-        st.markdown( ("##### リーマン和 $~\\big(N=%s\\big)~$")%(Num_separate))
+        st.markdown( ("##### %s $~\\big(N=%s\\big)~$")%(Type_riemann,Num_separate))
         plt.rcParams['font.family'] = 'Times New Roman' # font familyの設定
         plt.rcParams['mathtext.fontset'] = 'cm' # math fontの設定
         fig,ax= plt.subplots(figsize = (4,4))
