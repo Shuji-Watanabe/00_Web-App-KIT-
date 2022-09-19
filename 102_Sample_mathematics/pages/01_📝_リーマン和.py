@@ -60,12 +60,12 @@ Riemann_sum_tab = st.tabs(Riemann_sum_list)
 with Riemann_sum_tab[1]:
     """
         ##### リーマン和と定積分の定義
-        >> 関数$~f~$が閉区間$~\\big[a,\\ b\\big]~$で定義されているものとする．\
+         関数$~f~$が閉区間$~\\big[a,\\ b\\big]~$で定義されているものとする．\
             また閉区間$~\\big[a,\\ b\\big]~$を
         $$
             a=x_1 < x_2 < x_3 < \\cdots < x_{i} < x_{i+1} < \\cdots < x_{N} < x_{N+1} = b
         $$
-        >> のように$~N~$分割する．\
+         のように$~N~$分割する．\
             さらに区間$~\\big[x_{i},\\ x_{i+1}\\big]~$における$~i~$番目の\
             代表値$~\\xi_{i}\ (x_{i} < \\xi_{i} < x_{i+1})~$を定める．このとき，
         $$
@@ -74,34 +74,34 @@ with Riemann_sum_tab[1]:
             \sum_{i=1}^{N}
                 f\\big( \\xi_{i} \\big) \\cdot \Delta x_{i}
         $$
-        >> をリーマン和と呼ぶ．ここで$~\Delta x_i = x_{i+1} - x_{i}~$である．\
+         をリーマン和と呼ぶ．ここで$~\Delta x_i = x_{i+1} - x_{i}~$である．\
             通常，区間$~\\big[x_{i},\\ x_{i+1}\\big]~$を$~N~$等分する場合を考えるため，
         $$
             \Delta x = \Delta x_1 = \Delta x_2 = \cdots = \Delta x_N = \\frac{b-a}{N}
         $$
-        >> である．
-        >> $~N~$を限りなく大きくしたとき，リーマン和$~S_N~$がある値$~S~$に収束するならば，すなわち
+         である．
+         $~N~$を限りなく大きくしたとき，リーマン和$~S_N~$がある値$~S~$に収束するならば，すなわち
         $$
             \\lim_{N \\to \\infty}
                \\sum_{i}^{N} f(\\xi_i) \cdot \\Delta x = S
         $$
-        >> であるならば，関数$~f~$は区間$~\\big[a,\\ b\\big]~$でリーマン積分可能といい，\
+         であるならば，関数$~f~$は区間$~\\big[a,\\ b\\big]~$でリーマン積分可能といい，\
             $~S~$を．
         $$
             S = \\int_{a}^{b} f(x) dx
         $$
-        >> と書く．また$~S~$は，関数$~f~$は区間$~\\big[a,\\ b\\big]~$におけるリーマン積分は定積分という．
+         と書く．また$~S~$は，関数$~f~$は区間$~\\big[a,\\ b\\big]~$におけるリーマン積分は定積分という．
     """
     st.write("")
     """
         ##### 代表値の取り方によるリーマン和の異なる表現
-        >> 区間$~\\big[x_{i},\\ x_{i+1}\\big]~$における代表値$~\\xi_{i}\ (x_{i} < \\xi_{i} < x_{i+1})~$を次のように\
+         区間$~\\big[x_{i},\\ x_{i+1}\\big]~$における代表値$~\\xi_{i}\ (x_{i} < \\xi_{i} < x_{i+1})~$を次のように\
         定める方法がある．
-        >> 1. 左リーマン和：$~\\xi_{i} = x_{i} ~$
-        >> 2. 中点リーマン和：$~\\displaystyle \\xi_{i} = \\frac{x_{i}+x_{i+1}}{2}~$
-        >> 3. 右リーマン和：$~\\xi_{i} = x_{i+1} ~$
-        >> 4. 上リーマン和：区間$~\\big[x_{i},\\ x_{i+1}\\big]~$において，$f(x)$が最大となる$~x~$を$~\\xi_{i}~$とする．
-        >> 5. 下リーマン和：区間$~\\big[x_{i},\\ x_{i+1}\\big]~$において，$f(x)$が最小となる$~x~$を$~\\xi_{i}~$とする．
+         1. 左リーマン和：$~\\xi_{i} = x_{i} ~$
+         2. 中点リーマン和：$~\\displaystyle \\xi_{i} = \\frac{x_{i}+x_{i+1}}{2}~$
+         3. 右リーマン和：$~\\xi_{i} = x_{i+1} ~$
+         4. 上リーマン和：区間$~\\big[x_{i},\\ x_{i+1}\\big]~$において，$f(x)$が最大となる$~x~$を$~\\xi_{i}~$とする．
+         5. 下リーマン和：区間$~\\big[x_{i},\\ x_{i+1}\\big]~$において，$f(x)$が最小となる$~x~$を$~\\xi_{i}~$とする．
         ※ これらの違いは，次のコンテンツ”リーマン和の具体例”を参考に理解を深めると良い．
     """
 
@@ -314,22 +314,22 @@ with Riemann_sum_tab[2]:
     
     st.markdown("##### リーマン和の途中計算")
     tmp_xi_list = { "最初の３項程度を示す":0,"全ての項を示す":1}
-    tmp_xi = st.radio("▶︎ 計算過程の表示設定",tmp_xi_list.keys(),horizontal=True)
+    tmp_xi = st.radio("▶︎ 計算過程の表示設定１",tmp_xi_list.keys(),horizontal=True)
     Dx01 = (Interval_right - Interval_left)/Num_separate
     if tmp_xi:
         str_xi = ""
         if tmp_xi_list[tmp_xi] == 0 :
-            str_xi += '{x_{%s}}=%s,\ \ '%(1,'{:.1f}'.format(Interval_left + 0*dx)) 
-            str_xi += '{x_{%s}}=%s,\ \ '%(2,'{:.1f}'.format(Interval_left + 1*dx)) 
-            str_xi += '{x_{%s}}=%s,\ \ '%(3,'{:.1f}'.format(Interval_left + 2*dx)) 
+            str_xi += '{x_{%s}}=%s,\ \ '%(1,'{:.2f}'.format(Interval_left + 0*dx)) 
+            str_xi += '{x_{%s}}=%s,\ \ '%(2,'{:.2f}'.format(Interval_left + 1*dx)) 
+            str_xi += '{x_{%s}}=%s,\ \ '%(3,'{:.2f}'.format(Interval_left + 2*dx)) 
             str_xi += "\\cdots,\ \ "
-            str_xi += '{x_{%s}}=%s'%(Num_separate,'{:.1f}'.format(Interval_left + float(Num_separate)*dx)) 
+            str_xi += '{x_{%s}}=%s'%(Num_separate,'{:.2f}'.format(Interval_left + float(Num_separate)*dx)) 
         elif tmp_xi_list[tmp_xi] == 1 :
             for i in range(Num_separate):
                 if i == 0 :
-                    str_xi += '{x_{%s}}=%s'%(i+1,'{:.1f}'.format(Interval_left + float(i)*dx))
+                    str_xi += '{x_{%s}}=%s'%(i+1,'{:.2f}'.format(Interval_left + float(i)*dx))
                 else:
-                    str_xi += ',\ \ {x_{%s}}=%s'%(i+1,'{:.1f}'.format(Interval_left + float(i)*dx))
+                    str_xi += ',\ \ {x_{%s}}=%s'%(i+1,'{:.2}'.format(Interval_left + float(i)*dx))
     """
         $$
             %s
@@ -339,7 +339,7 @@ with Riemann_sum_tab[2]:
 
 
     tmp_Rsum_list = { "最初の３項程度を示す":0,"全ての項を示す":1}
-    tmp_Rsum = st.radio("▶︎ 計算過程の表示設定",tmp_Rsum_list.keys(),key=2,horizontal=True)
+    tmp_Rsum = st.radio("▶︎ 計算過程の表示設定２",tmp_Rsum_list.keys(),key=2,horizontal=True)
     if tmp_Rsum:
         str_fxi = ""
         if tmp_Rsum_list[tmp_Rsum] == 0 :
