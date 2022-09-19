@@ -344,7 +344,7 @@ with Riemann_sum_tab[2]:
     """%(str_xi)
 
     tmp_Rsum_list = { "最初の３項程度を示す":0,"全ての項を示す":1}
-    tmp_Rsum = st.radio("▶︎ 計算過程の表示設定２（リーマン和の値を小数第6位まで表示）",tmp_Rsum_list.keys(),key=2,horizontal=True)
+    tmp_Rsum = st.radio("▶︎ 計算過程の表示設定２（計算過程とリーマン和の値の小数第6位までを表示）",tmp_Rsum_list.keys(),key=2,horizontal=True)
     if tmp_Rsum:
         str_fxi = ""
         if tmp_Rsum_list[tmp_Rsum] == 0 :
