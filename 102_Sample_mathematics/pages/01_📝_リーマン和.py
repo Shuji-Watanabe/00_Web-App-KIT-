@@ -60,7 +60,7 @@ Riemann_sum_tab = st.tabs(Riemann_sum_list)
 with Riemann_sum_tab[0]:
     st.markdown("#### 総和記号（$~\\Sigma~$）の定義")
     """
-        $~N~$個の数$\\big\{ a_1,\ a_2,\ a_3,\ \cdots ,\ a_{N}$があるとき，これらの数の総和$~S~$
+        $~N~$個の数$\\big\{ a_1,\ a_2,\ a_3,\ \cdots ,\ a_{N}\\big\}$があるとき，これらの数の総和$~S~$
         $$
             S = a_1 + a_2 + a_3 + \\cdots + a_{N}
         $$
