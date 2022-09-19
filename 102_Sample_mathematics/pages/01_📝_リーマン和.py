@@ -57,6 +57,47 @@ Riemann_sum_tab =[]
 Riemann_sum_tab = st.tabs(Riemann_sum_list)
 
 ## リーマン和の説明
+with Riemann_sum_tab[0]:
+    st.markdown("#### 総和記号（$~\\Sigma~$）の定義")
+    """
+        $~N~$個の数$\\big\{ a_1,\ a_2,\ a_3,\ \cdots ,\ a_{N}$があるとき，これらの数の総和$~S~$
+        $$
+            S = a_1 + a_2 + a_3 + \\cdots + a_{N}
+        $$
+        を
+        $$
+            S = \\sum_{i=1}^N a_i  
+        $$
+        と表す．ここで$~a_{i}~$は$\\big\{ a_1,\ a_2,\ a_3,\ \cdots ,\ a_{N}$の中の$~i~$番目の値を表す．
+    """
+    st.markdown("")
+    st.markdown("#### 色々な数の総和の計算方法")
+    """
+        **Ⅰ．$~N~$個の定数$~a\ (a \\ne 0)~$の総和**\n
+        　状況設定：定数$~a~$が$~N~$個ある．その総和を$~S~$とする．\n
+        　総和の値：$\\displaystyle S=\sum_{i=1}^N a = a+a+\\cdots+a = N \cdot a$\n
+        $\phantom{a}$\n
+        
+        **Ⅱ．$~1~$から$~N~$までの自然数（$~1,\ 2,\ 3,\ \\cdots ,\ N~$）の総和**\n
+        　状況設定：$~1~$から$~N~$までの自然数がある．その総和を$~S~$とする．\n
+        　総和の値：$\\displaystyle S=\sum_{i=1}^N i = 1+2+3+\\cdots+N = \\frac{1}{2}N\\big(N+1\\big)$\n
+        　証　　明：数学ナビゲーションへ（[クリック](https://w3e.kanazawa-it.ac.jp/math/category/suuretu/suuretu/henkan-tex.cgi?target=/math/category/suuretu/suuretu/siguma-k.html)）\n
+        $\phantom{a}$\n
+
+        **Ⅲ．$~N~$個の数（$~1^2,\ 2^2,\ 3^2,\ \\cdots ,\ N^2~$）の総和**\n
+        　状況設定：$~1~$から$~N~$までの自然数があり，そのそれぞれを２乗する．その総和を$~S~$とする．\n
+        　総和の値：$\\displaystyle S=\sum_{i=1}^N i^2 = 1^2+2^2+3^2+\\cdots+N^2 = \\frac{1}{6}N\\big(N+1\\big)\\big(2N+1\\big) $\n
+        　証　　明：数学ナビゲーションへ（[クリック](https://w3e.kanazawa-it.ac.jp/math/category/suuretu/suuretu/henkan-tex.cgi?target=/math/category/suuretu/suuretu/siguma-kk.html)）\n
+        $\phantom{a}$\n
+
+        **Ⅳ．$~N~$個の数（$~1^3,\ 2^3,\ 3^3,\ \\cdots ,\ N^3~$）の総和**\n
+        　状況設定：$~1~$から$~N~$までの自然数があり，そのそれぞれを３乗する．その総和を$~S~$とする．\n
+        　総和の値：$\\displaystyle S=\sum_{i=1}^N i^3 = 1^3+2^3+3^3+\\cdots+N^3 = \\left\{ \\frac{1}{2}N\\big(N+1\\big)\\right\}^2 $\n
+        　証　　明：数学ナビゲーションへ（[クリック](https://w3e.kanazawa-it.ac.jp/math/category/suuretu/suuretu/henkan-tex.cgi?target=/math/category/suuretu/suuretu/siguma-kkk.html)）\n
+        $\phantom{a}$\n
+
+        **その他の公式については数学ナビゲーションの"数列"を参照：**[クリック](https://w3e.kanazawa-it.ac.jp/math/category/suuretu/henkan-tex.cgi?target=/math/category/suuretu/index.html)
+    """
 with Riemann_sum_tab[1]:
     """
         #### リーマン和と定積分の定義
