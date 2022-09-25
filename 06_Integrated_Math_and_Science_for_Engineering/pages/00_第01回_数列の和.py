@@ -69,22 +69,26 @@ with Lec01_contents_tab[1]:
     ##### Q1.1-2 次の和を求めよ．
     """,unsafe_allow_html=True)
 
+    Q_num_q11 = 0
+    Q_num_q11 += 1
     st.markdown(
     """
     (%s) $\\displaystyle \\ \\sum_{k=1}^{14} \\big( 2k+1\\big)$
-    """
+    """%(Q_num_q11)
     )
 
+    Q_num_q11 += 1
     st.markdown(
     """
     (%s) $\\displaystyle \\ \\sum_{k=1}^{n} k\\Big( k+2\\Big)$
-    """
+    """%(Q_num_q11)
     )
     
+    Q_num_q11 += 1
     st.markdown(
     """
     (%s) $\\displaystyle \\ \\sum_{k=1}^{n} \\Big( 2^{k+1}\\Big)$
-    """
+    """%(Q_num_q11)
     )
 
 
@@ -99,7 +103,7 @@ with Lec01_contents_tab[2]:
 
     st.markdown(
     """
-    (1) $\\displaystyle \\ \\sum_{k=1}^{14} \\big( 2k+1\\big)$
+    (1) $\\displaystyle \\ \\sum_{k=4}^{14} \\big( 2k+1\\big)$
     """
     )
     st.markdown(
