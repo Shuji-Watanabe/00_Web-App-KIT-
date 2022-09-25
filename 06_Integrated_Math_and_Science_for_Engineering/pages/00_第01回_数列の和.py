@@ -8,6 +8,9 @@ import matplotlib.pyplot as plt
 import japanize_matplotlib
 from matplotlib import patches
 
+
+st.sidebar.markdown("""このWebアプリについての意見・感想はこちらから[クリック](https://forms.gle/NHbiNWkjHgd28K5C9)""")
+
 Lec01_contents_list=["基礎例題","標準例題","応用例題","数列(基礎)","総和記号(基礎)","数列の極限(基礎)"]
 Lec01_contents_tab =[]
 Lec01_contents_tab = st.tabs(Lec01_contents_list)
@@ -60,6 +63,11 @@ with Lec01_contents_tab[0]:
     """%(Q_num_q11)
     )
 
+    with st.expander("ヒント：総和の公式"):
+        try :
+            st.image("./30_Streamlit_Figs/30_Streamlit_Figs.003.tiff")
+        except :
+            st.image("06_Integrated_Math_and_Science_for_Engineering/30_Streamlit_Figs/30_Streamlit_Figs.003.tiff")
 ####  標準例題  ####
 with Lec01_contents_tab[1]:
     contents_num += 1
@@ -91,7 +99,11 @@ with Lec01_contents_tab[1]:
     """%(Q_num_q11)
     )
 
-
+    with st.expander("ポイント：総和の公式"):
+        try :
+            st.image("./30_Streamlit_Figs/30_Streamlit_Figs.003.tiff")
+        except :
+            st.image("06_Integrated_Math_and_Science_for_Engineering/30_Streamlit_Figs/30_Streamlit_Figs.003.tiff")
 ####  応用例題  ####
 with Lec01_contents_tab[2]:
     contents_num += 1
@@ -116,6 +128,12 @@ with Lec01_contents_tab[2]:
     (3) $\\displaystyle \\ \\sum_{k=1}^{n} \\Big( 2^{2k+3}\\Big)$
     """
     )
+
+    with st.expander("ポイント：総和の公式"):
+        try :
+            st.image("./30_Streamlit_Figs/30_Streamlit_Figs.003.tiff")
+        except :
+            st.image("06_Integrated_Math_and_Science_for_Engineering/30_Streamlit_Figs/30_Streamlit_Figs.003.tiff")
 ####  数列  ####
 with Lec01_contents_tab[3]:
     contents_num += 1
@@ -142,7 +160,7 @@ with Lec01_contents_tab[3]:
         $$
         $\phantom{a}$
     """
-    with st.expander("ワンポイント：下付き添字付きの記号について（補足）"):
+    with st.expander("ポイント：下付き添字付きの記号について（補足）"):
         try :
             st.image("./30_Streamlit_Figs/30_Streamlit_Figs.001.tiff")
         except :
@@ -154,7 +172,7 @@ with Lec01_contents_tab[3]:
         - 第$~N~$項（末項）を強調する場合：$~a_1,\ a_2,\ a_3,\ \\cdots ,\ a_N~$
         - 第$~n~$項（任意の項）を強調する場合：$a_1,\ a_2,\ a_3,\ \\cdots ,\ a_n,\ \\cdots ,\ a_N$
     """
-    with st.expander("ワンポイント：数列の例"):
+    with st.expander("ポイント：数列の例"):
         """
         一般項が表す項を$~n~$とした場合  
         - **例１）$~1,\ 2,\ 3,\ \\cdots,\ 50~$**
@@ -225,40 +243,50 @@ with Lec01_contents_tab[4]:
             $$
             と表すことができる．
     """
-    with st.expander("ワンポイント：もう少し詳しく"):
+    with st.expander("ポイント：もう少し詳しく"):
         try :
             st.image("./30_Streamlit_Figs/30_Streamlit_Figs.002.tiff")
         except :
             st.image("06_Integrated_Math_and_Science_for_Engineering/30_Streamlit_Figs/30_Streamlit_Figs.002.tiff")
 
-    with st.expander("ワンポイント：総和記号の読み方"):
+    with st.expander("ポイント：総和記号の読み方"):
         """
             - 記　号：$
                        \displaystyle \\sum_{i=\\square}^{\\triangle} a_{i} 
                        = a_{\\square} + a_{\\square+1} + a_{\\square+2} + \\cdots + a_{\\triangle} 
                      $
             - 解釈１：数列$~\{a_n\}~$があります．その中の第$~\\square~$項から第$~\\triangle~$項まで全て足しなさい．
-            - 解釈２：$~i~$を$~\\square~$から$~\\triangle~$項まで１ずつ増やして得られる全ての項（数）を，全て足しなさい．
+            - 解釈２：$~i~$を$~\\square~$から$~\\triangle~$項まで１ずつ増やして得られる全ての項（数）を，全て足しなさい．  
+            $\\phantom{a}$\n
         """
     
     #### 総和の公式
     """
-        ##### 総和に関する公式
-        $~N~$を数列$~\{a_n\}~$の項数とする．
-        - 初項$~a_1~$から末項$~a_N~$までの総和は
-        $$
-            a_1 + a_2 + a_3 + \\cdots + a_N  
-        $$
-        $$
-            \\sum_{i=1}^{N} a_i
-        $$
-        と表す．つまり
-        $$
-            \\sum_{i=1}^{N} a_i = a_1 + a_2 + a_3 + \\cdots + a_N
-        $$
-        である．
-        \\
-        $\phantom{a}$
+        ##### 総和の公式
+        **Ⅰ．$~N~$個の定数$~a\ (a \\ne 0)~$の総和**\n
+        　状況設定：定数$~a~$が$~N~$個ある．その総和を$~S~$とする．\n
+        　総和の値：$\\displaystyle S=\sum_{i=1}^N a = a+a+\\cdots+a = N \cdot a$\n
+        $\\phantom{a}$
+        
+        **Ⅱ．$~1~$から$~N~$までの自然数（$~1,\ 2,\ 3,\ \\cdots ,\ N~$）の総和**\n
+        　状況設定：$~1~$から$~N~$までの自然数がある．その総和を$~S~$とする．\n
+        　総和の値：$\\displaystyle S=\sum_{i=1}^N i = 1+2+3+\\cdots+N = \\frac{1}{2}N\\big(N+1\\big)$\n
+        　証　　明：数学ナビゲーションへ（[クリック](https://w3e.kanazawa-it.ac.jp/math/category/suuretu/suuretu/henkan-tex.cgi?target=/math/category/suuretu/suuretu/siguma-k.html)）\n
+        $\\phantom{a}$
+
+        **Ⅲ．$~N~$個の数（$~1^2,\ 2^2,\ 3^2,\ \\cdots ,\ N^2~$）の総和**\n
+        　状況設定：$~1~$から$~N~$までの自然数があり，そのそれぞれを２乗する．その総和を$~S~$とする．\n
+        　総和の値：$\\displaystyle S=\sum_{i=1}^N i^2 = 1^2+2^2+3^2+\\cdots+N^2 = \\frac{1}{6}N\\big(N+1\\big)\\big(2N+1\\big) $\n
+        　証　　明：数学ナビゲーションへ（[クリック](https://w3e.kanazawa-it.ac.jp/math/category/suuretu/suuretu/henkan-tex.cgi?target=/math/category/suuretu/suuretu/siguma-kk.html)）\n
+        $\\phantom{a}$
+
+        **Ⅳ．$~N~$個の数（$~1^3,\ 2^3,\ 3^3,\ \\cdots ,\ N^3~$）の総和**\n
+        　状況設定：$~1~$から$~N~$までの自然数があり，そのそれぞれを３乗する．その総和を$~S~$とする．\n
+        　総和の値：$\\displaystyle S=\sum_{i=1}^N i^3 = 1^3+2^3+3^3+\\cdots+N^3 = \\left\{ \\frac{1}{2}N\\big(N+1\\big)\\right\}^2 $\n
+        　証　　明：数学ナビゲーションへ（[クリック](https://w3e.kanazawa-it.ac.jp/math/category/suuretu/suuretu/henkan-tex.cgi?target=/math/category/suuretu/suuretu/siguma-kkk.html)）\n
+        $\\phantom{a}$
+
+        **その他の公式については数学ナビゲーションの"数列"を参照：**[クリック](https://w3e.kanazawa-it.ac.jp/math/category/suuretu/henkan-tex.cgi?target=/math/category/suuretu/index.html)
     """
 ####  数列の極限  ####
 with Lec01_contents_tab[5]:
