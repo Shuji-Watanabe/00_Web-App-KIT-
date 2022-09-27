@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import japanize_matplotlib
 from matplotlib import patches
 
+#st.set_page_config(layout="wide")
 ### Main program ###
 st.title("工学のための数理工Ⅱ")
 """

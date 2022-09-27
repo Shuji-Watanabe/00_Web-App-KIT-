@@ -7,9 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import japanize_matplotlib
 from matplotlib import patches
+import functions as myfunc
 
-
-st.sidebar.markdown("""このWebアプリについての意見・感想はこちらから[クリック](https://forms.gle/NHbiNWkjHgd28K5C9)""")
 
 Lec01_contents_list=["基礎例題","標準例題","応用例題","数列(基礎)","総和記号(基礎)","数列の極限(基礎)"]
 Lec01_contents_tab =[]
@@ -17,87 +16,154 @@ Lec01_contents_tab = st.tabs(Lec01_contents_list)
 
 contents_num=0
 ####  基礎例題  ####
+st.sidebar.markdown("**基礎例題の解答**")
 with Lec01_contents_tab[0]:
     contents_num += 1
     st.markdown("### %s. %s"%(contents_num,Lec01_contents_list[0]))
-    st.markdown(
-    """
-    ##### Q1.1-1 次の和を求めよ．
-    """,unsafe_allow_html=True)
-
+    st.markdown("""##### Q1.1-1 次の和を求めよ．""",unsafe_allow_html=True)
     Q_num_q11 = 0
-
-
+ 
+ 
+    ##### q1
     Q_num_q11 +=1
-    st.markdown(
-    """
-    (%s) $\\displaystyle \\ \\sum_{k=1}^{14} k $
-    """%(Q_num_q11)
-    )
+    ans_q1_tmp_00=["k","k","1","14"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    if st.sidebar.checkbox("(1)の答え",key="q01_1_1"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s =%s$"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+            ) 
 
+    ##### q2    
     Q_num_q11 +=1
-    st.markdown(
-    """
-    (%s) $\\displaystyle \\ \\sum_{k=1}^{14} 1 $
-    """%(Q_num_q11)
-    )
+    ans_q1_tmp_00=["1","k","1","14"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    if st.sidebar.checkbox("(2)の答え",key="q01_1_2"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s =%s$"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+        )  
+        
+    ##### q3    
+    Q_num_q11 +=1
+    ans_q1_tmp_00=["8*k^3","k","1","n"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    if st.sidebar.checkbox("(3)の答え",key="q01_1_3"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s = %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+        )  
 
-    Q_num_q11 +=1
-    st.markdown(
-    """
-    (%s) $\\displaystyle \\ \\sum_{k=1}^{n} 8k^3$
-    """%(Q_num_q11)
-    )
 
+    ##### q4
     Q_num_q11 +=1
-    st.markdown(
-    """
-    (%s) $\\displaystyle \\ \\sum_{k=1}^{n} 6k^2$
-    """%(Q_num_q11)
-    )
+    ans_q1_tmp_00=["6*k^2","k","1","n"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    if st.sidebar.checkbox("(4)の答え",key="q01_1_4"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s = %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+        )  
 
+
+
+    ##### q5
     Q_num_q11 +=1
-    st.markdown(
-    """
-    (%s) $\\displaystyle \\ \\sum_{k=1}^{n} 4^{k}$
-    """%(Q_num_q11)
-    )
+    ans_q1_tmp_00=["4^k","k","1","n"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    if st.sidebar.checkbox("(5)の答え",key="q01_1_5"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s = %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+        )  
+
 
     with st.expander("ヒント：総和の公式"):
         try :
             st.image("./30_Streamlit_Figs/30_Streamlit_Figs.003.tiff")
         except :
             st.image("06_Integrated_Math_and_Science_for_Engineering/30_Streamlit_Figs/30_Streamlit_Figs.003.tiff")
+
 ####  標準例題  ####
+st.sidebar.markdown("**標準例題の解答**")
 with Lec01_contents_tab[1]:
     contents_num += 1
     st.markdown("### %s. %s"%(contents_num,Lec01_contents_list[1]))
-    st.markdown(
-    """
-    ##### Q1.1-2 次の和を求めよ．
-    """,unsafe_allow_html=True)
+    st.markdown("""##### Q1.1-2 次の和を求めよ．""",unsafe_allow_html=True)
 
     Q_num_q11 = 0
     Q_num_q11 += 1
-    st.markdown(
-    """
-    (%s) $\\displaystyle \\ \\sum_{k=1}^{14} \\big( 2k+1\\big)$
-    """%(Q_num_q11)
-    )
+    ##### q1
+    ans_q1_tmp_00=["(2*k+1)","k","1","14"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    tmps[0]=myfunc.format_disp("(2*k+1)",2)
+    if st.sidebar.checkbox("(1)の答え",key="q01_2_1"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s =%s$"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+            ) 
 
+    ##### q2
     Q_num_q11 += 1
-    st.markdown(
-    """
-    (%s) $\\displaystyle \\ \\sum_{k=1}^{n} k\\Big( k+2\\Big)$
-    """%(Q_num_q11)
-    )
-    
+    ans_q1_tmp_00=["k*(k+2)","k","1","n"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    tmps[0]=myfunc.format_disp("k*(k+2)",2)
+    if st.sidebar.checkbox("(2)の答え",key="q01_2_2"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s =%s$"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+            ) 
+
+    ##### q3
     Q_num_q11 += 1
-    st.markdown(
-    """
-    (%s) $\\displaystyle \\ \\sum_{k=1}^{n} \\Big( 2^{k+1}\\Big)$
-    """%(Q_num_q11)
-    )
+    ans_q1_tmp_00=["2^(k+1)","k","1","n"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    if st.sidebar.checkbox("(3)の答え",key="q01_2_3"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s =%s$"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+            )
+        
 
     with st.expander("ポイント：総和の公式"):
         try :
@@ -105,6 +171,7 @@ with Lec01_contents_tab[1]:
         except :
             st.image("06_Integrated_Math_and_Science_for_Engineering/30_Streamlit_Figs/30_Streamlit_Figs.003.tiff")
 ####  応用例題  ####
+st.sidebar.markdown("**応用例題の解答**")
 with Lec01_contents_tab[2]:
     contents_num += 1
     st.markdown("### %s. %s"%(contents_num,Lec01_contents_list[2]))
@@ -112,22 +179,56 @@ with Lec01_contents_tab[2]:
     """
     ##### Q1.1-3 次の和を求めよ．
     """,unsafe_allow_html=True)
+    
+    Q_num_q11 = 0  
 
-    st.markdown(
-    """
-    (1) $\\displaystyle \\ \\sum_{k=4}^{14} \\big( 2k+1\\big)$
-    """
-    )
-    st.markdown(
-    """
-    (2) $\\displaystyle \\ \\sum_{k=1}^{n} \\Big( 3k^3+3k^2+k\\Big)$
-    """
-    )
-    st.markdown(
-    """
-    (3) $\\displaystyle \\ \\sum_{k=1}^{n} \\Big( 2^{2k+3}\\Big)$
-    """
-    )
+    ##### q1
+    Q_num_q11 += 1
+    ans_q1_tmp_00=["(2*k+1)","k","4","14"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    tmps[0]=myfunc.format_disp(ans_q1_tmp_00[0],2)
+    if st.sidebar.checkbox("(1)の答え",key="q01_3_1"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s =%s$"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+            )
+
+    ##### q2  
+    Q_num_q11 += 1
+    ans_q1_tmp_00=["(3*k^3+3*k^2+k)","k","1","n"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    tmps[0]=myfunc.format_disp(ans_q1_tmp_00[0],2)
+    if st.sidebar.checkbox("(2)の答え",key="q01_3_2"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s =%s$"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+            )
+
+    ##### q3  
+    Q_num_q11 += 1
+    ans_q1_tmp_00=["2^(2*k+3)","k","1","n"]
+    ans_q1_00,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+    tmps[0]=myfunc.format_disp(ans_q1_tmp_00[0],3)
+    if st.sidebar.checkbox("(3)の答え",key="q01_3_3"):
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s =%s$"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0],ans_q1_00)
+            )
+    else:
+        st.markdown(
+            "(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s $"
+            %(Q_num_q11,tmps[1],tmps[2],tmps[3],tmps[0])
+            )
 
     with st.expander("ポイント：総和の公式"):
         try :
@@ -288,26 +389,5 @@ with Lec01_contents_tab[4]:
 
         **その他の公式については数学ナビゲーションの"数列"を参照：**[クリック](https://w3e.kanazawa-it.ac.jp/math/category/suuretu/henkan-tex.cgi?target=/math/category/suuretu/index.html)
     """
-####  数列の極限  ####
-with Lec01_contents_tab[5]:
-    contents_num += 1
-    st.markdown("### %s. 「%s」について"%(contents_num,Lec01_contents_list[5]))   
-    st.markdown("""
-        ##### 数列の極限値の定義（簡易版）
-        項数が無限個の数列$~\{a_n\}~$（無限数列）を考える．項の番号$~n~$が限りなく大きくなったとき，$~a_n~$がある数$~\\alpha~$に
-        限りなく近づくとき，数列$~\{a_n\}~$は$~\\alpha~$に収束すると良い，$~\\alpha~$を数列$~\{a_n\}~$の極限値という．
-        ，$~\\alpha~$が数列$~\{a_n\}~$の極限値であるということは，記号で
-        $$
-            \\lim_{n \\to \\infty} a_{n} = \\alpha
-        $$
-        と表す．\\
-        ※ 数学的に厳密な数列の極限値の定義\\
-        （参考：東京大学大学院数理科学研究科　会田茂樹　講義ノートより）
-         [[クリック]](https://www.ms.u-tokyo.ac.jp/~aida/lecture/20/4-22.pdf)
-        \\
-        $\\phantom{a}$
-    """,unsafe_allow_html=True)
-    """
-        ##### 数列の極限の例  
-    """
-    st.error("作成中")
+
+    st.sidebar.markdown("""このWebアプリについての意見・感想はこちらから[クリック](https://forms.gle/NHbiNWkjHgd28K5C9)""")
