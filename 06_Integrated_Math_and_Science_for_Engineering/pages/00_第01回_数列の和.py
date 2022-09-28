@@ -20,7 +20,7 @@ st.sidebar.markdown("**基礎例題の解答**")
 with Lec01_contents_tab[0]:
     contents_num += 1
     st.markdown("### %s. %s"%(contents_num,Lec01_contents_list[0]))
-    st.markdown("""##### Q1.1-1 次の和を求めよ．""",unsafe_allow_html=True)
+    st.markdown("""##### [Lec.1-1]Q1 次の和を求めよ．""",unsafe_allow_html=True)
     Q_num_q11 = 0
  
  
@@ -114,7 +114,7 @@ st.sidebar.markdown("**標準例題の解答**")
 with Lec01_contents_tab[1]:
     contents_num += 1
     st.markdown("### %s. %s"%(contents_num,Lec01_contents_list[1]))
-    st.markdown("""##### Q1.1-2 次の和を求めよ．""",unsafe_allow_html=True)
+    st.markdown("""##### [Lec.1-2]Q1 次の和を求めよ．""",unsafe_allow_html=True)
 
     Q_num_q11 = 0
     Q_num_q11 += 1
@@ -177,7 +177,7 @@ with Lec01_contents_tab[2]:
     st.markdown("### %s. %s"%(contents_num,Lec01_contents_list[2]))
     st.markdown(
     """
-    ##### Q1.1-3 次の和を求めよ．
+    ##### [Lec.1-3]Q1 次の和を求めよ．
     """,unsafe_allow_html=True)
     
     Q_num_q11 = 0  
