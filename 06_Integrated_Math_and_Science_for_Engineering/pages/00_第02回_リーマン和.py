@@ -259,12 +259,12 @@ with Lec02_contents_tab[contents_num]:
         ## display problem and answer
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
+                "$\\qquad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form,ans_q_form1)
                 )
         else:
             st.markdown(
-                "(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s$"
+                "$\\qquad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s$"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form)
                 )
 
@@ -298,12 +298,12 @@ with Lec02_contents_tab[contents_num]:
         ## display problem and answer
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
+                "$\\qquad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
                 %(Q_num_q0,tmps[1],tmps[2],tmps[3],tmps[0],ans_q_form1)
                 )
         else:
             st.markdown(
-                "(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s$"
+                "$\\qquad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s$"
                 %(Q_num_q0,tmps[1],tmps[2],tmps[3],tmps[0])
                 )
 
@@ -379,4 +379,5 @@ with Lec02_contents_tab[contents_num]:
         $$
          と書く．また$~S~$は，関数$~f~$は区間$~\\big[a,\\ b\\big]~$におけるリーマン積分は定積分という．
     """
+    
 st.sidebar.markdown("""このWebアプリについての意見・感想はこちらから[クリック](https://forms.gle/NHbiNWkjHgd28K5C9)""")
