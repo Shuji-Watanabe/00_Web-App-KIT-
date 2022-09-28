@@ -6,3 +6,4 @@ matplotlib
 Image
 japanize_matplotlib
 scipy
+plotly
