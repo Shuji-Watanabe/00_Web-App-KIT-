@@ -46,12 +46,12 @@ with Lec02_contents_tab[contents_num]:
         #ans_q_tmp1 = ans_q.as_ordered_terms()
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "$\\qquad $(%s) $\\displaystyle \\ %s=%s$"
+                "$\\quad $(%s) $\\displaystyle \\ %s=%s$"
                 %(Q_num_q0,q_form,ans_q_form1)
                 )
         else:
             st.markdown(
-                "$\\qquad $(%s) $\\displaystyle \\ %s$"
+                "$\\quad $(%s) $\\displaystyle \\ %s$"
                 %(Q_num_q0,q_form)
                 )
     st.write("")
@@ -79,12 +79,12 @@ with Lec02_contents_tab[contents_num]:
         ## display problem and answer
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "$\\qquad $(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s=%s$"
+                "$\\quad $(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s=%s$"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form,ans_q_form1)
                 )
         else:
             st.markdown(
-                "$\\qquad $(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s$"
+                "$\\quad $(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s$"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form)
                 )
     st.write("")
@@ -112,7 +112,7 @@ with Lec02_contents_tab[contents_num]:
             tmps[0] = latex( sympify(tmps[0]) ) 
             ans_q_form1 = latex( ans_q )
             st.markdown(
-                    "$\\qquad $(%s) $\\displaystyle \\ y=%s,\\ y=0,\\ x=%s,\\ x=%s$"
+                    "$\\quad $(%s) $\\displaystyle \\ y=%s,\\ y=0,\\ x=%s,\\ x=%s$"
                     %(Q_num_q0,tmps[0],tmps[1],tmps[2])
             )
             
@@ -259,12 +259,12 @@ with Lec02_contents_tab[contents_num]:
         ## display problem and answer
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "$\\qquad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
+                "$\\quad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form,ans_q_form1)
                 )
         else:
             st.markdown(
-                "$\\qquad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s$"
+                "$\\quad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s$"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form)
                 )
 
@@ -298,12 +298,12 @@ with Lec02_contents_tab[contents_num]:
         ## display problem and answer
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "$\\qquad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
+                "$\\quad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
                 %(Q_num_q0,tmps[1],tmps[2],tmps[3],tmps[0],ans_q_form1)
                 )
         else:
             st.markdown(
-                "$\\qquad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s$"
+                "$\\quad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s$"
                 %(Q_num_q0,tmps[1],tmps[2],tmps[3],tmps[0])
                 )
 
