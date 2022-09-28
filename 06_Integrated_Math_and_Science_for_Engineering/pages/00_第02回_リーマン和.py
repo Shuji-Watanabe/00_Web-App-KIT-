@@ -379,6 +379,4 @@ with Lec02_contents_tab[contents_num]:
         $$
          と書く．また$~S~$は，関数$~f~$は区間$~\\big[a,\\ b\\big]~$におけるリーマン積分は定積分という．
     """
-
-
 st.sidebar.markdown("""このWebアプリについての意見・感想はこちらから[クリック](https://forms.gle/NHbiNWkjHgd28K5C9)""")

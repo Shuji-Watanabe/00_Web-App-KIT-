@@ -7,5 +7,4 @@ Image
 japanize_matplotlib
 scipy
 plotly
-plotly.graph_objs
 functions
