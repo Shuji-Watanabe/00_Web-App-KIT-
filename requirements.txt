@@ -7,3 +7,4 @@ Image
 japanize_matplotlib
 scipy
 plotly
+functions
