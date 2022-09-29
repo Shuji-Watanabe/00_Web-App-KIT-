@@ -430,7 +430,7 @@ with Lec02_contents_tab[contents_num]:
             go.Scatter(x=xs,y=ys1,name=r"$y=f(x)$", line_color="black")
             )
 
-        xis = np.linspace(float(lower_limit),float(upper_limit), float(Num_separate))
+        xis = np.linspace(float(lower_limit),float(upper_limit), Num_separate)
 
         for i in range(len(xis)):
             if ( i == 0 ) or ( i == len(xis)-1 ) :
