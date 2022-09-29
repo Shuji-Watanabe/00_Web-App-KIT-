@@ -79,8 +79,8 @@ with Lec02_contents_tab[contents_num]:
         ## display problem and answer
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ \\sum_{%s = %s}^{%s} %s = %s$"
-                %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form,ans_q_form1)
+                "$\\quad $(%s) $\\displaystyle \\ \\sum_{%s = %s}^{%s} %s = %s $"
+                %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3], q_form, ans_q_form1)
                 )
         else:
             st.markdown(
