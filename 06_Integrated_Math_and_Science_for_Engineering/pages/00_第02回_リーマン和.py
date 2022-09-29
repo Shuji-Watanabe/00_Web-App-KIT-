@@ -75,16 +75,16 @@ with Lec02_contents_tab[contents_num]:
         ans_q1_tmp_00=[Q_list_2_1_form[i],"k","1","n"]
         ans_q,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
         ans_q_form1 = latex( ans_q )
-
+        # st.markdown("$%s$"%(ans_q_form1))
         ## display problem and answer
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s=%s$"
+                "$\\quad $(%s) $\\displaystyle \\ \\sum_{%s = %s}^{%s} %s = %s$"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form,ans_q_form1)
                 )
         else:
             st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ \\sum_{%s=%s}^{%s} %s$"
+                "$\\quad $(%s) $\\displaystyle \\ \\sum_{%s = %s}^{%s} %s $"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form)
                 )
     st.write("")
