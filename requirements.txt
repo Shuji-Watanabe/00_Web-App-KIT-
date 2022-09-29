@@ -8,3 +8,4 @@ japanize_matplotlib
 scipy
 plotly
 functions
+re
