@@ -73,7 +73,7 @@ with Lec02_contents_tab[contents_num]:
         ## cal summation
         q_form = latex( sympify(Q_list_2_1_form[i]) ) 
         ans_q1_tmp_00=[Q_list_2_1_form[i],"k","1","n"]
-        ans_q,tmps = myfunc.cal_sum(*ans_q1_tmp_00)
+        ans_q,tmps = myfunc.cal_sum(*ans_q1_tmp_00,output_form_key = "latex")
         ans_q_form1 = latex( ans_q )
         # st.markdown("$%s$"%(ans_q_form1))
         ## display problem and answer
