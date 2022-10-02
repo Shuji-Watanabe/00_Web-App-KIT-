@@ -1,3 +1,4 @@
+from ast import Num
 from dataclasses import replace
 import streamlit as st
 import sympy as sym
@@ -64,3 +65,38 @@ def format_disp(tmp_str,index_blac=0,index_bbrac=0):
 #             s += str(x)
 #         else: print(type(x))
 #     return s
+
+def str_brack(val, out_bracket_index = 0):
+    if val >= 0:
+        bracked_val = " %s "%(latex(val))
+        if out_bracket_index == 1:
+            bracket_index = 1
+        else :
+            bracket_index = 0
+    else :
+        bracked_val = "\\left(  %s  \\right)"%(latex(val))
+        if out_bracket_index == 1:
+            bracket_index = -1
+        else :
+            bracket_index = 0
+    return bracked_val, bracket_index
+
+def str_c_i(Num_Type_riemann):
+    if Num_Type_riemann == 0:
+        c_i = "x_{k+1}"
+        text = ""
+    elif Num_Type_riemann == 1:
+        c_i = "\\frac{x_{k}+x_{k+1}}{2}"
+        text = "ここで$~\\displaystyle \\frac{x_{k}+x_{k+1}}{2}~$は，\
+                小区間$~\\big[x_{k},x_{k+1}\\big]~$の中央の$~x~$座標である．"
+    elif Num_Type_riemann == 2:
+        c_i = "x_{k}"
+        text = ""
+    elif Num_Type_riemann == 3:
+        c_i = "x_{k:\\rm max}"
+        text = "ここで$x_{k:\\rm max}$は，小区間$~\\big[x_{k},x_{k+1}\\big]~$において$~f(x)~$が最大となる$~x~$の値のことである．"
+    elif Num_Type_riemann == 4:
+        c_i = "x_{k:\\rm min}"
+        text = "ここで$x_{k:\\rm min}$は，小区間$~\\big[x_{k},x_{k+1}\\big]~$において$~f(x)~$が最小となる$~x~$の値のことである．"
+    return c_i, text
+

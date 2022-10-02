@@ -1,3 +1,4 @@
+from ast import Num
 import streamlit as st
 import sympy as sym
 from sympy import *
@@ -10,337 +11,15 @@ from matplotlib import patches
 import plotly.graph_objs as go
 import functions as myfunc
 import re
+from sympy.calculus.util import *
 
-Lec02_contents_list=["基礎例題","標準例題","応用例題","数列の和の極限","リーマン積分","リーマン積分の例"]
+Lec02_contents_list=["リーマン和の例","リーマン和とリーマン積分の例"]
 Lec02_contents_tab =[]
 Lec02_contents_tab = st.tabs(Lec02_contents_list)
 contents_num =0
 lec_num =2
 
-####  基礎例題  ####
-st.sidebar.markdown("**基礎例題の解答**")
-#contents_num += 1
-section_num = 1
-with Lec02_contents_tab[contents_num]:
-    st.markdown("### %s. %s"%(contents_num+1,Lec02_contents_list[contents_num])) 
-    q_num = 0
-
-    ##### q1
-    q_num += 1
-    Q_num_q0 = 0
-    st.markdown("##### [lec.%s-%s] Q%s  次の式を部分分数分解しなさい．"%(lec_num,section_num,q_num))
-    
-    ########## user set problems ################################
-    Q_list_2_1 = ["1/(x*(x+1))","1/((x+2)*(x+1))","1/((2*x+1)*(2*x+3))"]
-    ############################################################
-
-    ########## make problems and the ansewrs Q01
-    for i in range(len(Q_list_2_1)):
-        Q_num_q0 += 1
-        key_name = "q%0d_%s_%s_%s"%(q_num,lec_num,section_num,Q_num_q0)
-        cb_name = "Q%s-(%s)の答え"%(q_num,Q_num_q0)
-        q_form_00 = Q_list_2_1[i]
-        q_form = latex(sympify(q_form_00))
-        ans_q  = apart(  sympify(q_form_00)  ) 
-        ans_q_form1 = latex( ans_q )
-        #ans_q_tmp1 = ans_q.as_ordered_terms()
-        if st.sidebar.checkbox(cb_name,key=key_name):
-            st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ %s=%s$"
-                %(Q_num_q0,q_form,ans_q_form1)
-                )
-        else:
-            st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ %s$"
-                %(Q_num_q0,q_form)
-                )
-    st.write("")
-
-    ##### q2
-    q_num += 1
-    Q_num_q0 = 0
-    st.markdown("##### [lec.%s-%s] Q%s  次の和を求めなさい．"%(lec_num,section_num,q_num))
-    
-    ########## user set problems ################################
-    Q_list_2_1_form = ["1/n","1/((2*k+1)*(2*k+3))","k/n","k^2/n^3"]
-    ############################################################
-
-    ########## make problems and the ansewrs Q02 
-    for i in range(len(Q_list_2_1_form)):
-        Q_num_q0 += 1
-        key_name = "q%0d_%s_%s_%s"%(q_num,lec_num,section_num,Q_num_q0)
-        cb_name = "Q%s-(%s)の答え"%(q_num,Q_num_q0)
-        ## cal summation
-        q_form = latex( sympify(Q_list_2_1_form[i]) ) 
-        ans_q1_tmp_00=[Q_list_2_1_form[i],"k","1","n"]
-        ans_q,tmps = myfunc.cal_sum(*ans_q1_tmp_00,output_form_key = "latex")
-        ans_q_form1 = latex( ans_q )
-
-        ## display problem and answer
-        if st.sidebar.checkbox(cb_name,key=key_name):
-            st.markdown(
-                "$\\quad $ (%s) $\\displaystyle \\ \\sum_{%s = %s}^{%s} %s = %s $"
-                %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3], q_form, ans_q_form1)
-                )
-        else:
-            st.markdown(
-                "$\\quad $ (%s) $\\displaystyle \\ \\sum_{%s = %s}^{%s} %s $"
-                %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3], q_form)
-                )
-
-    st.write("")
-
-
-    ##### q3
-    q_num += 1
-    Q_num_q0 = 0
-    st.markdown("##### [lec.%s-%s] Q%s 次の曲線および直線で囲まれた領域を図示しなさい．"%(lec_num,section_num,q_num))
-    
-    #### user set problems ################################
-    Q_list_2_3_form = [["x+1","1","3"],["3*x-2","1","4"],["2*x^2+2","0","1"]]
-    #######################################################
-    
-    for i in range(len(Q_list_2_3_form)):
-        Q_num_q0 += 1
-        key_name = "q%0d_%s_%s_%s"%(q_num,lec_num,section_num,Q_num_q0)
-        cb_name = "Q%s-(%s)の答え"%(q_num,Q_num_q0)
-        tmp_col=[]
-        tmp_col = st.columns(2)
-        ## Display Problems
-        with tmp_col[0]:
-            tmps = Q_list_2_3_form[i]
-            ans_q1_tmp_00= sympify(tmps[0])
-            tmps[0] = latex( sympify(tmps[0]) ) 
-            ans_q_form1 = latex( ans_q )
-            st.markdown(
-                    "$\\quad $(%s) $\\displaystyle \\ y=%s,\\ y=0,\\ x=%s,\\ x=%s$"
-                    %(Q_num_q0,tmps[0],tmps[1],tmps[2])
-            )
-            
-        with tmp_col[1]:
-            cb_val = st.sidebar.checkbox(cb_name,key=key_name)
-            if cb_val :
-                #### plot with plotly
-                x_axis_min = -5 ; x_axis_max=5
-                y_axis_min = -5 ; y_axis_max=5
-                xs = np.linspace(-50,50, 10000)
-                x_range = np.linspace(float(tmps[1]),float(tmps[2]), 100)
-                x= symbols("x")
-
-                f1 = ans_q1_tmp_00 
-                ys1 = lambdify(x, f1, "numpy")(xs)
-                yys1 = lambdify(x, f1, "numpy")(x_range)
-                ys0 = np.full(len(xs), 0)
-
-                fig = go.Figure()
-                fig.add_hline(y=0,line_width=1)
-                fig.add_vline(x=0,line_width=1)
-
-                fig.add_trace(
-                    go.Scatter(
-                        x = x_range,
-                        y = yys1, 
-                        name=r'領域',
-                        fill = 'tozeroy'
-                    )
-                )
-                fig.add_trace(
-                    go.Scatter(x=xs,y=ys1,name=r'y=f(x)', line_color="red")
-                    )
-
-                fig.add_vline(x=float(tmps[1]),line_dash="dash", line_color="black")
-                fig.add_vline(x=float(tmps[2]),line_dash="dash", line_color="black")
-                
-                fig.update_layout(
-                    width=450,height=450,
-                    xaxis=dict(range=(x_axis_min,x_axis_max),dtick=1),
-                    yaxis=dict(range=(y_axis_min,y_axis_max),dtick=1),
-                    legend=dict(
-                            xanchor='left',
-                            yanchor='bottom',
-                            x=0.01,
-                            y=0.91,
-                            orientation='h',
-                            bgcolor="white",
-                            bordercolor="grey",
-                            borderwidth=1
-                            ),
-                    margin=dict(t=50, b=50, l=0, r=0),
-                    autosize=False
-                )
-                st.plotly_chart(fig, use_container_width=True,sharing="streamlit")
-
-
-    with st.expander("ヒント：軸に並行な直線の式"): 
-        """
-        - **$~x~$軸に並行な直線の方程式**  
-            $~y=a~$：$~x~$軸に並行で,その直線上の点の$~y~$座標が$~a~$であるような直線の式．  
-            $~y=0~$：$~x~$軸を表す式．
-        - **$~y~$軸に並行な直線の方程式**  
-            $~x=b~$：$~y~$軸に並行で,その直線上の点の$~x~$座標が$~b~$であるような直線の式．  
-            $~x=0~$：$~y~$軸を表す式．
-        """
-            
-    st.write("")
-
-####  標準例題  ####
-
-st.sidebar.markdown("**標準例題の解答**")
-section_num += 1
-contents_num += 1
-with Lec02_contents_tab[contents_num]:
-    st.markdown("### %s. %s"%(contents_num+1,Lec02_contents_list[contents_num])) 
-    q_num = 0
-
-    ##### q1
-    q_num += 1
-    Q_num_q0 = 0
-    st.markdown("##### [lec.%s-%s] Q%s 次の和の極限値を求めなさい．"%(lec_num,section_num,q_num))
-    
-    oo = sym.oo
-    n = symbols("n")
-    
-    #### user set problems ################################
-    Q_list_2_1_form = ["1/n","k/n","k^2/n^3","(1/3)^(k+2)"]
-    #######################################################
-    
-    for i in range(len(Q_list_2_1_form)):
-        Q_num_q0 += 1
-        key_name = "q%0d_%s_%s_%s"%(q_num,lec_num,section_num,Q_num_q0)
-        cb_name = "Q%s-(%s)の答え"%(q_num,Q_num_q0)
-        ## cal summation
-        q_form = latex( sympify(Q_list_2_1_form[i]) ) 
-        ans_q1_tmp_00=[Q_list_2_1_form[i],"k","1","n"]
-        ans_q,tmps = myfunc.cal_sum(*ans_q1_tmp_00,"sympy")
-        
-        ans_q_form1 = latex( sym.limit(sympify(ans_q),n,oo))
- 
-        ## display problem and answer
-        if st.sidebar.checkbox(cb_name,key=key_name):
-            st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
-                %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form,ans_q_form1)
-                )
-        else:
-            st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s$"
-                %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form)
-                )
-
-    st.write("")
-
-    ##### q2
-    q_num += 1
-    Q_num_q0 = 0
-    st.markdown("##### [lec.%s-%s] Q%s 次の和の極限値を求めなさい．"%(lec_num,section_num,q_num))
-    
-    oo = sym.oo
-    n,k = symbols("n,k")
-    
-    #### user set problems ################################
-    Q_list_2_2_form = ["(2*k+3)/(n^2)","3/(4^k)","( 4*k^2/n^3 - 3*k/n^2 + 2/n )"]
-    #######################################################
-    
-    for i in range(len(Q_list_2_2_form)):
-        Q_num_q0 += 1
-        key_name = "q%0d_%s_%s_%s"%(q_num,lec_num,section_num,Q_num_q0)
-        cb_name = "Q%s-(%s)の答え"%(q_num,Q_num_q0)
-
-        ## cal summation
-        ans_q1_tmp_00=[Q_list_2_2_form[i],"k","1","n"]
-        ans_q,tmps = myfunc.cal_sum(*ans_q1_tmp_00,"sympy")
-        ans_q_form1 = latex( sym.limit(sympify(ans_q),n,oo) )
- 
-        if i == 2:
-            tmps[0]= "\\left(" + tmps[0] + "\\right)"
-
-        ## display problem and answer
-        if st.sidebar.checkbox(cb_name,key=key_name):
-            st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
-                %(Q_num_q0,tmps[1],tmps[2],tmps[3],tmps[0],ans_q_form1)
-                )
-        else:
-            st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s$"
-                %(Q_num_q0,tmps[1],tmps[2],tmps[3],tmps[0])
-                )
-
-    st.write("")
-
-####  応用例題  ####
-st.sidebar.markdown("**応用例題の解答**")
-section_num += 1
-contents_num += 1
-
-with Lec02_contents_tab[contents_num]:
-    st.markdown("### %s. %s"%(contents_num+1,Lec02_contents_list[contents_num])) 
-
-####  数列の極限  ####
-contents_num += 1  
-with Lec02_contents_tab[contents_num]:
-    st.markdown("### %s. 「%s」について"%(contents_num+1,Lec02_contents_list[contents_num]))   
-    st.markdown("""
-        ##### 数列の極限値の定義（簡易版）
-        項数が無限個の数列$~\{a_n\}~$（無限数列）を考える．項の番号$~n~$が限りなく大きくなったとき，$~a_n~$がある数$~\\alpha~$に
-        限りなく近づくとき，数列$~\{a_n\}~$は$~\\alpha~$に収束すると良い，$~\\alpha~$を数列$~\{a_n\}~$の極限値という．
-        ，$~\\alpha~$が数列$~\{a_n\}~$の極限値であるということは，記号で
-        $$
-            \\lim_{n \\to \\infty} a_{n} = \\alpha
-        $$
-        と表す．\\
-        ※ 数学的に厳密な数列の極限値の定義\\
-        （参考：東京大学大学院数理科学研究科　会田茂樹　講義ノートより）
-         [[クリック]](https://www.ms.u-tokyo.ac.jp/~aida/lecture/20/4-22.pdf)
-        \\
-        $\\phantom{a}$
-    """,unsafe_allow_html=True)
-    """
-        ##### 数列の極限の例  
-    """
-    st.error("作成中")
-
-####  リーマン和とリーマン積分  ####
-contents_num += 1
-with Lec02_contents_tab[contents_num]:
-    st.markdown("### %s. 「%s」について"%(contents_num+1,Lec02_contents_list[contents_num])) 
-    """
-        #### リーマン和と定積分の定義
-         関数$~f~$が閉区間$~\\big[a,\\ b\\big]~$で定義されているものとする．\
-            また閉区間$~\\big[a,\\ b\\big]~$を
-        $$
-            a=x_1 < x_2 < x_3 < \\cdots < x_{i} < x_{i+1} < \\cdots < x_{N} < x_{N+1} = b
-        $$
-         のように$~N~$分割する．\
-            さらに区間$~\\big[x_{i},\\ x_{i+1}\\big]~$における$~i~$番目の\
-            代表値$~\\xi_{i}\ (x_{i} < \\xi_{i} < x_{i+1})~$を定める．このとき，
-        $$
-            S_{N}
-            =
-            \sum_{i=1}^{N}
-                f\\big( \\xi_{i} \\big) \\cdot \Delta x_{i}
-        $$
-         をリーマン和と呼ぶ．ここで$~\Delta x_i = x_{i+1} - x_{i}~$である．\
-            通常，区間$~\\big[x_{i},\\ x_{i+1}\\big]~$を$~N~$等分する場合を考えるため，
-        $$
-            \Delta x = \Delta x_1 = \Delta x_2 = \cdots = \Delta x_N = \\frac{b-a}{N}
-        $$
-         である．
-         $~N~$を限りなく大きくしたとき，リーマン和$~S_N~$がある値$~S~$に収束するならば，すなわち
-        $$
-            \\lim_{N \\to \\infty}
-               \\sum_{i}^{N} f(\\xi_i) \cdot \\Delta x = S
-        $$
-         であるならば，関数$~f~$は区間$~\\big[a,\\ b\\big]~$でリーマン積分可能といい，\
-            $~S~$を．
-        $$
-            S = \\int_{a}^{b} f(x) dx
-        $$
-         と書く．また$~S~$は，関数$~f~$は区間$~\\big[a,\\ b\\big]~$におけるリーマン積分は定積分という．
-    """
-
-####  リーマン積分の例  ####
-contents_num += 1
+####  リーマン和の例  ####
 with Lec02_contents_tab[contents_num]:
     st.markdown("### %s. 「%s」について"%(contents_num+1,Lec02_contents_list[contents_num]))
     st.markdown(" ##### 各種設定")
@@ -366,44 +45,32 @@ with Lec02_contents_tab[contents_num]:
          else :
             st.error("作成中")
 
-    set_param_graph_col02 = st.columns(4)
-    with set_param_graph_col02[0]:
-        Num_separate = st.number_input("区間の分割数",value=10,min_value=1)
-    with set_param_graph_col02[1]:                                     
+    set_param_graph_col02 = st.columns([4,3,3,3,3])
+    with set_param_graph_col02[0]:                                     
         select_rtype_list01={
-                            "左リーマン和":0,\
+                            "右リーマン和":0,\
                             "中点リーマン和":1,\
-                            "右リーマン和":2,\
+                            "左リーマン和":2,\
                             "上リーマン和":3,\
                             "下リーマン和":4
                             }
         Type_riemann = st.selectbox("リーマン和のタイプ",select_rtype_list01.keys())
         Num_Type_riemann = int(select_rtype_list01[Type_riemann])
+    with set_param_graph_col02[1]:
+        Num_separate = st.number_input("区間の分割数",value=10,min_value=1)
     with set_param_graph_col02[2]:
         tmp_lower_limit = st.text_input("積分区間の下端", lower_limit)
         lower_limit = sympify(tmp_lower_limit)
     with set_param_graph_col02[3]:
         tmp_upper_limit = st.text_input("積分区間の上端", upper_limit)
         upper_limit = sympify(tmp_upper_limit)
+    with set_param_graph_col02[4]:
+        Lec2_radio02_list = {"0番目":0,"1番目":1}
+        lower_limit_num = st.radio("下端の番号",Lec2_radio02_list.keys())
+        lower_limit_num = Lec2_radio02_list[lower_limit_num]
+
 
     dx= (upper_limit - lower_limit)/Num_separate
-    st.markdown(" ##### 基本情報の確認")
-    """
-        - 関数：$\\displaystyle f(x)=%s$
-        - 区間：$\\displaystyle \\left[%s,\\ %s\\right]$
-        - 分割数：$%s$
-        - 間隔：$\\displaystyle \\Delta x = x_{i+1} - x_{i} = %s$
-        - タイプ：%s
-    """%\
-        (latex(f0),
-         latex(lower_limit),
-         latex(upper_limit),
-         Num_separate,
-         latex(dx),
-         Type_riemann)
-    st.write("")
-
-
 
     st.markdown("##### 状況の可視化")
     Lec2_select_col02 = [] ; Lec2_select_col02 = st.columns(2)
@@ -431,10 +98,9 @@ with Lec02_contents_tab[contents_num]:
             go.Scatter(x=xs,y=ys1,name=r"$y=f(x)$", line_color="black")
             )
 
-        xis = np.linspace(float(lower_limit),float(upper_limit), Num_separate)
-
+        xis = np.linspace(float(lower_limit),float(upper_limit), Num_separate+1)
         for i in range(len(xis)):
-            if ( i == 0 ) or ( i == len(xis)-1 ) :
+            if ( i == 0 ) or ( i == len(xis)-1) :
                 fig.add_vline(x=xis[i],line_dash="dash", line_color="black", line_width = 2 )
             else:
                 fig.add_vline(x=xis[i],line_dash="dash", line_color="gray", line_width = 0.5 )
@@ -442,11 +108,11 @@ with Lec02_contents_tab[contents_num]:
         for i in range(len(xis)-1):
             tmp_x = np.linspace(xis[i],xis[i+1],100)
             if Num_Type_riemann == 0 :
-                tmp_y = np.full(len(tmp_x), float(f0.subs(x,xis[i])))
+                tmp_y = np.full(len(tmp_x), float(f0.subs(x, xis[i+1])))
             elif Num_Type_riemann == 1 :
                 tmp_y = np.full(len(tmp_x), float(f0.subs(x, (xis[i]+xis[i+1])/2)))
             elif Num_Type_riemann == 2 :
-                tmp_y = np.full(len(tmp_x), float(f0.subs(x, xis[i+1])))
+                tmp_y = np.full(len(tmp_x), float(f0.subs(x,xis[i])))
             elif Num_Type_riemann == 3 :
                 tmp_y = lambdify(x, f0, "numpy")(tmp_x)
                 tmp_y = np.full(len(tmp_x), np.amax(tmp_y))
@@ -470,20 +136,12 @@ with Lec02_contents_tab[contents_num]:
             xaxis=dict(range=(x_axis_min,x_axis_max),dtick=1),
             yaxis=dict(range=(y_axis_min,y_axis_max),dtick=1),
             showlegend = False,
-            # legend=dict(
-            #         xanchor='left',
-            #         yanchor='bottom',
-            #         x=0,#x=0.01,
-            #         y=1,#y=0.91,
-            #         orientation='h',
-            #         bgcolor="white",
-            #         bordercolor="grey",
-            #         borderwidth=1
-            #         ),
             margin=dict(t=50, b=50, l=0, r=0),
             autosize=False
         )
         st.plotly_chart(fig, use_container_width=True,sharing="streamlit")
+
+
     with Lec2_select_col02[0]:
         st.markdown("###### 〜領域$~A~$の様子〜") 
         #### plot with plotly
@@ -529,8 +187,204 @@ with Lec02_contents_tab[contents_num]:
             autosize=False
         )
         st.plotly_chart(fig, use_container_width=True,sharing="streamlit")
-        
+    
+    
+    if lower_limit < 0 :
+        str_lower_limit = "\\left( %s \\right)"%(latex(lower_limit))
+    else :
+        str_lower_limit = "%s"%(latex(lower_limit))
 
+
+
+
+    ####  リーマン積分のパラメータに合わせた解説  ####
+    st.markdown(" ##### 上の設定に合わせたリーマン和と定積分の定義の解説")
+    str_closed_interval = "\\big[%s,\\ %s \\big]"%(latex(lower_limit),latex(upper_limit))
+    """
+        $~y=%s~$と，$~x~$軸（$y=0$の直線），直線$~x=%s~$，$~x=%s~$で囲まれた領域$~A~$について考える．
+        以下，$~%s \le x \le %s~$を閉区間$~%s~$と呼び，
+        閉区間$~%s~$の最小値を"下限$~a~$"，最大値を"上限$~b~$"と呼ぶことにする．
+    """%( 
+        latex(f0),latex(lower_limit),latex(upper_limit),
+        latex(lower_limit),latex(upper_limit),str_closed_interval,
+        str_closed_interval
+        )
+    st.write("")
+    str_each_x = "x_{%s} "%(lower_limit_num)
+    if Num_separate <= 6 :
+        for i in range(Num_separate):
+            str_each_x += "< x_{%s} "%(i+1)
+    else :
+        for i in range(3):
+            str_each_x += "< x_{%s} "%(i+1)
+        str_each_x += "< \\cdots "
+        str_each_x += " < x_{%s} "%(Num_separate-1)
+        str_each_x += " < x_{%s} "%(Num_separate)
+    
+    if lower_limit_num == 0 :
+        coefficient_dx = "k"
+    else :
+        coefficient_dx = " \\left( k - 1 \\right) "
+    
+    i,k,n = symbols("i k n")
+    x_k_form = lower_limit + sym.summation(dx,(i,1,k-1))
+    """
+        ###### Step1：区間の分割と$x_k$を表す式
+        閉区間$~%s~$を
+        $$
+            %s
+        $$
+        のように$~n=%s~$等分する．
+        ここで$~x_{%s} = a = %s~$であり，$~x_{%s} = b = %s~$である．
+
+        分割によって生じた$~%s~$個の小区間は同じ幅$~\\Delta x~$をもち，その値は
+        $$
+            \\Delta x =\\frac{b-a}{n} = \\frac{ %s - %s }{%s} = %s
+        $$
+        である．
+        小区間の幅が$~\\Delta x~$であり，下端$~a~$が$~%s~$番目であるから，$~k~$番目の$~x~$の値$~x_{k}~$は
+        $$
+            x_{k} = x_{%s} + %s \\cdot \\Delta x =  %s + %s \\cdot %s = %s
+        $$
+        と表すことができる．
+    """%(
+        str_closed_interval,#1
+        str_each_x,#1
+        Num_separate,#1
+        lower_limit_num, latex(lower_limit),latex(Num_separate + lower_limit_num),upper_limit,#4
+        Num_separate,#1
+        latex(upper_limit), latex(lower_limit), Num_separate,latex(dx),
+        lower_limit_num,#1
+        lower_limit_num,coefficient_dx,lower_limit,coefficient_dx,latex(dx),latex(x_k_form)
+        )
+    st.write("")
+
+    k = symbols("k")
+    x_k, x_k_1 = symbols("x_{k} x_{k+1} ")
+    if Num_Type_riemann == 0 :
+        tmp_ck0 = x_k_1
+        tmp_ck1 = lower_limit + (k - lower_limit_num + 1 ) * dx
+        str_fck = "\\left( " + str(latex(f0.subs(x,tmp_ck0 ))) + " \\right)"
+        str_sk = f0.subs(x,tmp_ck1) * dx
+    elif Num_Type_riemann == 1:
+        tmp_ck0 = (x_k + x_k_1)/Num_separate
+        tmp_ck1 = lower_limit + sym.Rational(3,2)*(k - lower_limit_num) * dx
+        str_fck = "\\left( " + str(latex(f0.subs(x,tmp_ck0 ))) + " \\right)"
+        str_sk = f0.subs(x,tmp_ck1) * dx
+    elif Num_Type_riemann == 2:
+        tmp_ck0 = x_k
+        tmp_ck1 = lower_limit + (k - lower_limit_num) * dx
+        str_fck = "\\left( " + str(latex(f0.subs(x,tmp_ck0 ))) + " \\right)"
+        str_sk = f0.subs(x,tmp_ck1) * dx
+    elif Num_Type_riemann == 3:
+        x_k_max = sym.symbols("x_{k\:\max}")
+        tmp_ck0 = x_k_max
+        str_fck = " \\left( " + str(latex(f0.subs(x,tmp_ck0))) + " \\right)" 
+        tmp_ck1 = x_k_max       
+        str_sk = f0.subs(x,tmp_ck1) * dx
+    elif Num_Type_riemann == 4:
+        x_k_min = sym.symbols("x_{k\:\min}")
+        tmp_ck0 = x_k_min 
+        str_fck = " \\left( " + str(latex(f0.subs(x,tmp_ck0))) + " \\right) " 
+        tmp_ck1 = x_k_min
+        str_sk = f0.subs(x,tmp_ck1) * dx      
+    """
+        ###### Step2：小区間に長方形を作る
+        次に各小区間に長方形を定め，それによって領域$~A~$を埋め尽くすことを考える．
+        $~k~$番目の小区間$~\\big[x_{k},\\ x_{k+1}\\big]~$における長方形に対して次のような値$s_k$を考える．
+        $$
+            s_k = f\\big( c_k \\big)\\Delta x
+        $$
+        ここで$~c_{k}~$は$~k~$番目の小区間$~\\big[x_{k},\\ x_{k+1}\\big]~$の代表値を表している．
+        %sを考える場合，代表値$~c_{k}~$は
+        $$
+            c_k = %s
+        $$
+        で与えられる．%s 
+        $~s_k~$は横$~\\Delta x~$，縦$~f\\big(c_k\\big)~$の長方形の面積のような値であるが，
+        負の値も取りうることに注意してほしい．
+        $~f(x) = %s~$であるから$~s_k~$は小区間の番号$~k~$を用いて
+        $$
+            s_k = f \\big( c_k \\big) \\cdot \\Delta x = %s \\cdot %s = %s
+        $$
+        と表すことができる．
+    """%(Type_riemann,
+        myfunc.str_c_i(Num_Type_riemann)[0],
+        myfunc.str_c_i(Num_Type_riemann)[1],
+        latex(f0),
+        str_fck,latex(dx),
+        latex(str_sk)
+        )
+    st.write("")
+
+    n = symbols("n")
+    
+    if Num_Type_riemann <3:
+        Riemann_sum_n = sym.summation(str_sk,(k,1,n))
+        str_Riemann_sum_n = "=" + latex(Riemann_sum_n)
+        Riemann_sum = sym.summation(str_sk,(k,1,4))
+    elif Num_Type_riemann == 3 :
+        Riemann_sum_n = ""
+        str_Riemann_sum_n = ""
+        y_max_k = []
+        Riemann_sum = 0
+        for i in range(Num_separate):
+            tmp_x_k = lower_limit + (i-lower_limit_num)*dx
+            tmp_x_k_1 = lower_limit + (i+1-lower_limit_num)*dx
+            tmp_y_max_k = maximum(f0,x,Interval(tmp_x_k,tmp_x_k_1))
+            y_max_k.append(tmp_y_max_k)
+            Riemann_sum += tmp_y_max_k * dx
+
+    elif Num_Type_riemann == 4 :
+        Riemann_sum_n = ""
+        str_Riemann_sum_n = ""
+        y_min_k = []
+        Riemann_sum = 0
+        for i in range(Num_separate):
+            tmp_x_k = lower_limit + (i-lower_limit_num)*dx
+            tmp_x_k_1 = lower_limit + (i+1-lower_limit_num)*dx
+            tmp_y_min_k = minimum(f0,x,Interval(tmp_x_k,tmp_x_k_1))
+            y_min_k.append(tmp_y_min_k)
+            Riemann_sum += tmp_y_min_k * dx
+
+    """
+        ###### Step3：$~n~$分割した時のリーマン和を求める．
+        分割数が$~n~$のとき，区間$~%s~$には$~n~$個の長方形がある．
+        それぞれの$~s_k~$を計算し，それらを全て足し合わせたものを
+        リーマン和といい，$~S_n~$と書く．リーマン和は代表値の選び方によりいくつかの種類があり．今は%sである．
+        $$
+            S_{n}
+            =
+            \sum_{i=1}^{n}
+                f\\big( c_{i} \\big) \\cdot \Delta x_{i}
+            =
+            \sum_{i=1}^{n}
+                \\left\{ %s \\right\}
+            %s
+        $$
+        今の設定に従い，分割数が$~%s~$のときの%s$~S_{%s}~$を求めると，その値は
+        $$
+            S_{%s} = %s = %s
+        $$
+        である．
+    """%(
+        str_closed_interval,
+        Type_riemann,
+        latex(str_sk),
+        str_Riemann_sum_n,
+        Num_separate,Type_riemann,Num_separate,
+        Num_separate,latex(Riemann_sum),float(Riemann_sum)
+        )
+    
+    st.write("")
+
+
+
+    
+####  リーマン和の例  ####
+contents_num += 1
+with Lec02_contents_tab[contents_num]:
+    st.markdown("### %s. 「%s」について"%(contents_num+1,Lec02_contents_list[contents_num]))
     #=========================
     st.write("")
     st.markdown("""#####  リーマン積分の値と%sの比較"""%(Type_riemann))
@@ -539,9 +393,9 @@ with Lec02_contents_tab[contents_num]:
     fxi_n = f0.subs(x,lower_limit+n*dx)
     Riemann_sum = sym.summation(fxi_n*dx,(n,1,Num_separate))
     dsi_str_list ={
-            "左リーマン和":"%s"%(latex(f0).replace("x","x_i")),\
-            "中点リーマン和":"%s"%(latex(f0).replace("x","\\left( \\frac{x_i + x_{i+1}}{2}\\right)")),\
             "右リーマン和":"%s"%(latex(f0).replace("x","x_{i+1}")),\
+            "中点リーマン和":"%s"%(latex(f0).replace("x","\\left( \\frac{x_i + x_{i+1}}{2}\\right)")),\
+            "左リーマン和":"%s"%(latex(f0).replace("x","x_i")),\
             "上リーマン和":"%s"%(latex(f0).replace("x","\\tilde{x}_{i}")),\
             "下リーマン和":"%s"%(latex(f0).replace("x","\\tilde{x}_{i}"))
             }
@@ -561,7 +415,7 @@ with Lec02_contents_tab[contents_num]:
         )
     st.write("")
 
-    st.markdown("#####  %sについての詳細解説"%(Type_riemann))
+    st.markdown("#####  %sの途中計算の詳細"%(Type_riemann))
     with st.expander("途中計算の詳細表示"):
         Lec2_select_col03=st.columns(2)
         tmp_select = []
@@ -614,17 +468,17 @@ with Lec02_contents_tab[contents_num]:
     $$
     """%(tmp_x_i_str)
     Lec2_str_list01 = {
-                        "左リーマン和":"区間の下限$~x_{i}~$を$~\\tilde{x}_{i}~$とするとき，",\
-                        "中点リーマン和":"区間の中点$~\\displaystyle \\frac{x_i+x_{i+1}}{2}~$を$~\\tilde{x}_{i}~$とするとき，",\
                         "右リーマン和":"区間の上限$~x_{i}~$を$~\\tilde{x}_{i}~$とするとき，",\
+                        "中点リーマン和":"区間の中点$~\\displaystyle \\frac{x_i+x_{i+1}}{2}~$を$~\\tilde{x}_{i}~$とするとき，",\
+                        "左リーマン和":"区間の下限$~x_{i}~$を$~\\tilde{x}_{i}~$とするとき，",\
                         "上リーマン和":"$~y~$が最大となる$~x~$を$~\\tilde{x}_{i}~$とするとき，",\
                         "下リーマン和":"$~y~$が最小となる$~x~$を$~\\tilde{x}_{i}~$とするとき，",\
                     }    
     #====== make height and ds_i  =========
     x_i_maxs = [];x_i_mins = []
     if Num_Type_riemann == 0 :
-        dsi_str =  "f \\left( x_{i} \\right)\\cdot\\Delta x"
-        fxi_str = latex(f0).replace("x","x_{i}")
+        dsi_str =  "f \\left( x_{i+1} \\right)\\cdot \\Delta x"
+        fxi_str = latex(f0).replace("x","x_{i+1}")
         dsi_str_subs = "\\left( %s \\right)\\cdot %s"%( fxi_str , latex(dx) )
         fxi_str2 = latex(f0).replace("x","XXX")
         dsi_str_subs2 = "\\left\{ %s \\right\}\\cdot %s"%( fxi_str2 , latex(dx) ) 
@@ -635,8 +489,8 @@ with Lec02_contents_tab[contents_num]:
         fxi_str2 = latex(f0).replace("x","XXX")
         dsi_str_subs2 = "\\left\{ %s \\right\}\\cdot %s"%( fxi_str2 , latex(dx) ) 
     elif Num_Type_riemann == 2 :
-        dsi_str =  "f \\left( x_{i+1} \\right)\\cdot \\Delta x"
-        fxi_str = latex(f0).replace("x","x_{i+1}")
+        dsi_str =  "f \\left( x_{i} \\right)\\cdot\\Delta x"
+        fxi_str = latex(f0).replace("x","x_{i}")
         dsi_str_subs = "\\left( %s \\right)\\cdot %s"%( fxi_str , latex(dx) )
         fxi_str2 = latex(f0).replace("x","XXX")
         dsi_str_subs2 = "\\left\{ %s \\right\}\\cdot %s"%( fxi_str2 , latex(dx) ) 
@@ -867,7 +721,3 @@ with Lec02_contents_tab[contents_num]:
     #     latex(Riemann_sum),
     #     float(Riemann_sum)
     #     )
-    
-    
-
-st.sidebar.markdown("""このWebアプリについての意見・感想はこちらから[クリック](https://forms.gle/NHbiNWkjHgd28K5C9)""")
