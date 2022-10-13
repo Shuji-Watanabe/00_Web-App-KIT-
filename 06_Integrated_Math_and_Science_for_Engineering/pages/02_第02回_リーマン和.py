@@ -46,12 +46,12 @@ with Lec02_contents_tab[contents_num]:
         #ans_q_tmp1 = ans_q.as_ordered_terms()
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ %s=%s$"
+                "$\\quad $(%s) $\\displaystyle \\ %s = %s $"
                 %(Q_num_q0,q_form,ans_q_form1)
                 )
         else:
             st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ %s$"
+                "$\\quad $(%s) $\\displaystyle \\ %s $"
                 %(Q_num_q0,q_form)
                 )
     st.write("")
@@ -74,17 +74,17 @@ with Lec02_contents_tab[contents_num]:
         q_form = latex( sympify(Q_list_2_1_form[i]) ) 
         ans_q1_tmp_00=[Q_list_2_1_form[i],"k","1","n"]
         ans_q,tmps = myfunc.cal_sum(*ans_q1_tmp_00,output_form_key = "latex")
-        ans_q_form1 = latex( ans_q )
+        ans_q_form1 = ans_q
 
         ## display problem and answer
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "$\\quad $ (%s) $\\displaystyle \\ \\sum_{%s = %s}^{%s} %s = %s $"
+                "$\\quad $ (%s) $ \\displaystyle \\ \\sum_{ %s = %s }^{ %s } %s = %s $"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3], q_form, ans_q_form1)
                 )
         else:
             st.markdown(
-                "$\\quad $ (%s) $\\displaystyle \\ \\sum_{%s = %s}^{%s} %s $"
+                "$\\quad $ (%s) $ \\displaystyle \\ \\sum_{ %s = %s }^{ %s } %s $"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3], q_form)
                 )
 
@@ -218,7 +218,7 @@ with Lec02_contents_tab[contents_num]:
         ## display problem and answer
         if st.sidebar.checkbox(cb_name,key=key_name):
             st.markdown(
-                "$\\quad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s=%s$"
+                "$\\quad $(%s) $\\displaystyle \\ \\lim_{n \\to \\infty } \\sum_{%s=%s}^{%s} %s = %s $"
                 %(Q_num_q0,ans_q1_tmp_00[1],ans_q1_tmp_00[2],ans_q1_tmp_00[3],q_form,ans_q_form1)
                 )
         else:

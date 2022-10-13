@@ -10,14 +10,14 @@ def cal_sum (formula,index_val,start_index,stop_index,output_form_key = "latex")
     input_form = sympify(formula)
     output_form = sym.summation(input_form,(index_val,start_index,stop_index))
     if output_form_key == "latex":
-        output_form = sym.latex(factor(output_form))
+        output_form = latex(factor(output_form))
     elif output_form_key == "sympy":
         output_form = factor(output_form)
     
-    tmp_1 = latex(sympify(formula))
-    tmp_2 = latex(sympify(index_val))
-    tmp_3 = latex(sympify(start_index))
-    tmp_4 = latex(sympify(stop_index))
+    tmp_1 = latex( sympify(formula) )
+    tmp_2 = latex( sympify(index_val) )
+    tmp_3 = latex( sympify(start_index) )
+    tmp_4 = latex( sympify(stop_index) )
     output_tmps = [tmp_1,tmp_2,tmp_3,tmp_4]
     return output_form , output_tmps
 
@@ -74,7 +74,7 @@ def str_brack(val, out_bracket_index = 0):
         else :
             bracket_index = 0
     else :
-        bracked_val = "\\left(  %s  \\right)"%(latex(val))
+        bracked_val = " \\left(  %s  \\right) "%(latex(val))
         if out_bracket_index == 1:
             bracket_index = -1
         else :
@@ -87,8 +87,8 @@ def str_c_i(Num_Type_riemann):
         text = ""
     elif Num_Type_riemann == 1:
         c_i = "\\frac{x_{k}+x_{k+1}}{2}"
-        text = "ここで$~\\displaystyle \\frac{x_{k}+x_{k+1}}{2}~$は，\
-                小区間$~\\big[x_{k},x_{k+1}\\big]~$の中央の$~x~$座標である．"
+        text = "ここで$~\\displaystyle \\frac{x_{k} + x_{k+1}}{2}~$は，\
+                小区間$~\\big[x_{k},x_{k+1} \\big]~$の中央の$~x~$座標である．"
     elif Num_Type_riemann == 2:
         c_i = "x_{k}"
         text = ""

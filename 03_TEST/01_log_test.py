@@ -47,3 +47,9 @@ if tmp_num >= x and len(str(username)) != 0:
     if st.button("Submit"):
         df.to_csv("./employee.csv", sep=",")
 
+
+# st.download_button(
+#     label="Download data as CSV",
+#     file_name='./employee.csv',
+#     mime='text/csv',
+# )
