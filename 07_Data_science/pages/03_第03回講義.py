@@ -132,8 +132,12 @@ with Lec03_contents_tab[contents_num]:
     section_title02="##### %s-%s　散布図行列（ペアプロット図）"%(contents_num+1,section_num)
     st.markdown(section_title02)
     # fig=plt.figure()
-    plt = sns.pairplot(inputdata_lec3_tub2,corner=True,kind='reg')
-    st.pyplot(plt)
+    fig = sns.pairplot(data = inputdata_lec3_tub2,corner=True,kind='reg')
+    try:
+        st.pyplot(fig)
+    except Exception as e:
+        st.exception(e)
+    # st.pyplot(plt)
     st.write(" ")
 
     #-----  section 3 : Dispay a Correlation coefficient matrix --------------------------
