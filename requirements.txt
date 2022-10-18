@@ -6,6 +6,6 @@ matplotlib
 japanize_matplotlib
 scipy
 plotly
-random 
+random
 pingouin
 seaborn
