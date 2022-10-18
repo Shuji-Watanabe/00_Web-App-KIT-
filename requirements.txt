@@ -7,7 +7,6 @@ Image
 japanize_matplotlib
 scipy
 plotly
-functions
 random
 pingouin
 seaborn
