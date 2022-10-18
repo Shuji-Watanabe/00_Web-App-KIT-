@@ -131,7 +131,8 @@ with Lec03_contents_tab[contents_num]:
     section_num += 1 
     section_title02="##### %s-%s　散布図行列（ペアプロット図）"%(contents_num+1,section_num)
     st.markdown(section_title02)
-    fig=sns.pairplot(inputdata_lec3_tub2,corner=True)
+    
+    fig=sns.pairplot(inputdata_lec3_tub2,corner=True,kind='reg')
     st.pyplot(fig)
     st.write(" ")
 
