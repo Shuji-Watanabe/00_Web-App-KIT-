@@ -9,3 +9,5 @@ scipy
 plotly
 functions
 random
+pingouin
+seaborn
