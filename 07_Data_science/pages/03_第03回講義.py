@@ -9,7 +9,7 @@ Lec03_contents_list=["偏相関係数について","偏相関係数を用いた�
 Lec03_contents_tab =[]
 Lec03_contents_tab = st.tabs(Lec03_contents_list)
 contents_num =0
-
+st.sidebar.markdown("""このWebアプリについての意見・感想はこちらから[クリック](https://forms.gle/MKA4kBiXPRiMzrju9""")
 #### 1st contents #########
 #contents_num +=1
 with Lec03_contents_tab[contents_num]:

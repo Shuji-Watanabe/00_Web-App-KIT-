@@ -19,7 +19,7 @@ Lec03_contents_tab =[]
 Lec03_contents_tab = st.tabs(Lec03_contents_list)
 contents_num =0
 lec_num =3
-
+st.sidebar.markdown("""このWebアプリについての意見・感想はこちらから[クリック](https://forms.gle/NHbiNWkjHgd28K5C9)""")
 ####  Tab１  ####
 # contents_num += 1
 section_num = 1
