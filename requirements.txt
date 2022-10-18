@@ -3,7 +3,6 @@ sympy
 pandas
 numpy
 matplotlib 
-Image
 japanize_matplotlib
 scipy
 plotly
