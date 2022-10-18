@@ -94,7 +94,7 @@ with Lec03_contents_tab[contents_num]:
             data_link = "./Partial_Correlation_Coefficient_sample01.csv"
             inputdata_lec3_tub2 = pd.read_csv(data_link)
         except:
-            data_link = "100_Sample_data-science/Partial_Correlation_Coefficient_sample01.csv"
+            data_link = "07_Data_science/Partial_Correlation_Coefficient_sample01.csv"
             inputdata_lec3_tub2 = pd.read_csv(data_link)
         section_title01="##### %s-%s　入力データの確認（サンプルデータを利用）"%(contents_num+1,section_num)
 
