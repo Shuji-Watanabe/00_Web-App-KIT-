@@ -70,6 +70,9 @@ with Lec03_contents_tab[contents_num]:
             $~X~$と$~Y~$の間の分析において，有益な情報を与えないことに注意してほしい．
             """
         """
+
+        """
+        """
         #### 偏相関係数の求め方（3変量以上の場合）
         """
         st.error("作成中")
@@ -109,7 +112,6 @@ with Lec03_contents_tab[contents_num]:
     st.markdown(section_title01)
     st.write("")
 
-
     #== Display a dataframe ===
     st.dataframe(inputdata_lec3_tub2)
     if select_data_list[select_data_00] == 0:
@@ -126,7 +128,16 @@ with Lec03_contents_tab[contents_num]:
                     （2022年10月17日データ取得）
                 """, \
                 )
-
+    #== Select data from dataframe ===
+    Col_name = list(inputdata_lec3_tub2.columns.values)
+    Selected_data = None
+    Selected_data = st.multiselect(
+                            "分析したいデータを選択してください．",
+                             Col_name,
+                            key="Selected_data"
+                            )
+    if len(Selected_data)  >2 :
+        inputdata_lec3_tub2 = inputdata_lec3_tub2.loc[:,Selected_data]
     #-----  section 2 : Dispay a pairplot -----------------------------------------------
     section_num += 1 
     section_title02="##### %s-%s　散布図行列（ペアプロット図）"%(contents_num+1,section_num)
@@ -202,8 +213,8 @@ with Lec03_contents_tab[contents_num]:
 
     #===  日照時間とアイスへの支出から平均気温の影響を除いたデータの偏相関係数 ===
     tmp_df = Correlation_Coefficient_Matrix
-    partial_corr_34 = tmp_df.iat[3,2] - tmp_df.iat[2, 1]*tmp_df.iat[3, 1]
-    partial_corr_34 =partial_corr_34/math.sqrt((1-tmp_df.iat[2, 1]**2)*(1-tmp_df.iat[3, 1]**2))
+    partial_corr_34 = tmp_df.at["アイスへの支出","日照時間(時間)"] - tmp_df.at["日照時間(時間)",  "平均気温(℃)"]*tmp_df.at["アイスへの支出",  "平均気温(℃)"]
+    partial_corr_34 =partial_corr_34/math.sqrt((1-tmp_df.at["日照時間(時間)",  "平均気温(℃)"]**2)*(1-tmp_df.at["アイスへの支出",  "平均気温(℃)"]**2))
     partial_corr_34_str="""
         $$
         r_{34:2} 
@@ -220,8 +231,8 @@ with Lec03_contents_tab[contents_num]:
         %.4f
         $$
     """%(
-        tmp_df.iat[3,2], tmp_df.iat[2, 1] , tmp_df.iat[3, 1],
-        tmp_df.iat[2, 1] , tmp_df.iat[3, 1],
+        tmp_df.at["アイスへの支出","日照時間(時間)"], tmp_df.at["日照時間(時間)", "平均気温(℃)"] , tmp_df.at["アイスへの支出", "平均気温(℃)"],
+        tmp_df.at["日照時間(時間)","平均気温(℃)"] , tmp_df.at["アイスへの支出", "平均気温(℃)"],
         partial_corr_34
         )
     if select_data_list[select_data_00] == 0:
