@@ -105,10 +105,10 @@ with Lec03_contents_tab[contents_num]:
         uploaded_file = st.sidebar.file_uploader("CSVファイルを選択", type={"csv"})
         if uploaded_file:
             try :
-                Data_00= pd.read_csv(uploaded_file)
+                inputdata_lec3_tub2= pd.read_csv(uploaded_file)
             except:
-                Data_00= pd.read_csv(uploaded_file,encoding="SHIFT-JIS")          
-            section_title01="##### %s-%s　入力データの確認（"+str(uploaded_file.name)+"を利用）"%(contents_num+1,section_num)
+                inputdata_lec3_tub2= pd.read_csv(uploaded_file,encoding="SHIFT-JIS")          
+            section_title01="##### %s-%s　入力データの確認（アップロードされたファイルを利用）"%(contents_num+1,section_num)
     st.markdown(section_title01)
     st.write("")
 
@@ -210,31 +210,31 @@ with Lec03_contents_tab[contents_num]:
     partial_corr_matrix = pg.pcorr(inputdata_lec3_tub2)
     st.dataframe(partial_corr_matrix)
 
-
-    #===  日照時間とアイスへの支出から平均気温の影響を除いたデータの偏相関係数 ===
-    tmp_df = Correlation_Coefficient_Matrix
-    partial_corr_34 = tmp_df.at["アイスへの支出","日照時間(時間)"] - tmp_df.at["日照時間(時間)",  "平均気温(℃)"]*tmp_df.at["アイスへの支出",  "平均気温(℃)"]
-    partial_corr_34 =partial_corr_34/math.sqrt((1-tmp_df.at["日照時間(時間)",  "平均気温(℃)"]**2)*(1-tmp_df.at["アイスへの支出",  "平均気温(℃)"]**2))
-    partial_corr_34_str="""
-        $$
-        r_{34:2} 
-        = 
-            \\frac
-            { %.4f - \\big(%.4f\\big) \cdot \\big(%.4f\\big) }
-            { \\sqrt{ 
-                    \\left\{ 1- \\big(%.4f\\big)^2 \\right\}
-                    \cdot
-                    \\left\{ 1- \\big(%.4f\\big)^2 \\right\}
-                    }
-            }
-        =
-        %.4f
-        $$
-    """%(
-        tmp_df.at["アイスへの支出","日照時間(時間)"], tmp_df.at["日照時間(時間)", "平均気温(℃)"] , tmp_df.at["アイスへの支出", "平均気温(℃)"],
-        tmp_df.at["日照時間(時間)","平均気温(℃)"] , tmp_df.at["アイスへの支出", "平均気温(℃)"],
-        partial_corr_34
-        )
+    if select_data_list[select_data_00] == 0:
+        #===  日照時間とアイスへの支出から平均気温の影響を除いたデータの偏相関係数 ===
+        tmp_df = Correlation_Coefficient_Matrix
+        partial_corr_34 = tmp_df.at["アイスへの支出","日照時間(時間)"] - tmp_df.at["日照時間(時間)",  "平均気温(℃)"]*tmp_df.at["アイスへの支出",  "平均気温(℃)"]
+        partial_corr_34 =partial_corr_34/math.sqrt((1-tmp_df.at["日照時間(時間)",  "平均気温(℃)"]**2)*(1-tmp_df.at["アイスへの支出",  "平均気温(℃)"]**2))
+        partial_corr_34_str="""
+            $$
+            r_{34:2} 
+            = 
+                \\frac
+                { %.4f - \\big(%.4f\\big) \cdot \\big(%.4f\\big) }
+                { \\sqrt{ 
+                        \\left\{ 1- \\big(%.4f\\big)^2 \\right\}
+                        \cdot
+                        \\left\{ 1- \\big(%.4f\\big)^2 \\right\}
+                        }
+                }
+            =
+            %.4f
+            $$
+        """%(
+            tmp_df.at["アイスへの支出","日照時間(時間)"], tmp_df.at["日照時間(時間)", "平均気温(℃)"] , tmp_df.at["アイスへの支出", "平均気温(℃)"],
+            tmp_df.at["日照時間(時間)","平均気温(℃)"] , tmp_df.at["アイスへの支出", "平均気温(℃)"],
+            partial_corr_34
+            )
     if select_data_list[select_data_00] == 0:
             with st.expander("サンプルデータの偏相関係数行列から読み取るデータの特徴と分析の例"):
                 """
