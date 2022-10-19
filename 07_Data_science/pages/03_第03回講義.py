@@ -76,7 +76,7 @@ with Lec03_contents_tab[contents_num]:
         #### 偏相関係数の求め方（3変量以上の場合）
         変量$~i,\\ j~$以外の影響を排除した偏相関係数$~r_{ij:\\rm rest}~$は
         $$
-            r_{ij:\\rm rest} = -\\frac{ c_{ij}}{\sqrt{c_{ii}c_{jj}}}
+            r_{ij:\\rm rest} = -\\frac{ c_{ij}}{\sqrt{c_{ii}}\sqrt{c_{jj}}}
         $$
         によって得られる．ここで$~c~$は相関係数行列の逆行列である．
         """
