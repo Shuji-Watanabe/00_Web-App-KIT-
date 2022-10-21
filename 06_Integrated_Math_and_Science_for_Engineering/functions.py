@@ -83,14 +83,14 @@ def str_brack(val, out_bracket_index = 0):
 
 def str_c_i(Num_Type_riemann):
     if Num_Type_riemann == 0:
-        c_i = "x_{k+1}"
+        c_i = "x_{k}"
         text = ""
     elif Num_Type_riemann == 1:
         c_i = "\\frac{x_{k}+x_{k+1}}{2}"
         text = "ここで$~\\displaystyle \\frac{x_{k} + x_{k+1}}{2}~$は，\
                 小区間$~\\big[x_{k},x_{k+1} \\big]~$の中央の$~x~$座標である．"
     elif Num_Type_riemann == 2:
-        c_i = "x_{k}"
+        c_i = "x_{k-1}"
         text = ""
     elif Num_Type_riemann == 3:
         c_i = "x_{k:\\rm max}"
