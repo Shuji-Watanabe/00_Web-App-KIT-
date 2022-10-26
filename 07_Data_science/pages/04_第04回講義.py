@@ -18,7 +18,50 @@ with Lec04_contents_tab[contents_num]:
     #### 単回帰式の導出####
     with st.container():
         section_num += 1
-        st.markdown(f"#####  {contents_num+1}-{section_num} 準備")
+        st.markdown(f"##### {contents_num+1}-{section_num} 単回帰式")
+        """
+            2つの変量$~X,\\ Y~$について，
+            変量$~Y~$を目的変数，変量$~X~$をその説明変数とする（線形）単回帰式は
+            $$
+                y = a \\cdot x + b 
+                  = \\frac{C_{xy}}{\\sigma_x^2} \\cdot x 
+                    + \\Big( \overline{y} - \\frac{C_{xy}}{\\sigma_x^2}\\cdot \\overline{x} \\Big)
+                  = \\frac{C_{xy}}{\\sigma_x^2}
+                        \\cdot \\big( x -  \\overline{x} )
+                    + \overline{y} 
+
+            $$
+            で与えられる．ここで
+            $$
+                \\begin{align*}
+                    ~X~\\text{の平均：}
+                        \\ \\overline{x} &= \\frac{1}{N} \\sum_{k=1}^{N} x_k
+                        \\\\
+                    ~X~\\text{の分散：}
+                        \\ \\sigma_x^2 &= \\frac{1}{N} 
+                                                \\sum_{k=1}^{N} 
+                                                \\big( x_k - \overline{x} \\big)^2
+                                        = \overline{x^2} - \overline{x}^2
+                        \\\\
+                    ~Y~\\text{の平均：}
+                        \\ \\overline{y} &= \\frac{1}{N} \\sum_{k=1}^{N} y_k
+                        \\\\
+                    ~X,\\ Y~\\text{の分散：}
+                        \\ C_{xy} &= \\frac{1}{N} 
+                                            \\sum_{k=1}^{N} 
+                                            \\big( x_k - \overline{x} \\big)
+                                            \\big( y_k - \overline{y} \\big)
+                                 =\overline{xy} - \overline{x} \cdot \overline{y} 
+                        \\\\
+                     
+                \\end{align*}
+            $$
+            である．
+        """
+
+        " "; " "; " "
+        section_num += 1
+        st.markdown(f"#####  {contents_num+1}-{section_num} 単回帰式の導出の準備")
         """
             2つの変量$~X,\\ Y~$について，平均値，分散をそれぞれ次のように書く．
             $$
@@ -68,7 +111,7 @@ with Lec04_contents_tab[contents_num]:
         """
         " "; " "; " "
         section_num += 1
-        st.markdown(f"#####  {contents_num+1}-{section_num} 線形単回帰式を求めるための方針")
+        st.markdown(f"#####  {contents_num+1}-{section_num} 単回帰式を導出するときの方針")
         """
             $~x_k~$を用いて
             $$
@@ -170,8 +213,80 @@ with Lec04_contents_tab[contents_num]:
             $$
         """
         """
-            ここで，
+            ここで，任意の$~a,\\ b~$に対して
+            $$
+            
+                \\begin{vmatrix}
+                ~
+                  \\displaystyle
+                  \\frac{\\partial^2 V}{\\partial a^2}
+                        & 
+                        \\displaystyle
+                        \\frac{\\partial^2 V}{\\partial b \\partial a}
+                        ~
+                \\\\
+                \\phantom{a}
+                \\\\
+                ~
+                \\displaystyle
+                  \\frac{\\partial^2 V}{\\partial a \\partial b}
+                        & 
+                        \\displaystyle
+                        \\frac{\\partial^2 V}{\\partial b^2}
+                        ~
+                \\end{vmatrix}
+                =
+                \\begin{vmatrix}
+                    2 \\overline{x^2} & 2 \\overline{x}
+                    \\\\
+                    2 \\overline{x} & 2
+                \\end{vmatrix}
+                =
+                4 \\overline{x^2}
+                -
+                4 \\overline{x}^2
+                \\ge 0
+            $$
+            であるから，
+            $$
+            \\begin{align*}
+                    \\frac{\\partial V }{\\partial a } 
+                    &= 0
+                        \\ 
+                        \\Rightarrow
+                        \\ 
+                        2 \\overline{x^2} a +2 \\overline{x} b  - 2\\overline{xy} 
+                        =0
+            \\\\
+            \\phantom{a}
+            \\\\
+                \\frac{\\partial V }{\\partial b } 
+                    &= 0
+                        \\ 
+                        \\Rightarrow
+                        \\ 
+                        2 \\overline{x} a + 2b- 2  \\overline{y} 
+                        =0   
+            \\end{align*}
+            $$
+            を満たす$~a,\\ b~$は$~V~$を最小にする．
+            よって求める$~a,\\ b~$は
+            $$
+                a =
+                    \\frac
+                        { \\overline{xy} - \\overline{x} \\cdot \\overline{y} }
+                        { \\overline{x^2} - \\overline{x}^2}
+                    =
+                    \\frac{C_{xy}}{\\sigma_x^2}
+                \\quad
+                ,\\ 
+                \\quad 
+                b = \\overline{y} - a \\overline{x}
+                    = \\overline{y} - \\frac{C_{xy}}{\\sigma_x^2} \\cdot \\overline{x}
+            $$
+            である．
         """
+
         with st.expander("偏微分を利用しない単回帰式の導出"):
             """
                 $$
@@ -474,6 +589,9 @@ with Lec04_contents_tab[contents_num]:
                 ,\ 
                 \\quad
                 b = \overline{y} - a\overline{x}
+                  = \overline{y} - \\frac{C_{xy}}{\\sigma^2_{x}} \cdot \overline{x} 
             $$
             となる．
             """
+
+        " "; " "; " "
