@@ -8,3 +8,7 @@ scipy
 plotly
 pingouin
 seaborn
+MeCab
+ginza
+spacy
+unidic_lite
