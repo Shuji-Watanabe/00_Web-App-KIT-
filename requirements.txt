@@ -8,4 +8,4 @@ scipy
 plotly
 pingouin
 seaborn
-MeCab
+mecab-python3
