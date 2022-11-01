@@ -12,3 +12,4 @@ mecab-python3
 ginza
 spacy
 unidic_lite
+ja_ginza_electra
