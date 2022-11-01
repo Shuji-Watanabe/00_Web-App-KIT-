@@ -1,6 +1,6 @@
-import ginza
-import spacy
-import unidic_lite
+# import ginza
+# import spacy
+# import unidic_lite
 # import MeCab
 import pandas as pd 
 import streamlit as st
