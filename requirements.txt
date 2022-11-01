@@ -9,3 +9,6 @@ plotly
 pingouin
 seaborn
 mecab-python3
+ginza
+spacy
+unidic_lite
