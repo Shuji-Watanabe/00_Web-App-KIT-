@@ -120,7 +120,6 @@ elif list_01[select_num] == 1:
         st.error("文章を入力してください．")
         st.stop()
 
-
 " " ; " " ; " " ; 
 st.markdown("""#####  要約結果（pysummarization）""")
 from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
