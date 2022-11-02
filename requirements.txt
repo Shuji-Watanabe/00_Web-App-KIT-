@@ -8,7 +8,7 @@ scipy
 plotly
 pingouin
 seaborn
-cabocha-python
+cabocha-python==0.69.3
 mecab-python3
 ginza
 spacy
