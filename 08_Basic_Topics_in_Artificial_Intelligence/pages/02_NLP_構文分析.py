@@ -1,4 +1,3 @@
-import CaboCha
 import streamlit as st
 
 
