@@ -8,6 +8,7 @@ scipy
 plotly
 pingouin
 seaborn
+cabocha-python
 mecab-python3
 ginza
 spacy
