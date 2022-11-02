@@ -10,7 +10,7 @@ rc_path = unidic_lite.__path__[0].replace('\\','/') + '/dicdir/mecabrc'
 mecaboption = "-r '" + rc_path + "' -d '" + dic_path + "'"
 
 
-st.markdown("""####  形態素解析と構文分析""")
+st.markdown("""####  形態素解析""")
 sentence = st.text_input("文章を入力してください．","頭が赤い魚を食べる猫．")
 
 if len(sentence) == 0 :
