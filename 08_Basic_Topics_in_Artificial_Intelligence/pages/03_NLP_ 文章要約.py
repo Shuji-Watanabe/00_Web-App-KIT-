@@ -98,101 +98,101 @@ elif list_01[select_num] == 1:
         st.stop()
 
 
-" " ; " " ; " " ; 
-st.markdown("""#####  要約結果（pysummarization）""")
-from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
-from pysummarization.tokenizabledoc.mecab_tokenizer import MeCabTokenizer
-from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
-document = ''.join(sentence)
-auto_abstractor = AutoAbstractor()
-auto_abstractor.tokenizable_doc = MeCabTokenizer()
-auto_abstractor.delimiter_list = ["。","\n"]
-abstractable_doc = TopNRankAbstractor()
-result_dict = auto_abstractor.summarize(document, abstractable_doc)
+# " " ; " " ; " " ; 
+# st.markdown("""#####  要約結果（pysummarization）""")
+# from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
+# from pysummarization.tokenizabledoc.mecab_tokenizer import MeCabTokenizer
+# from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
+# document = ''.join(sentence)
+# auto_abstractor = AutoAbstractor()
+# auto_abstractor.tokenizable_doc = MeCabTokenizer()
+# auto_abstractor.delimiter_list = ["。","\n"]
+# abstractable_doc = TopNRankAbstractor()
+# result_dict = auto_abstractor.summarize(document, abstractable_doc)
 
-for line in result_dict["summarize_result"]:
-    st.write(line)
+# for line in result_dict["summarize_result"]:
+#     st.write(line)
 
-" " ; " " ; " " ; 
-st.markdown("""#####  要約結果（Spacy）""")
+# " " ; " " ; " " ; 
+# st.markdown("""#####  要約結果（Spacy）""")
 
-with st.expander("参考ページ"):
-    """
-    [クリック](https://arachnes-web.hatenablog.jp/entry/2022/03/21/154147)
-    """
+# with st.expander("参考ページ"):
+#     """
+#     [クリック](https://arachnes-web.hatenablog.jp/entry/2022/03/21/154147)
+#     """
 
-import spacy
-from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer
-from sumy.summarizers.lex_rank import LexRankSummarizer
-from sumy.summarizers.lsa import LsaSummarizer
-from sumy.summarizers.reduction import ReductionSummarizer
-from sumy.summarizers.luhn import LuhnSummarizer
-from sumy.summarizers.sum_basic import SumBasicSummarizer
-from sumy.summarizers.kl import KLSummarizer
+# import spacy
+# from sumy.parsers.plaintext import PlaintextParser
+# from sumy.nlp.tokenizers import Tokenizer
+# from sumy.summarizers.lex_rank import LexRankSummarizer
+# from sumy.summarizers.lsa import LsaSummarizer
+# from sumy.summarizers.reduction import ReductionSummarizer
+# from sumy.summarizers.luhn import LuhnSummarizer
+# from sumy.summarizers.sum_basic import SumBasicSummarizer
+# from sumy.summarizers.kl import KLSummarizer
 
-# 変数定義
-nlp = spacy.load('ja_ginza_electra')
-parser = None
-input_data = None
+# # 変数定義
+# nlp = spacy.load('ja_ginza_electra')
+# parser = None
+# input_data = None
 
-# 要約の準備をする関数
-def exe_summary(input_data):
-    document = ''.join(input_data).replace('　', '').replace(' ', '').replace('\n', '')
+# # 要約の準備をする関数
+# def exe_summary(input_data):
+#     document = ''.join(input_data).replace('　', '').replace(' ', '').replace('\n', '')
 
-    corpus = []
-    originals = []
-    doc = nlp(document)
+#     corpus = []
+#     originals = []
+#     doc = nlp(document)
 
-    # spaCyは、「sents」で文のジェネレータを戻す
-    for s in doc.sents:
-        originals.append(s)
-        tokens = []
-        # レンマ化したトークンを追加
-        for t in s:
-            tokens.append(t.lemma_)
-        corpus.append(' '.join(tokens))
+#     # spaCyは、「sents」で文のジェネレータを戻す
+#     for s in doc.sents:
+#         originals.append(s)
+#         tokens = []
+#         # レンマ化したトークンを追加
+#         for t in s:
+#             tokens.append(t.lemma_)
+#         corpus.append(' '.join(tokens))
 
-    parser = PlaintextParser.from_string(''.join(corpus), Tokenizer('japanese'))
+#     parser = PlaintextParser.from_string(''.join(corpus), Tokenizer('japanese'))
     
-    return parser, originals, corpus
+#     return parser, originals, corpus
 
-# 要約用のアルゴリズムを実行する
-def summarize(summarizer, parser, originals, corpus):
-    result = summarizer(document=parser.document, sentences_count=output_sentences_num)
-    for lines in result:
-        st.write(lines)
-    # for sentence in result:
-    #     st.write(originals[corpus.index(sentence.__str__())])
+# # 要約用のアルゴリズムを実行する
+# def summarize(summarizer, parser, originals, corpus):
+#     result = summarizer(document=parser.document, sentences_count=output_sentences_num)
+#     for lines in result:
+#         st.write(lines)
+#     # for sentence in result:
+#     #     st.write(originals[corpus.index(sentence.__str__())])
 
-# ファイル選択
-input_data = sentence
+# # ファイル選択
+# input_data = sentence
 
-col = st.columns(2)
-with col[0]:
-    # 要約結果の行数を表示
-    output_sentences_num = st.slider('何行に要約しますか', 3, 10, 5)
+# col = st.columns(2)
+# with col[0]:
+#     # 要約結果の行数を表示
+#     output_sentences_num = st.slider('何行に要約しますか', 3, 10, 5)
 
-with col[1]:
-# 要約実行関数を呼び出し
-    algori = st.selectbox(
-            '要約アルゴリズムを選択してください',
-            ("LexRank", "Lsa", "Reduction", "Luhn", "SumBasic")
-        )
-st.write('要約を開始しますか？')
-if st.button('開始'):  
-    with st.spinner('要約中'):
-        parser, originals, corpus = exe_summary(input_data)
+# with col[1]:
+# # 要約実行関数を呼び出し
+#     algori = st.selectbox(
+#             '要約アルゴリズムを選択してください',
+#             ("LexRank", "Lsa", "Reduction", "Luhn", "SumBasic")
+#         )
+# st.write('要約を開始しますか？')
+# if st.button('開始'):  
+#     with st.spinner('要約中'):
+#         parser, originals, corpus = exe_summary(input_data)
 
-    # 要約を実行し結果の表示
-    if parser is not None:
-        if algori == "LexRank":
-            summarize(LexRankSummarizer(), parser, originals, corpus)
-        elif algori == "Lsa":
-            summarize(LsaSummarizer(), parser, originals, corpus)
-        elif algori == "Reduction":
-            summarize(ReductionSummarizer(), parser, originals, corpus)
-        elif algori == "Luhn":
-            summarize(LuhnSummarizer(), parser, originals, corpus)
-        else:
-            summarize(SumBasicSummarizer(), parser, originals, corpus)
+#     # 要約を実行し結果の表示
+#     if parser is not None:
+#         if algori == "LexRank":
+#             summarize(LexRankSummarizer(), parser, originals, corpus)
+#         elif algori == "Lsa":
+#             summarize(LsaSummarizer(), parser, originals, corpus)
+#         elif algori == "Reduction":
+#             summarize(ReductionSummarizer(), parser, originals, corpus)
+#         elif algori == "Luhn":
+#             summarize(LuhnSummarizer(), parser, originals, corpus)
+#         else:
+#             summarize(SumBasicSummarizer(), parser, originals, corpus)
