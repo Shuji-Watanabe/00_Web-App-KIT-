@@ -182,10 +182,10 @@ def exe_summary(input_data):
 # 要約用のアルゴリズムを実行する
 def summarize(summarizer, parser, originals, corpus):
     result = summarizer(document=parser.document, sentences_count=output_sentences_num)
-    for lines in result:
-        st.write(lines)
-    # for sentence in result:
-    #     st.write(originals[corpus.index(sentence.__str__())])
+    # for lines in result:
+    #     st.write(lines)
+    for sentence in result:
+        st.write( str(  originals[corpus.index(sentence.__str__())]  ))
 
 # ファイル選択
 input_data = sentence
@@ -201,11 +201,12 @@ with col[1]:
             '要約アルゴリズムを選択してください',
             ("LexRank", "Lsa", "Reduction", "Luhn", "SumBasic")
         )
-st.write('要約を開始しますか？')
-if st.button('開始'):  
+if st.button('要約の開始'):  
     with st.spinner('要約中'):
         parser, originals, corpus = exe_summary(input_data)
 
+    " ";" "; " "
+    st.markdown("##### 要約の結果")
     # 要約を実行し結果の表示
     if parser is not None:
         if algori == "LexRank":
