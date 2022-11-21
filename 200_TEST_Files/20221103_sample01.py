@@ -187,8 +187,18 @@ with Contents_tab[Contents_num]:
         ###======  input data 
         import ast 
         Q_data_file_text = open('00_問題データ.txt', 'r', encoding='UTF-8')
-        ORG_f_list_dict = ast.literal_eval( Q_data_file_text.read() )
+        # st.write(Q_data_file_text.read())
+        # ORG_f_list_dict = ast.literal_eval( Q_data_file_text.read() )
+        ORG_f_list_dict = {
+                            "Q1-001-memo":"展開して積分するタイプの問題",
+                            "Q1-001":["(4*x**5 - x - 1)/x**2",
+                                    "(2*x-1)/( 3*sqrt(x) )",
+                                    "( x**3-4*x+3 )/x**2"
+                                    ,"( x-2 )*( x+1 )"]
+                             }
+        # ORG_f_list_dict = ast.literal_eval( Q_data_file_text )
         f_list  = ORG_f_list_dict[q_num]
+
 
         
         ###======  make ans  ======
@@ -364,3 +374,4 @@ with Contents_tab[Contents_num]:
             \\end{{align*}}
             $$
         """
+
