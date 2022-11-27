@@ -21,11 +21,24 @@ $$
 """
 
 st.markdown("###### ２．実数解の個数の視覚的理解")
-st.video("./sample_mov.mov")
+try :
+    st.video("./sample_mov.mov")
+except:
+    st.video("201_高大連携用サンプル/sample_mov.mov")
+
 col = st.columns(3)
 with col[0]:
-    st.image("./Sample_fig_01.tiff")
+    try:
+        st.image("./Sample_fig_01.tiff")
+    except:
+        st.image("201_高大連携用サンプル/Sample_fig_01.tiff")
 with col[1]:
-    st.image("./Sample_fig_02.tiff")
+    try:
+        st.image("./Sample_fig_02.tiff")
+    except:
+        st.image("201_高大連携用サンプル/Sample_fig_02.tiff")
 with col[2]:
-    st.image("./Sample_fig_03.tiff")
+    try:
+        st.image("./Sample_fig_03.tiff")
+    except:
+        st.image("201_高大連携用サンプル/Sample_fig_03.tiff")
