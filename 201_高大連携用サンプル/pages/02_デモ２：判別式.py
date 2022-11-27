@@ -20,7 +20,7 @@ D &< 0  \ \ \Longleftrightarrow \ \  \\text{\\small 実数解を持たない}
 $$
 """
 
-st.markdown("###### ２．判別式の視覚的理解")
+st.markdown("###### ２．実数解の個数の視覚的理解")
 st.video("./sample_mov.mov")
 col = st.columns(3)
 with col[0]:

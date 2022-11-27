@@ -61,8 +61,8 @@ with Lec01_contents_tab[contents_num]:
         with st.expander("引用元"):
             st.info(
                 """
-                    無し（自作データ）
-                    """,
+                    SUUMOより
+                """,
             )
         count = [1 for i in range(len(inputdata_lec1_tub2['築年数']))]
         yearsConstruction = []
