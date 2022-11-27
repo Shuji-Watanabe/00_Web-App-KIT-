@@ -53,7 +53,11 @@ with contents_tab[contents_num]:
                     以上のように考えることで，陽関数表示の気持ちを理解することができる．
                     """,unsafe_allow_html=True)
              with col_expander01[1]:
-                st.image("./Sample_fig_curve01.tiff")
+                try:
+                    st.image("./Sample_fig_curve01.tiff")
+                except:
+                    st.image("201_高大連携用サンプル/Sample_fig_curve01.tiff")
+
     """ """
     #### 曲線の陰関数表示 
     container_num += 1 
@@ -104,7 +108,10 @@ with contents_tab[contents_num]:
                         また，円やサイクロイドなど複雑な曲線は陰関数表示で表した方がすっきりと表すことができる．
                         """,unsafe_allow_html=True)
                 with col_expander01[1]:
-                    st.image("./Sample_fig_curve01.tiff")
+                    try:
+                        st.image("./Sample_fig_curve01.tiff")
+                    except:
+                        st.image("201_高大連携用サンプル/Sample_fig_curve01.tiff")
     """ """
     #### 曲線のパラメータ表示（媒介変数表示） 
     container_num += 1 
@@ -163,7 +170,10 @@ with contents_tab[contents_num]:
                         また，円やサイクロイドなど複雑な曲線は陰関数表示で表した方がすっきりと表すことができる．
                         """,unsafe_allow_html=True)
                 with col_expander01[1]:
-                    st.image("./Sample_fig_curve01.tiff")
+                    try:
+                        st.image("./Sample_fig_curve01.tiff")
+                    except:
+                        st.image("201_高大連携用サンプル/Sample_fig_curve01.tiff")
     """ """
     #### 原点を中心とする半径１の円の表現方法
     container_num += 1 
@@ -177,7 +187,10 @@ with contents_tab[contents_num]:
             """
             ###### 陽関数表示  
             """
-            st.image("./Sample_円の陽関数表示.tiff")
+            try:
+                st.image("./Sample_円の陽関数表示.tiff")
+            except:
+                st.image("201_高大連携用サンプル/Sample_円の陽関数表示.tiff")
             """
             $$
             \\footnotesize
@@ -194,7 +207,10 @@ with contents_tab[contents_num]:
             """
             ###### 陰関数表示  
             """
-            st.image("./Sample_円の陰関数表示.tiff")
+            try:
+                st.image("./Sample_円の陰関数表示.tiff")
+            except:
+                st.image("201_高大連携用サンプル/Sample_円の陰関数表示.tiff")       
             """
             $$
             \\footnotesize
@@ -205,7 +221,10 @@ with contents_tab[contents_num]:
             """
             ###### パラメータ表示  
             """
-            st.video("./Sample_円のパラメータ表示.mov")
+            try:
+                st.video("./Sample_円のパラメータ表示.mov")
+            except:
+                st.video("201_高大連携用サンプル/Sample_円のパラメータ表示.mov")
             """
             $$
             \\footnotesize
