@@ -17,5 +17,5 @@ sumy
 pysummarization
 altair
 torch
-diffusers
-japanese_stable_diffusion
+LMSDiscreteScheduler
+JapaneseStableDiffusionPipeline
