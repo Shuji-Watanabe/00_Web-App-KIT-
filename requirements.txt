@@ -18,4 +18,3 @@ pysummarization
 altair
 torch
 diffusers
-japanese_stable_diffusion
