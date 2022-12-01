@@ -5,9 +5,29 @@ import numpy as np
 from scipy.spatial.transform import Rotation as Rot
 
 
-#-----  input data  -----------------------------------------------
+st.sidebar.markdown(""" **加速度データの取得**""")
+st.sidebar.markdown(""" 
+**webアプリの起動**  
+[クリック](https://w3e.kanazawa-it.ac.jp/math/physics/category/experiment/mobile_device/orientation_acceleration/sensor_orientation_acceleration.html)  
+
+**作成者**  
+金沢工業大学 数理・データサイエンス・AI教育課程 准教授 西岡圭太
+"""
+)
+
+##### Main 
 section_num = 1 
 contents_num = 0
+
+st.markdown("""#### 加速度データによる位置情報の取得""")
+""" """ ; """ """
+#-----  input data  -----------------------------------------------
+select_demodata_dict = {
+                        "放物運動（仮想，3d)":"Sample_data_01.csv",
+                        "エレベーターでの運動（実測)":"Sample_data_01.csv",
+                        "エスカレーターでの運動（実測）":"Sample_data_02.csv"
+                        }
+
 #== input(make dataframe) ===
 select_data_list={"サンプルデータを利用":0,\
                     "CSVファイルをアップロードし利用":1
@@ -16,30 +36,38 @@ select_data_00 = st.sidebar.selectbox("📝　実例の計算に使用するデ�
                                     (list(select_data_list.keys()))
                                     )
 if select_data_list[select_data_00] == 0:
+    f"""##### {section_num}-{contents_num+1}　データの選択（サンプルデータを利用）"""
+    contents_num +=1
+    selected_demodata_key = st.selectbox("分析に使用するデータを選択してください．",select_demodata_dict.keys())
     try:
-        data_link = "./Sample_data_02.csv"
+        data_link = "./"+str(select_demodata_dict[selected_demodata_key])
         input_data_df = pd.read_csv(data_link)
     except:
-        data_link = "201_高大連携用サンプル/Sample_data_02.csv"
+        data_link = "201_高大連携用サンプル/"+str(select_demodata_dict[selected_demodata_key])
         input_data_df = pd.read_csv(data_link)
-    section_title01=f"##### {section_num}-{contents_num+1}　入力データの確認（サンプルデータを利用）"
+    section_title01=f"##### {section_num}-{contents_num+1}　入力データの確認"
     input_data_keys = list(input_data_df.keys())
+
+    
 elif select_data_list[select_data_00] == 1:
+    f"""##### {section_num}-{contents_num+1}　データの選択（アップロードされたファイルを利用）"""
+    contents_num +=1
     uploaded_file = st.sidebar.file_uploader("CSVファイルを選択", type={"csv"})
     if uploaded_file:
         try :
             input_data_df= pd.read_csv(uploaded_file)
         except:
             input_data_df= pd.read_csv(uploaded_file,encoding="SHIFT-JIS")          
-        section_title01=f"##### {section_num}-{contents_num+1}　入力データの確認（アップロードされたファイルを利用）"
+        section_title01=f"##### {section_num}-{contents_num+1}　入力データの確認"
         input_data_keys = list(input_data_df.keys())
     else :
         st.error("データを入力してください．")
         st.stop()
-    
+""" """ ; """ """
 st.markdown(section_title01)
 st.dataframe(input_data_df)
-"""  """
+""" """ ; """ """
+
 #== input(make dataframe) ===
 contents_num +=1
 f"""  ##### {section_num}-{contents_num+1}　データ解析"""
