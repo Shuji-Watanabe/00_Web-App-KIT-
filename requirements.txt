@@ -16,6 +16,3 @@ ja_ginza_electra
 sumy
 pysummarization
 altair
-torch
-diffusers
-japanese_stable_diffusion

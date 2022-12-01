@@ -4,7 +4,7 @@ import sympy as sym
 def textcolor (text,color):
     output_str = f'<span style="color: {color}; ">{text}</span>'
     return output_str
-contents_list=["曲線の表し方","曲線の長さの求め方","練習"]
+contents_list=["曲線の表し方","曲線の長さの求め方"]
 contents_tab = st.tabs(contents_list)
 contents_num =0 ; container_num = 0
 st.sidebar.markdown("""このWebアプリについての意見・感想はこちらから[クリック](https://forms.gle/MKA4kBiXPRiMzrju9) """)
@@ -59,6 +59,8 @@ with contents_tab[contents_num]:
                     st.image("201_高大連携用サンプル/Sample_fig_curve01.tiff")
 
     """ """
+    """ """
+    """ """
     #### 曲線の陰関数表示 
     container_num += 1 
     with st.container():
@@ -112,6 +114,8 @@ with contents_tab[contents_num]:
                         st.image("./Sample_fig_curve01.tiff")
                     except:
                         st.image("201_高大連携用サンプル/Sample_fig_curve01.tiff")
+    """ """
+    """ """
     """ """
     #### 曲線のパラメータ表示（媒介変数表示） 
     container_num += 1 
@@ -175,6 +179,7 @@ with contents_tab[contents_num]:
                     except:
                         st.image("201_高大連携用サンプル/Sample_fig_curve01.tiff")
     """ """
+    """ """
     #### 原点を中心とする半径１の円の表現方法
     container_num += 1 
     with st.container():
@@ -195,13 +200,13 @@ with contents_tab[contents_num]:
             $$
             \\footnotesize
             \\begin{align*}
-                \\text{上半分} &: y=\\sqrt{1-x^2}
+                &\\text{上半分} : y=\\sqrt{1-x^2}
                 \\\\
-                \\text{下半分} &: y=-\\sqrt{1-x^2}
+                &\\text{下半分} : y=-\\sqrt{1-x^2}
+                \\\\
+                &( -1 \le x \le 1 )
             \\end{align*}
             $$
-            ただし，$ -1 \le x \le 1$．
-
             """
         with col_example[1]:
             """
@@ -243,13 +248,6 @@ contents_num +=1
 container_num = 0
 with contents_tab[contents_num]:
     st.markdown(f"### {contents_num+1}.　{contents_list[contents_num]}")
-    #曲線の長さの求め方のアイディア
-    # with st.container():
-    #     f"""
-    #     ##### {contents_num+1}-{container_num}　曲線の長さの求め方のアイディア
-
-    #     座標平面中に
-    #     """
     #曲線の長さの求め方（その１）：陽関数表示
     container_num += 1
     with st.container():
@@ -286,6 +284,7 @@ with contents_tab[contents_num]:
             区間$~\\big[1,\ 4\\big]~$における曲線$~\\dfrac{1}{8}x^4 + \\dfrac{1}{4}x^{-2}~$の長さを求めよ．
             """
             """ """
+
         with col_ans_01[1] :
             ##### 答え
             key_str = f"{contents_num}_{container_num}_01"
