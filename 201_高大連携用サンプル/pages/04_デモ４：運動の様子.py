@@ -23,7 +23,7 @@ st.markdown("""#### 加速度データによる位置情報の取得""")
 """ """ ; """ """
 #-----  input data  -----------------------------------------------
 select_demodata_dict = {
-                        "放物運動（仮想，3d)":"Sample_data_01.csv",
+                        "放物運動（仮想，3d)":"Sample_data_00.csv",
                         "エレベーターでの運動（実測)":"Sample_data_01.csv",
                         "エスカレーターでの運動（実測）":"Sample_data_02.csv"
                         }
@@ -71,9 +71,6 @@ st.dataframe(input_data_df)
 #== input(make dataframe) ===
 contents_num +=1
 f"""  ##### {section_num}-{contents_num+1}　データ解析"""
-"""
-ここでは，シンプソン公式を利用して数値積分を行い，加速度データから速度と位置を求めます．
-"""
 """ """ ; """ """
 
 """**データの選択**"""
@@ -89,7 +86,7 @@ with col_input_data[1] :
 """ """ ; """ """
 
 """**初期条件の選択**"""
-coordinate_label_dict = {0:"x",1:"y",2:"z"}
+coordinate_label_dict = {0:"第1",1:"第2",2:"第3"}
 n = len(selected_keys_vals)
 col_init_v = st.columns(n) ; col_init_r = st.columns(n)
 init_v_val = [] ; init_r_val = []
@@ -116,7 +113,8 @@ elif n == 3 :
     init_r_str += str(init_r_val[0]) + "," + str(init_r_val[1]) + "," + str(init_v_val[2])
 init_v_str += "\\ )" ; init_r_str += "\\ )"
 
-"""**速度の計算**"""
+
+"""**速度と位置の計算**"""
 f"""
 次の示されるのは
 $$
@@ -126,8 +124,7 @@ $$
 \\qquad
     \\vec{{r}}(t) = \\vec{{r}}_0 + \\int_0^t \\vec{{v}}(t) dt 
 $$
-の結果です．積分はシンプソン公式を利用した数値積分を行っています．  
-初期条件は次のとおりです．
+の結果です．初期条件は次のとおりです．
 $$
     \\vec{{v}}_0 = {init_v_str}
     \\qquad 
@@ -135,82 +132,179 @@ $$
     \\qquad
     \\vec{{r}}_0 = {init_r_str}
 $$
+
 """
 
 
 ##== 数値積分の実行(速度の計算) ==
-from scipy import integrate 
+
 time_val = input_data_df[selected_keys_val0]
+keys = [selected_keys_val0]+selected_keys_vals
+a_val_df = input_data_df[keys]
+plot_data_a_df = a_val_df
+
+numerical_intagration_method_dict = {"区分求積法":0,"台形公式":1,"シンプソン公式":2}
+selected_method_str = st.radio("数値積分の方法を選択してください．",numerical_intagration_method_dict.keys(), horizontal=True)
+
 #---速度の計算--
-v_val = []
-for i in range(n) :
-    integrated_val = []
-    val1_tmp = input_data_df[selected_keys_vals[i]]
-    for j in range(len(time_val)):
-        t = time_val[0:j+1]
-        a = val1_tmp[0:j+1]
-        integrate_num = float(init_v_val[i]) + sci.integrate.simps(a,t)
-        integrated_val.append(integrate_num)
-    v_val.append(integrated_val)
+with st.spinner('速度の計算中'):
+    v_val = []
+    if numerical_intagration_method_dict[selected_method_str] == 0 :
+        sum_result = 0
+        for i in range(n) :
+            val1_tmp = input_data_df[selected_keys_vals[i]]
+            integrated_val = []
+            for t_range in range(len(time_val)) :
+                if t_range == 0 :
+                    integrated_val.append(float(init_v_val[i]))
+                else :
+                    tmp_integrate_val = float(init_v_val[i])
+                    for j in range(1,t_range,1) :
+                        dt = time_val[j] - time_val[j-1]
+                        tmp_integrate_val +=  val1_tmp[j-1]*dt
+                    integrated_val.append(tmp_integrate_val)
+            v_val.append(integrated_val)
+
+    elif numerical_intagration_method_dict[selected_method_str] == 1 :
+        st.stop()
+        
+    elif numerical_intagration_method_dict[selected_method_str] == 2 :
+        from scipy import integrate 
+        for i in range(n) :
+            integrated_val = []
+            val1_tmp = input_data_df[selected_keys_vals[i]]
+            for j in range(len(time_val)):
+                t = time_val[0:j+1]
+                a = val1_tmp[0:j+1]
+                tmp_integrate_val = float(init_v_val[i]) + sci.integrate.simps(a,t)
+                integrated_val.append(tmp_integrate_val)
+            v_val.append(integrated_val)
+
 v_val_df = pd.DataFrame(v_val).T
 
 
 #---位置の計算--
-r_val = []
-for i in range(n) :
-    integrated_val = []
-    val2_tmp = v_val_df[i]
-    for j in range(len(time_val)):
-        t = time_val[0:j+1]
-        v = val2_tmp[0:j+1]
-        integrate_num = float(init_r_val[i]) + sci.integrate.simps(v,t)
-        integrated_val.append(integrate_num)
-    r_val.append(integrated_val)
+with st.spinner('位置の計算中'):
+    r_val = []
+    if numerical_intagration_method_dict[selected_method_str] == 0 :
+        sum_result = 0
+        for i in range(n) :
+            val2_tmp = v_val_df[i]
+            integrated_val = []
+            for t_range in range(len(time_val)) :
+                if t_range == 0 :
+                    integrated_val.append(float(init_r_val[i]))
+                else :
+                    tmp_integrate_val = float(init_r_val[i])
+                    for j in range(1,t_range) :
+                        dt = time_val[j] - time_val[j-1]
+                        tmp_integrate_val += val2_tmp[j-1]*dt
+                    integrated_val.append(tmp_integrate_val)
+            r_val.append(integrated_val)
+    elif numerical_intagration_method_dict[selected_method_str] == 1 :
+        st.stop()
+    elif numerical_intagration_method_dict[selected_method_str] == 2 :
+        from scipy import integrate 
+        for i in range(n) :
+            integrated_val = []
+            val2_tmp = v_val_df[i]
+            for j in range(len(time_val)):
+                t = time_val[0:j+1]
+                v = val2_tmp[0:j+1]
+                tmp_integrate_val = float(init_v_val[i]) + sci.integrate.simps(v,t)
+                integrated_val.append(tmp_integrate_val)
+            r_val.append(integrated_val)
 
-#== 可視化 ===   
 r_val_df = pd.DataFrame(r_val).T
+#== 可視化 ===   
 if n == 1 :
-    plot_data_df = pd.concat([time_val, pd.DataFrame(r_val).T], axis=1)
-    plot_data_df.columns = ["t","x"]
-    r_val_df.columns = ["x"]
-    v_val_df.columns = ["v_x"]
+    r_val_df.columns = ["r_1"]
+    plot_data_r_df = pd.concat([time_val, pd.DataFrame(r_val).T], axis=1)
+    plot_data_r_df.columns = ["t","r_1"]
+
+    plot_data_v_df = pd.concat([time_val,v_val_df], axis=1)
+    plot_data_v_df.columns = ["t","v_1"]
+    v_val_df.columns = ["v_1"]
+
 elif n == 2 :
-    plot_data_df = pd.concat([time_val, pd.DataFrame(r_val).T], axis=1)
-    plot_data_df.columns = ["t","x","y"] 
-    r_val_df.columns = ["x","y"]
-    v_val_df.columns = ["v_x","v_y"]
+    r_val_df.columns = ["r_1","r_2"]
+    plot_data_r_df = pd.concat([time_val, pd.DataFrame(r_val).T], axis=1)
+    plot_data_r_df.columns = ["t","r_1","r_2"] 
+
+    plot_data_v_df = pd.concat([time_val,v_val_df], axis=1)
+    plot_data_v_df.columns = ["t","v_1","v_2"]
+    v_val_df.columns = ["v_1","v_2"]
+
 elif n == 3 :
-    plot_data_df = pd.concat([time_val, pd.DataFrame(r_val).T], axis=1)
-    plot_data_df.columns = ["t","x","y","z"]
-    r_val_df.columns = ["x","y","z"]
-    v_val_df.columns = ["v_x","v_y","v_z"]
+    r_val_df.columns = ["r_1","r_2","r_3"]
+    plot_data_r_df = pd.concat([time_val, pd.DataFrame(r_val).T], axis=1)
+    plot_data_r_df.columns = ["t","r_1","r_2","r_3"]
+
+    plot_data_v_df = pd.concat([time_val, v_val_df ], axis=1)
+    plot_data_v_df.columns = ["t","v_1","v_2","v_3"]
+    v_val_df.columns = ["v_1","v_2","v_3"]
 
 
+##  加速度のプロット
+"""###### 加速度のプロット"""
+import plotly.graph_objects as go
+col_a_fig = st.columns(n)
+
+plot_data_a_df_key = plot_data_a_df.keys()
+for i in range(n):
+    with col_a_fig[i]:
+         fig = go.Figure()
+         fig.add_trace(go.Scatter(
+                                    x=plot_data_a_df[plot_data_a_df_key[0]],
+                                    y=plot_data_a_df[plot_data_a_df_key[i+1]],
+                                    mode='lines+markers',
+                                    name=plot_data_a_df_key[i+1]
+                                    )
+                        )
+         st.plotly_chart(fig,use_container_width=True)
+
+##  速度のプロット
+"""###### 速度のプロット"""
+import plotly.graph_objects as go
+col_v_fig = st.columns(n)
+plot_data_v_df_key = plot_data_v_df.keys()
+for i in range(n):
+    with col_v_fig[i]:
+         fig = go.Figure()
+         fig.add_trace(go.Scatter(
+                                    x=plot_data_v_df[plot_data_v_df_key[0]],
+                                    y=plot_data_v_df[plot_data_v_df_key[i+1]],
+                                    mode='lines+markers',
+                                    name=plot_data_v_df_key[i+1]
+                                    )
+                        )
+         st.plotly_chart(fig,use_container_width=True)
+##  位置のプロット
+"""###### 位置のプロット"""
 import plotly.express as px
 if n == 1 : 
-    plot_data_df['y']=0
+    plot_data_r_df['y']=0
     # st.dataframe(r_val_df)
-    plot_data_df_key = plot_data_df.keys()
-    fig = px.scatter(data_frame=plot_data_df,
-                        x=plot_data_df_key[1],
-                        y=plot_data_df_key[2],
-                        color=plot_data_df_key[0]
+    plot_data_r_df_key = plot_data_r_df.keys()
+    fig = px.scatter(data_frame=plot_data_r_df,
+                        x=plot_data_r_df_key[1],
+                        y=plot_data_r_df_key[2],
+                        color=plot_data_r_df_key[0]
                     )
-
 elif n == 2 :
-    plot_data_df_key = plot_data_df.keys()
-    fig = px.scatter(data_frame=plot_data_df,
-                        x=plot_data_df_key[1],
-                        y=plot_data_df_key[2],
-                        color=plot_data_df_key[0]
+    plot_data_r_df_key = plot_data_r_df.keys()
+    fig = px.scatter(data_frame=plot_data_r_df,
+                        x=plot_data_r_df_key[1],
+                        y=plot_data_r_df_key[2],
+                        color=plot_data_r_df_key[0]
                     )
 elif n == 3 :
-    plot_data_df_key = plot_data_df.keys()
-    fig = px.scatter_3d(plot_data_df,
-                        x=plot_data_df_key[1],
-                        y=plot_data_df_key[2], 
-                        z=plot_data_df_key[3],
-                        color=plot_data_df_key[0],
+    plot_data_r_df_key = plot_data_r_df.keys()
+    fig = px.scatter_3d(plot_data_r_df,
+                        x=plot_data_r_df_key[1],
+                        y=plot_data_r_df_key[2], 
+                        z=plot_data_r_df_key[3],
+                        color=plot_data_r_df_key[0],
                         color_continuous_scale='Bluered_r')
 
 st.plotly_chart(fig)
