@@ -23,27 +23,29 @@ st.markdown("""#### 加速度データによる位置情報の取得""")
 """ """ ; """ """
 #-----  input data  -----------------------------------------------
 select_demodata_dict = {
-                        "放物運動（仮想，3d)":"Sample_data_00.csv",
-                        "エレベーターでの運動（実測)":"Sample_data_01.csv",
-                        "エスカレーターでの運動（実測）":"Sample_data_02.csv"
+                        "放物運動（仮想，3d)":["Sample_data_00.csv",[2,0,5],[0,0,0]],
+                        "空間中の運動（仮想，3d)":["Sample_data_01.csv",[0,0.314159265,1],[1,0,0]]
+                        # "エスカレーターでの運動（実測）":["Sample_data_02.csv",[0,0,0],[0,0,0]],
+                        # "学内ウォーキング（実測）":["Sample_data_03.csv",[0,0,0],[0,0,0]]
                         }
 
 #== input(make dataframe) ===
-select_data_list={"サンプルデータを利用":0,\
-                    "CSVファイルをアップロードし利用":1
-                    }
+select_data_list = {"サンプルデータを利用":0, "CSVファイルをアップロードし利用":1}
 select_data_00 = st.sidebar.selectbox("📝　実例の計算に使用するデータを選択",
-                                    (list(select_data_list.keys()))
-                                    )
+                                        (list(select_data_list.keys()))
+                                     )
+
+
+
 if select_data_list[select_data_00] == 0:
     f"""##### {section_num}-{contents_num+1}　データの選択（サンプルデータを利用）"""
     contents_num +=1
     selected_demodata_key = st.selectbox("分析に使用するデータを選択してください．",select_demodata_dict.keys())
     try:
-        data_link = "./"+str(select_demodata_dict[selected_demodata_key])
+        data_link = "./"+str(select_demodata_dict[selected_demodata_key][0])
         input_data_df = pd.read_csv(data_link)
     except:
-        data_link = "201_高大連携用サンプル/"+str(select_demodata_dict[selected_demodata_key])
+        data_link = "201_高大連携用サンプル/"+str(select_demodata_dict[selected_demodata_key][0])
         input_data_df = pd.read_csv(data_link)
     section_title01=f"##### {section_num}-{contents_num+1}　入力データの確認"
     input_data_keys = list(input_data_df.keys())
@@ -89,14 +91,25 @@ with col_input_data[1] :
 coordinate_label_dict = {0:"第1",1:"第2",2:"第3"}
 n = len(selected_keys_vals)
 col_init_v = st.columns(n) ; col_init_r = st.columns(n)
-init_v_val = [] ; init_r_val = []
+init_v_val = []
+init_r_val = []
+if select_data_list[select_data_00] == 0 :
+    tmp_init_v_val = select_demodata_dict[selected_demodata_key][1]
+    tmp_init_r_val = select_demodata_dict[selected_demodata_key][2]
 for i in range(n):
     with col_init_v[i]:
         str_text_input_title = f"初速度の{coordinate_label_dict[i]}成分を入力"
-        init_v_val.append( st.text_input(str_text_input_title,"0"))        
+        if select_data_list[select_data_00] == 0 :
+            init_v_val.append( float( st.text_input(str_text_input_title,tmp_init_v_val[i])) )  
+        else :
+            init_v_val.append( float( st.text_input(str_text_input_title,"0")) )   
+
     with col_init_r[i]:
         str_text_input_title = f"初期位置の{coordinate_label_dict[i]}成分を入力"
-        init_r_val.append(st.text_input(str_text_input_title,"0"))
+        if select_data_list[select_data_00] == 0 :
+            init_r_val.append( float( st.text_input(str_text_input_title,tmp_init_r_val[i]) ) )  
+        else :
+            init_r_val.append( float( st.text_input(str_text_input_title,"0")) )    
 """ """ ; """ """
 
 
@@ -143,83 +156,87 @@ keys = [selected_keys_val0]+selected_keys_vals
 a_val_df = input_data_df[keys]
 plot_data_a_df = a_val_df
 
-numerical_intagration_method_dict = {"区分求積法":0,"台形公式":1,"シンプソン公式":2}
+numerical_intagration_method_dict = {"シンプソン公式":2,"区分求積法":0,"台形公式":1,}
 selected_method_str = st.radio("数値積分の方法を選択してください．",numerical_intagration_method_dict.keys(), horizontal=True)
-
-#---速度の計算--
-with st.spinner('速度の計算中'):
-    v_val = []
-    if numerical_intagration_method_dict[selected_method_str] == 0 :
-        sum_result = 0
-        for i in range(n) :
-            val1_tmp = input_data_df[selected_keys_vals[i]]
-            integrated_val = []
-            for t_range in range(len(time_val)) :
-                if t_range == 0 :
-                    integrated_val.append(float(init_v_val[i]))
-                else :
-                    tmp_integrate_val = float(init_v_val[i])
+if st.button("積分の実行"):
+    #---速度の計算--
+    with st.spinner('速度の計算中'):
+        v_val = []
+        if numerical_intagration_method_dict[selected_method_str] == 0 :
+            sum_result = 0
+            for i in range(n) :
+                val1_tmp = input_data_df[selected_keys_vals[i]]
+                integrated_val = []
+                integrated_val.append(init_v_val[i])
+                for t_range in range(1,len(time_val)+1) :
+                    tmp_integrate_val = init_v_val[i]
                     for j in range(1,t_range,1) :
                         dt = time_val[j] - time_val[j-1]
                         tmp_integrate_val +=  val1_tmp[j-1]*dt
                     integrated_val.append(tmp_integrate_val)
-            v_val.append(integrated_val)
+                v_val.append(integrated_val)
 
-    elif numerical_intagration_method_dict[selected_method_str] == 1 :
-        st.stop()
-        
-    elif numerical_intagration_method_dict[selected_method_str] == 2 :
-        from scipy import integrate 
-        for i in range(n) :
-            integrated_val = []
-            val1_tmp = input_data_df[selected_keys_vals[i]]
-            for j in range(len(time_val)):
-                t = time_val[0:j+1]
-                a = val1_tmp[0:j+1]
-                tmp_integrate_val = float(init_v_val[i]) + sci.integrate.simps(a,t)
-                integrated_val.append(tmp_integrate_val)
-            v_val.append(integrated_val)
+        elif numerical_intagration_method_dict[selected_method_str] == 1 :
+            st.error("ただいま作成中")
+            st.stop()
 
-v_val_df = pd.DataFrame(v_val).T
-
-
-#---位置の計算--
-with st.spinner('位置の計算中'):
-    r_val = []
-    if numerical_intagration_method_dict[selected_method_str] == 0 :
-        sum_result = 0
-        for i in range(n) :
-            val2_tmp = v_val_df[i]
-            integrated_val = []
-            for t_range in range(len(time_val)) :
-                if t_range == 0 :
-                    integrated_val.append(float(init_r_val[i]))
-                else :
-                    tmp_integrate_val = float(init_r_val[i])
-                    for j in range(1,t_range) :
-                        dt = time_val[j] - time_val[j-1]
-                        tmp_integrate_val += val2_tmp[j-1]*dt
+        elif numerical_intagration_method_dict[selected_method_str] == 2 :
+            from scipy import integrate 
+            for i in range(n) :
+                integrated_val = []
+                val1_tmp = input_data_df[selected_keys_vals[i]]
+                for j in range(len(time_val)):
+                    t = time_val[0:j+1]
+                    a = val1_tmp[0:j+1]
+                    tmp_integrate_val = init_v_val[i] + sci.integrate.simps(a,t)
                     integrated_val.append(tmp_integrate_val)
-            r_val.append(integrated_val)
-    elif numerical_intagration_method_dict[selected_method_str] == 1 :
-        st.stop()
-    elif numerical_intagration_method_dict[selected_method_str] == 2 :
-        from scipy import integrate 
-        for i in range(n) :
-            integrated_val = []
-            val2_tmp = v_val_df[i]
-            for j in range(len(time_val)):
-                t = time_val[0:j+1]
-                v = val2_tmp[0:j+1]
-                tmp_integrate_val = float(init_v_val[i]) + sci.integrate.simps(v,t)
-                integrated_val.append(tmp_integrate_val)
-            r_val.append(integrated_val)
+                v_val.append(integrated_val)
 
-r_val_df = pd.DataFrame(r_val).T
+    v_val_df = pd.DataFrame(v_val).T
+
+
+    #---位置の計算--
+    with st.spinner('位置の計算中'):
+        r_val = []
+        if numerical_intagration_method_dict[selected_method_str] == 0 :
+            sum_result = 0
+            for i in range(n) :
+                val2_tmp = v_val_df[i]
+                integrated_val = []
+                for t_range in range(len(time_val)) :
+                    if t_range == 0 :
+                        integrated_val.append(init_r_val[i])
+                    else :
+                        tmp_integrate_val = init_r_val[i]
+                        for j in range(1,t_range) :
+                            dt = time_val[j] - time_val[j-1]
+                            tmp_integrate_val += val2_tmp[j-1]*dt
+                        integrated_val.append(tmp_integrate_val)
+                r_val.append(integrated_val)
+        elif numerical_intagration_method_dict[selected_method_str] == 1 :
+            st.error("ただいま作成中")
+            st.stop()
+        elif numerical_intagration_method_dict[selected_method_str] == 2 :
+            from scipy import integrate 
+            for i in range(n) :
+                integrated_val = []
+                val2_tmp = v_val_df[i]
+                for j in range(len(time_val)):
+                    t = time_val[0:j+1]
+                    v = val2_tmp[0:j+1]
+                    tmp_integrate_val = init_v_val[i] + sci.integrate.simps(v,t)
+                    integrated_val.append(tmp_integrate_val)
+                r_val.append(integrated_val)
+
+    r_val_df = pd.DataFrame(r_val).T
+else :
+    st.stop()
+
+
 #== 可視化 ===   
 if n == 1 :
     r_val_df.columns = ["r_1"]
-    plot_data_r_df = pd.concat([time_val, pd.DataFrame(r_val).T], axis=1)
+    plot_data_r_df = pd.concat([time_val, r_val_df], axis=1)
     plot_data_r_df.columns = ["t","r_1"]
 
     plot_data_v_df = pd.concat([time_val,v_val_df], axis=1)
@@ -228,7 +245,7 @@ if n == 1 :
 
 elif n == 2 :
     r_val_df.columns = ["r_1","r_2"]
-    plot_data_r_df = pd.concat([time_val, pd.DataFrame(r_val).T], axis=1)
+    plot_data_r_df = pd.concat([time_val, r_val_df], axis=1)
     plot_data_r_df.columns = ["t","r_1","r_2"] 
 
     plot_data_v_df = pd.concat([time_val,v_val_df], axis=1)
@@ -237,7 +254,7 @@ elif n == 2 :
 
 elif n == 3 :
     r_val_df.columns = ["r_1","r_2","r_3"]
-    plot_data_r_df = pd.concat([time_val, pd.DataFrame(r_val).T], axis=1)
+    plot_data_r_df = pd.concat([time_val, r_val_df], axis=1)
     plot_data_r_df.columns = ["t","r_1","r_2","r_3"]
 
     plot_data_v_df = pd.concat([time_val, v_val_df ], axis=1)
@@ -282,6 +299,7 @@ for i in range(n):
 ##  位置のプロット
 """###### 位置のプロット"""
 import plotly.express as px
+layout = go.Layout(yaxis=dict(scaleanchor='x'))
 if n == 1 : 
     plot_data_r_df['y']=0
     # st.dataframe(r_val_df)
