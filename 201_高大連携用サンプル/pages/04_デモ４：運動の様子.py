@@ -156,7 +156,7 @@ keys = [selected_keys_val0]+selected_keys_vals
 a_val_df = input_data_df[keys]
 plot_data_a_df = a_val_df
 
-numerical_intagration_method_dict = {"シンプソン公式":2,"区分求積法":0,"台形公式":1,}
+numerical_intagration_method_dict = {"区分求積法":0,"シンプソン公式":2,"台形公式":1,}
 selected_method_str = st.radio("数値積分の方法を選択してください．",numerical_intagration_method_dict.keys(), horizontal=True)
 if st.button("積分の実行"):
     #---速度の計算--
@@ -168,9 +168,9 @@ if st.button("積分の実行"):
                 val1_tmp = input_data_df[selected_keys_vals[i]]
                 integrated_val = []
                 integrated_val.append(init_v_val[i])
-                for t_range in range(1,len(time_val)+1) :
+                for t_range in range(1,len(time_val)) :
                     tmp_integrate_val = init_v_val[i]
-                    for j in range(1,t_range,1) :
+                    for j in range(1,t_range+1,1) :
                         dt = time_val[j] - time_val[j-1]
                         tmp_integrate_val +=  val1_tmp[j-1]*dt
                     integrated_val.append(tmp_integrate_val)
@@ -208,7 +208,7 @@ if st.button("積分の実行"):
                         integrated_val.append(init_r_val[i])
                     else :
                         tmp_integrate_val = init_r_val[i]
-                        for j in range(1,t_range) :
+                        for j in range(1,t_range+1) :
                             dt = time_val[j] - time_val[j-1]
                             tmp_integrate_val += val2_tmp[j-1]*dt
                         integrated_val.append(tmp_integrate_val)
@@ -221,7 +221,7 @@ if st.button("積分の実行"):
             for i in range(n) :
                 integrated_val = []
                 val2_tmp = v_val_df[i]
-                for j in range(len(time_val)):
+                for j in range(len(time_val)-1):
                     t = time_val[0:j+1]
                     v = val2_tmp[0:j+1]
                     tmp_integrate_val = init_v_val[i] + sci.integrate.simps(v,t)
