@@ -172,6 +172,9 @@ $$
 #         a_val_df = scipy.signal.savgol_filter(a_val_df, window, deg)
 # plot_data_a_df = a_val_df
 
+time_val = input_data_df[selected_keys_val0]
+keys = [selected_keys_val0]+selected_keys_vals
+a_val_df = input_data_df[keys]
 st.dataframe(a_val_df)
 numerical_intagration_method_dict = {"区分求積法":0,"シンプソン公式":2,"台形公式":1,}
 selected_method_str = st.radio("数値積分の方法を選択してください．",numerical_intagration_method_dict.keys(), horizontal=True)
