@@ -151,11 +151,28 @@ $$
 
 ##== 数値積分の実行(速度の計算) ==
 
-time_val = input_data_df[selected_keys_val0]
-keys = [selected_keys_val0]+selected_keys_vals
-a_val_df = input_data_df[keys]
-plot_data_a_df = a_val_df
+# time_val = input_data_df[selected_keys_val0]
+# keys = [selected_keys_val0]+selected_keys_vals
+# Noise_Reduction_dict = {
+#                         "ノイズ除去なし":0,
+#                         "ノイズ除去あり（Savitzky-Golay法）":1
+#                         }
+# Noise_Reduction_radio = st.radio("ノイズ除去について選択してください．", Noise_Reduction_dict.keys(),horizontal=True)
+# if Noise_Reduction_dict[Noise_Reduction_radio] == 0:
+#     a_val_df = input_data_df[keys]
+# elif Noise_Reduction_dict[Noise_Reduction_radio] == 1:
+#     import scipy.signal
+#     a_val_df = input_data_df[keys]
+#     col_noise_red = st.columns(2)
+#     with col_noise_red[0]:
+#         window = st.number_input("Window",value=21,min_value=1)
+#     with col_noise_red[1]:
+#         deg = st.number_input("deg",value=3,min_value=1)
+#     for i in range(len(keys)):
+#         a_val_df = scipy.signal.savgol_filter(a_val_df, window, deg)
+# plot_data_a_df = a_val_df
 
+st.dataframe(a_val_df)
 numerical_intagration_method_dict = {"区分求積法":0,"シンプソン公式":2,"台形公式":1,}
 selected_method_str = st.radio("数値積分の方法を選択してください．",numerical_intagration_method_dict.keys(), horizontal=True)
 if st.button("積分の実行"):
