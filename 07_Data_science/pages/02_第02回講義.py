@@ -1,4 +1,5 @@
 import streamlit as st
+import sympy as sym
 import pandas as pd
 import math as math
 
