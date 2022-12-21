@@ -13,7 +13,6 @@ ginza
 spacy
 spacy_streamlit
 unidic_lite
-pkg_resources
 ja_ginza_electra
 sumy
 pysummarization
