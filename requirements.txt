@@ -11,6 +11,7 @@ seaborn
 mecab-python3
 ginza
 spacy
+spacy_streamlit
 unidic_lite
 ja_ginza_electra
 sumy
