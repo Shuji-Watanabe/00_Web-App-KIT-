@@ -11,9 +11,9 @@ seaborn
 mecab-python3
 ginza
 spacy
-spacy_streamlit
 unidic_lite
 ja_ginza_electra
-sumy
+gensim == 3.8.3
 pysummarization
 altair
+sumy
