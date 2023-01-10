@@ -53,7 +53,7 @@ if select_data_list[select_data_00] == 0:
         """ """ ; """ """
         st.download_button(
         label="入力データをダウンロード",
-        data=input_data_df.to_csv().encode('utf-8'),
+        data=input_data_df.to_csv().encode('utf-8_sig'),
         file_name='input.csv',
         mime='text/csv',
         )
@@ -245,7 +245,7 @@ for i in range(n):
 
 a_val_df = pd.DataFrame(data).T
 a_val_df.columns = plot_data_a_df.keys() 
-a_val_csv = a_val_df.to_csv().encode('utf-8')
+a_val_csv = a_val_df.to_csv().encode('utf-8_sig')
 st.download_button(
     label="前処理済みデータのダウンロード",
     data=a_val_csv,
@@ -476,7 +476,7 @@ if button_integration :
             st.plotly_chart(fig_3d )
 
 
-        output_csv = output_df.to_csv().encode('utf-8')
+        output_csv = output_df.to_csv().encode('utf-8_sig')
         st.download_button(
             label="解析結果のダウンロード",
             data=output_csv,
