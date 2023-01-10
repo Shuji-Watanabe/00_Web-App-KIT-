@@ -45,7 +45,7 @@ if select_data_list[select_data_00] == 0:
             data_link = "./"+str(select_demodata_dict[selected_demodata_key][0])
             input_data_df = pd.read_csv(data_link)
         except:
-            data_link = "201_高大連携用サンプル/"+str(select_demodata_dict[selected_demodata_key][0])
+            data_link = "10_Fundamental_Physics/"+str(select_demodata_dict[selected_demodata_key][0])
             input_data_df = pd.read_csv(data_link)
         section_title01=f"##### {section_num}-{contents_num+1}　入力データの確認"
         input_data_keys = list(input_data_df.keys())
