@@ -8,8 +8,7 @@ from scipy.spatial.transform import Rotation as Rot
 
 st.sidebar.markdown(""" **加速度データの取得**""")
 st.sidebar.markdown(""" 
-**webアプリの起動**  
-[クリック](https://w3e.kanazawa-it.ac.jp/math/physics/category/experiment/mobile_device/orientation_acceleration/sensor_orientation_acceleration.html)  
+**webアプリの起動** [-> クリック](https://w3e.kanazawa-it.ac.jp/math/physics/category/experiment/mobile_device/orientation_acceleration/sensor_orientation_acceleration.html)  
 
 **作成者**  
 金沢工業大学 数理・データサイエンス・AI教育課程 准教授 西岡圭太
@@ -20,7 +19,7 @@ st.sidebar.markdown("""
 section_num = 1 
 contents_num = 0
 
-st.markdown("""#### 加速度データによる位置情報の取得""")
+st.markdown("""### 加速度データによる位置情報の計算（ノイズ除去なし）""")
 """ """ ; """ """
 #-----  input data  -----------------------------------------------
 select_demodata_dict = {
@@ -39,17 +38,27 @@ select_data_00 = st.sidebar.selectbox("📝　実例の計算に使用するデ�
 if select_data_list[select_data_00] == 0:
     f"""##### {section_num}-{contents_num+1}　データの選択（サンプルデータを利用）"""
     contents_num +=1
-    selected_demodata_key = st.selectbox("分析に使用するデータを選択してください．",select_demodata_dict.keys())
-    try:
-        data_link = "./"+str(select_demodata_dict[selected_demodata_key][0])
-        input_data_df = pd.read_csv(data_link)
-    except:
-        data_link = "201_高大連携用サンプル/"+str(select_demodata_dict[selected_demodata_key][0])
-        input_data_df = pd.read_csv(data_link)
-    section_title01=f"##### {section_num}-{contents_num+1}　入力データの確認"
-    input_data_keys = list(input_data_df.keys())
+    col_selected_data = st.columns([2,1])
 
-    
+    with col_selected_data[0]:
+        selected_demodata_key = st.selectbox("分析に使用するデータを選択してください．",select_demodata_dict.keys())
+        try:
+            data_link = "./"+str(select_demodata_dict[selected_demodata_key][0])
+            input_data_df = pd.read_csv(data_link)
+        except:
+            data_link = "201_高大連携用サンプル/"+str(select_demodata_dict[selected_demodata_key][0])
+            input_data_df = pd.read_csv(data_link)
+        section_title01=f"##### {section_num}-{contents_num+1}　入力データの確認"
+        input_data_keys = list(input_data_df.keys())
+    with col_selected_data[1]:
+        """ """ ; """ """
+        st.download_button(
+        label="入力データをダウンロード",
+        data=input_data_df.to_csv().encode('utf-8'),
+        file_name='input.csv',
+        mime='text/csv',
+        )
+        
 elif select_data_list[select_data_00] == 1:
     f"""##### {section_num}-{contents_num+1}　データの選択（アップロードされたファイルを利用）"""
     contents_num +=1
@@ -74,7 +83,7 @@ st.dataframe(input_data_df)
 #== input(make dataframe) ===
 contents_num +=1
 f"""  ##### {section_num}-{contents_num+1}　データ解析"""
-""" """ ; """ """
+#""" """ ; """ """
 
 """**データの選択**"""
 col_input_data =  st.columns([1,2])
@@ -159,11 +168,13 @@ plot_data_a_df = a_val_df
 
 st.dataframe(a_val_df)
 numerical_intagration_method_dict = {"区分求積法":0,"シンプソン公式":2,"台形公式":1,}
+
 selected_method_str = st.radio("数値積分の方法を選択してください．",numerical_intagration_method_dict.keys(), horizontal=True)
 if st.button("積分の実行"):
     #---速度の計算--
     with st.spinner('速度の計算中'):
         v_val = []
+        #区分求積法(左リーマン和)
         if numerical_intagration_method_dict[selected_method_str] == 0 :
             sum_result = 0
             for i in range(n) :
@@ -178,10 +189,12 @@ if st.button("積分の実行"):
                     integrated_val.append(tmp_integrate_val)
                 v_val.append(integrated_val)
 
+        #台形公式
         elif numerical_intagration_method_dict[selected_method_str] == 1 :
             st.error("ただいま作成中")
             st.stop()
 
+        #シンプソン公式
         elif numerical_intagration_method_dict[selected_method_str] == 2 :
             from scipy import integrate 
             for i in range(n) :
@@ -200,6 +213,7 @@ if st.button("積分の実行"):
     #---位置の計算--
     with st.spinner('位置の計算中'):
         r_val = []
+        #区分求積法(左リーマン和)
         if numerical_intagration_method_dict[selected_method_str] == 0 :
             sum_result = 0
             for i in range(n) :
@@ -215,9 +229,13 @@ if st.button("積分の実行"):
                             tmp_integrate_val += val2_tmp[j-1]*dt
                         integrated_val.append(tmp_integrate_val)
                 r_val.append(integrated_val)
+
+        #台形公式
         elif numerical_intagration_method_dict[selected_method_str] == 1 :
             st.error("ただいま作成中")
             st.stop()
+
+        #シンプソン公式
         elif numerical_intagration_method_dict[selected_method_str] == 2 :
             from scipy import integrate 
             for i in range(n) :

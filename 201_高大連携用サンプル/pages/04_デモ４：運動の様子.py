@@ -36,7 +36,7 @@ select_data_00 = st.sidebar.selectbox("📝　実例の計算に使用するデ�
                                      )
 
 
-
+#== サンプルデータの使用 ===
 if select_data_list[select_data_00] == 0:
     f"""##### {section_num}-{contents_num+1}　データの選択（サンプルデータを利用）"""
     contents_num +=1
@@ -50,7 +50,7 @@ if select_data_list[select_data_00] == 0:
     section_title01=f"##### {section_num}-{contents_num+1}　入力データの確認"
     input_data_keys = list(input_data_df.keys())
 
-    
+#== アップロードデータの使用 ===
 elif select_data_list[select_data_00] == 1:
     f"""##### {section_num}-{contents_num+1}　データの選択（アップロードされたファイルを利用）"""
     contents_num +=1
@@ -70,7 +70,8 @@ st.markdown(section_title01)
 st.dataframe(input_data_df)
 """ """ ; """ """
 
-#== input(make dataframe) ===
+
+#== データ選択 ===
 contents_num +=1
 f"""  ##### {section_num}-{contents_num+1}　データ解析"""
 """ """ ; """ """
