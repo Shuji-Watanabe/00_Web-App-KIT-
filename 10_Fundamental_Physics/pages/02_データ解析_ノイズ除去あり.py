@@ -464,6 +464,10 @@ if button_integration :
                                 y=r_val_df.keys()[2],
                                 color=r_val_df.keys()[0]
                             )
+            fig_3d.update_layout( 
+                            scene_aspectmode='manual',
+                            scene_aspectratio=dict(x=1, y=1)
+                            )
             st.plotly_chart(fig_3d )
         elif n == 3 :
             fig_3d = px.scatter_3d(data_frame=r_val_df,
@@ -472,7 +476,9 @@ if button_integration :
                                 z=r_val_df.keys()[3],
                                 color=r_val_df.keys()[0],
                                 color_continuous_scale='Bluered_r')
-
+            fig_3d.update_layout( 
+                                 scene=dict(aspectmode='data')
+                                 )
             st.plotly_chart(fig_3d )
 
 
