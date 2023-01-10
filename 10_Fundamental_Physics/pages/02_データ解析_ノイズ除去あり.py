@@ -12,6 +12,9 @@ st.sidebar.markdown("""
 
 **作成者**  
 金沢工業大学 数理・データサイエンス・AI教育課程 准教授 西岡圭太
+  
+**Webアプリの感想** [-> クリック](https://forms.gle/iu1PeRAMHC9jyNt76)  
+
 """
 )
 
