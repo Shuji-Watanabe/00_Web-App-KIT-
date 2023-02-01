@@ -271,7 +271,7 @@ if CB_Step06_1 :
         col2_01,col2_02=st.columns([3,1]) 
         with col2_02:
             xrange_min = st.number_input("▷ xの最小値",value=0,key=2)            
-            xrange_max = st.number_input("▷ xの最大値",value=10,key=2)
+            xrange_max = st.number_input("▷ xの最大値",value=10,key=3)
         with col2_01:
             ts = np.linspace( xrange_min, xrange_max, 100)
             ys = lambdify(t, function0, "numpy")(ts)
