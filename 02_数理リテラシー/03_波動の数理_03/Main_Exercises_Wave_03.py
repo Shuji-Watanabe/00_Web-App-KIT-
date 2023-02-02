@@ -152,7 +152,7 @@ if CB_Step03_1 :
             [オイラーの公式](https://w3e.kanazawa-it.ac.jp/math/category/fukusosuu/henkan-tex.cgi?target=/math/category/fukusosuu/euler-no-kousiki.html)
         より\n
         　　$x(t) = c_1 e^{-i\omega t} + c_2e^{i \omega t}$\n
-        　　$\\phantom{x(t)} = c_1 \cos (-\omega t )+ i c_1 \sin  \sin(-\omega t) + c_2 \cos \omega t  + i c_2 \omega t$\n
+        　　$\\phantom{x(t)} = c_1 \cos (-\omega t )+ i c_1  \sin(-\omega t) + c_2 \cos \omega t  + i c_2 \sin \omega t$\n
         　　$\\phantom{x(t)} = \\big( c_1 + c_2 \\big) \cos \omega t + i\\big(c_1 - c_2\\big) \sin (-\omega t)$\n
         　　$\\phantom{x(t)} = C_1 \cos \omega t - C_2 \sin \omega t$\n
         　　$\\displaystyle \\phantom{x(t)} = \\sqrt{C_1^2 + C_2^2}\\bigg( \\frac{C_1}{\\sqrt{C_1^2 + C_2^2} } \cos \omega t - \\frac{C_2}{\\sqrt{C_1^2 + C_2^2} } \sin \omega t \\bigg)$\n
