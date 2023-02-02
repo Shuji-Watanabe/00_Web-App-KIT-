@@ -219,9 +219,9 @@ if CB_Step04_1 :
     if Ans_phi == phi:
         st.markdown(f"\
                 $ \\phi $ は，\
-                $ \\displaystyle \\cos \\phi = { latex( simplify( sympify(x_ini)/Ans_A) )} $\
+                $ \\displaystyle \\cos \\phi = { latex( radsimp( x_ini/Ans_A) )} $\
                 かつ\
-                $ \\displaystyle \\sin \\phi = { latex( simplify( v_ini)/(radsimp(Ans_A*omega_0) ))} $\
+                $ \\displaystyle \\sin \\phi = { latex( radsimp( v_ini)/(Ans_A*omega_0) )} $\
                 を満たす\
                 $-\\pi < \\phi \\le \\pi$ の角度である．")
 
