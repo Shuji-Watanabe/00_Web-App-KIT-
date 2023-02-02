@@ -254,8 +254,12 @@ if CB_Step04_1 :
 st.markdown("##### ▷ Step 5：角振動数と周期")
 CB_Step05_1 = st.sidebar.checkbox("角振動数と周期を表示")
 if CB_Step05_1 :
-    T = 2*pi/sqrt(omega_0)
-    st.latex(r"\displaystyle \text{角振動数：} \omega = %s，\text{周期：}  T = \frac{2\pi}{\omega} = %s"%( latex(sqrt(omega_0)),latex(T) ))
+    T = 2*pi/omega_0
+    st.latex(\
+        f"\\displaystyle\
+            \\text{{角振動数：}} \\omega = { latex(omega_0) }\
+            ，\\text{{周期：}}  T = \\frac{{2\pi}}{{\omega}} = {latex(T)}"\
+            )
 
 
 
