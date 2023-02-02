@@ -140,7 +140,7 @@ if CB_Step01_2 :
 st.markdown("##### ▷ Step 3：微分方程式の一般解")
 CB_Step03_1 = st.sidebar.checkbox("一般解を表示")
 if CB_Step03_1 :
-    st.latex(f"x(t)= A\cos \big(  \omega t +  \phi \big) = A\cos \left(  {latex(omega_0)} t +  \phi\right)")
+    st.latex(f" x(t)= A\cos \\big(  \\omega t +  \\phi \\big) = A\\cos \\left(  {latex(omega_0)} t +  \\phi \\right)")
     if st.checkbox("一般解を求める過程を表示"):
         """
         　　- 特製方程式が２つの複素数解 $\lambda_1=-i\omega,\ \lambda_2=i\omega$ を持つことから，求める$x(t)$の一般解は次のようになる．
