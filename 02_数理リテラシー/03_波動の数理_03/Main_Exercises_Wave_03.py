@@ -215,11 +215,16 @@ CB_Step04_1 = st.sidebar.checkbox("特殊解を表示")
 if CB_Step04_1 :
     Ans_A = Ans_A.subs(omega,sqrt(omega_0))
     theta = theta.subs(omega,sqrt(omega_0))
-    st.latex(r"x(t) = %s \cdot \cos\left( %s \right)"%(latex( simplify(Ans_A)),latex(theta )) )
+    st.latex(f"x(t) = {latex( simplify(Ans_A))} \\cdot \\cos\\left( {latex(theta )} \\right)")
     if Ans_phi == phi:
-        st.markdown("$\\phi$ は，$\\displaystyle \\cos \\phi = %s$ かつ $\\displaystyle \\sin \\phi = %s$ を満たす $-\\pi < \\phi \\le \\pi$ の角度である．"\
-            %(latex( simplify( sympify(x_ini)/Ans_A)) ,latex( simplify(sympify(v_ini)/(Ans_A*sqrt(omega_0))) ))
-            )
+        st.markdown(f"\
+                $ \\phi $ は，\
+                $ \\displaystyle \\cos \\phi = { latex( simplify( sympify(x_ini)/Ans_A) )} $\
+                かつ\
+                $ \\displaystyle \\sin \\phi = { latex( simplify( sympify(v_ini)/(Ans_A*omega_0**2) ))} $\
+                を満たす\
+                $-\\pi < \\phi \\le \\pi$ の角度である．")
+
     if st.checkbox("特殊解を得るまでの途中計算を表示(一般的な初期条件に対する特殊解の求め方)"):
         st.markdown("""\
             - ある時刻における小物体の位置と速度は，それぞれ次式で与えられる．\n\n\
