@@ -134,7 +134,7 @@ if CB_Step01_2 :
     STR1_02 = f"\\lambda^2 + \\frac{{ {converttotex(Sp_const)} }}{{ {converttotex(Mass)} }} = 0"
     st.latex(STR1_02)
     if len(Ans01) == 2:
-        st.latex( f"\\lambda_1 = latex(Ans01[0]), \ \\lambda_2 = latex(Ans01[1]),\\omega = latex(omega_0)")
+        st.latex( f"\\lambda_1 = {latex(Ans01[0])}, \ \\lambda_2 = {latex(Ans01[1])},\\omega = {latex(omega_0)}")
 
 ##### Step 03
 st.markdown("##### ▷ Step 3：微分方程式の一般解")
