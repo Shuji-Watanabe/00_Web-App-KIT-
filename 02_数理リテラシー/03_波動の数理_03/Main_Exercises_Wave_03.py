@@ -213,8 +213,8 @@ theta = omega * t + Ans_phi
 
 CB_Step04_1 = st.sidebar.checkbox("特殊解を表示")
 if CB_Step04_1 :
-    Ans_A = Ans_A.subs(omega,sqrt(omega_0))
-    theta = theta.subs(omega,sqrt(omega_0))
+    Ans_A = Ans_A.subs(omega,omega_0)
+    theta = theta.subs(omega,omega_0)
     st.latex(f"x(t) = {latex( simplify(Ans_A))} \\cdot \\cos\\left( {latex(theta )} \\right)")
     if Ans_phi == phi:
         st.markdown(f"\
@@ -232,6 +232,7 @@ if CB_Step04_1 :
             　　$v(t) = %s$\n\n\
             - また初期条件を $x(0) = x_0,\ v(0) = v_0$ とする．
         """%(latex(x_t),latex(v_t)))
+        
         st.markdown("""\
             - 位置および速度に対する初期条件より，次式が得られる．\n\n\
             　　$\\displaystyle x_0 = A \cos \phi \ \\to\ A \cos \phi = x_0$，\
