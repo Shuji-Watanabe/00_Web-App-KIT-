@@ -131,17 +131,16 @@ eq01 = lambda_0**2 + omega**2
 Ans01 = solve( Eq(0,sympify(eq01)),lambda_0)
 
 if CB_Step01_2 : 
-    STR1_02 = " \\lambda^2 + \\frac{%s}{%s} = 0"%(converttotex(Sp_const),converttotex(Mass))
+    STR1_02 = f"\\lambda^2 + \\frac{converttotex(Sp_const)}{converttotex(Mass)} = 0"
     st.latex(STR1_02)
     if len(Ans01) == 2:
-        st.latex( r"\lambda_1 = %s, \ \lambda_2 = %s,\ \omega = \sqrt{%s}"\
-            %(latex(Ans01[0]),latex(Ans01[1]),latex(omega_0)))
+        st.latex( f"\\lambda_1 = latex(Ans01[0]), \ \\lambda_2 = latex(Ans01[1]),\\omega = latex(omega_0)")
 
 ##### Step 03
 st.markdown("##### ▷ Step 3：微分方程式の一般解")
 CB_Step03_1 = st.sidebar.checkbox("一般解を表示")
 if CB_Step03_1 :
-    st.latex(r"x(t)= A\cos \big(  \omega t +  \phi \big) = A\cos \left(  %s t +  \phi\right)"%(latex(omega_0)))
+    st.latex(f"x(t)= A\cos \big(  \omega t +  \phi \big) = A\cos \left(  {latex(omega_0)} t +  \phi\right)")
     if st.checkbox("一般解を求める過程を表示"):
         """
         　　- 特製方程式が２つの複素数解 $\lambda_1=-i\omega,\ \lambda_2=i\omega$ を持つことから，求める$x(t)$の一般解は次のようになる．
