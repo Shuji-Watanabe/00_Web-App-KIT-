@@ -168,7 +168,8 @@ if CB_Step03_1 :
 title_step4 = r"##### ▷ Step 4：微分方程式の初期条件 $x(0) = %s,\ v(0) = %s$ を満たす特殊解"%( converttotex(x_ini),converttotex(v_ini))
 st.markdown(title_step4)
 phi = Symbol(r"\phi", real = True)
-A , v, t , phi, m, k= symbols('A v t phi m k', real = True)
+A , v, t , phi= symbols('A v t phi', real = True)
+m, k= symbols('m k', positive=True, real = True)
 x_t , v_t= symbols('x_t v_t', cls=Function)
 x_t = A * cos( omega * t + phi)
 v_t = diff(x_t,t)
@@ -221,7 +222,7 @@ if CB_Step04_1 :
                 $ \\phi $ は，\
                 $ \\displaystyle \\cos \\phi = { latex( radsimp( x_ini/Ans_A) )} $\
                 かつ\
-                $ \\displaystyle \\sin \\phi = { latex( radsimp( v_ini)/(Ans_A*omega_0) )} $\
+                $ \\displaystyle \\sin \\phi = { latex( radsimp( v_ini/(Ans_A*omega_0)) )} $\
                 を満たす\
                 $-\\pi < \\phi \\le \\pi$ の角度である．")
 
