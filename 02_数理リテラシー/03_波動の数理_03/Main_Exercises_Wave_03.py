@@ -221,7 +221,7 @@ if CB_Step04_1 :
                 $ \\phi $ は，\
                 $ \\displaystyle \\cos \\phi = { latex( simplify( sympify(x_ini)/Ans_A) )} $\
                 かつ\
-                $ \\displaystyle \\sin \\phi = { latex( simplify( sympify(v_ini)/(Ans_A*omega_0**2) ))} $\
+                $ \\displaystyle \\sin \\phi = { latex( simplify( sympify(v_ini)/(Ans_A*omega_0) ))} $\
                 を満たす\
                 $-\\pi < \\phi \\le \\pi$ の角度である．")
 
