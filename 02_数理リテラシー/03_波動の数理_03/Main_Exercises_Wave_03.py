@@ -168,7 +168,7 @@ if CB_Step03_1 :
 title_step4 = r"##### ▷ Step 4：微分方程式の初期条件 $x(0) = %s,\ v(0) = %s$ を満たす特殊解"%( converttotex(x_ini),converttotex(v_ini))
 st.markdown(title_step4)
 phi = Symbol(r"\phi", real = True)
-A , v, t , phi= symbols('A v t phi', real = True)
+A , v, t , phi, m, k= symbols('A v t phi m k', real = True)
 x_t , v_t= symbols('x_t v_t', cls=Function)
 x_t = A * cos( omega * t + phi)
 v_t = diff(x_t,t)
