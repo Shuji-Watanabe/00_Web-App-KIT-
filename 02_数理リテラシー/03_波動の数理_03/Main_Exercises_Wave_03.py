@@ -49,10 +49,10 @@ try:
     st.image('単振動01.svg')
 except:
     st.image('02_数理リテラシー/03_波動の数理_03/単振動01.svg')
+else:
+    tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
 
 
-
-tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
 if tmp_CB01 :
     col01,col02,col03,col04 = st.columns(4)
     with col01:
