@@ -45,12 +45,12 @@ st.markdown("""
     小物体が静止する位置を原点$\\rm O$ とする．小物体が運動を開始した時刻を $t=0 \\rm\ s$ とするとき，
     時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
 """)
-try:
-    st.image('単振動01.svg')
-except:
-    st.image('02_数理リテラシー/03_波動の数理_03/単振動01.svg')
-else:
-    tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
+# try:
+#     st.image('単振動01.svg')
+# except:
+#     st.image('02_数理リテラシー/03_波動の数理_03/単振動01.svg')
+# else:
+tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
 
 
 if tmp_CB01 :
