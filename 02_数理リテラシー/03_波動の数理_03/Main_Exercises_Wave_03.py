@@ -219,7 +219,7 @@ if CB_Step04_1 :
                 $ \\phi $ は，\
                 $ \\displaystyle \\cos \\phi = { latex(   sqrt(simplify( (x_ini/Ans_A)**2 ) )  )} $\
                 かつ\
-                $ \\displaystyle \\sin \\phi = -{ latex( sqrt(simplify( (v_ini/(Ans_A*omega_0))**2 )))} $\
+                $ \\displaystyle \\sin \\phi = { latex( -1*sqrt(simplify( (v_ini/(Ans_A*omega_0))**2 )))} $\
                 を満たす\
                 $-\\pi < \\phi \\le \\pi$ の角度である．")
 
