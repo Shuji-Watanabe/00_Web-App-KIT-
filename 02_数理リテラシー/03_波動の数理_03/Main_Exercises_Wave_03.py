@@ -46,9 +46,9 @@ st.markdown("""
     時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
 """)
 try:
-    st.image('単振動01.svg',use_column_width=True,caption='ある時刻における小物体の様子')
+    st.image('単振動01.svg')
 except:
-    st.image('02_数理リテラシー/03_波動の数理_03/単振動01.svg',use_column_width=True,caption='ある時刻における小物体の様子')
+    st.image('02_数理リテラシー/03_波動の数理_03/単振動01.svg')
 
 
 
