@@ -38,7 +38,7 @@ def sympy_extractsymbols(str00):
 
 #################### begin main program ##############
 st.markdown("##### 単振動(ばね振り子の運動)")
-col_00 = st.columns([3,1])
+col_00 = st.columns([2,1])
 with col_00[0]:
     st.markdown("""
         ##### 状況設定
