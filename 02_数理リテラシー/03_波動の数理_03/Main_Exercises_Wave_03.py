@@ -176,9 +176,6 @@ v_t = diff(x_t,t)
 
 Ans_A = sqrt( sympify(x_ini)**2 + sympify(v_ini)**2/omega**2 )   
 
-# set_Ans_Eqx = acos( powdenest(x_ini/Ans_A,force =True) )
-# set_Ans_Eqv = asin(-powdenest(v_ini/(Ans_A*omega),force =True) )
-
 Ans_A_1 = Ans_A.subs(omega,sqrt(omega_0))
 Eqx = Eq(cos(phi), x_ini/Ans_A_1)
 set_Ans_Eqx = solve( Eqx,phi) 
@@ -220,9 +217,9 @@ if CB_Step04_1 :
     if Ans_phi == phi:
         st.markdown(f"\
                 $ \\phi $ は，\
-                $ \\displaystyle \\cos \\phi = { latex( radsimp( x_ini/Ans_A) )} $\
+                $ \\displaystyle \\cos \\phi = { latex(   sqrt(simplify( (x_ini/Ans_A)**2 ) )  )} $\
                 かつ\
-                $ \\displaystyle \\sin \\phi = { latex( radsimp( v_ini/(Ans_A*omega_0)) )} $\
+                $ \\displaystyle \\sin \\phi = { latex( sqrt(simplify( (v_ini/(Ans_A*omega_0))**2 )))} $\
                 を満たす\
                 $-\\pi < \\phi \\le \\pi$ の角度である．")
 
