@@ -91,6 +91,8 @@ with Q_col:
     ばね定数 $k\\rm \ [N/m]$ の軽いばねを，水平で滑らかな床の上に置いた．ばねの一端を壁に取り付け，
     もう一端に質量 $m \\rm\  [kg]$ の小物体を取り付ける．水平右向きを $x$ 軸方向とし，ばねが自然長で
     小物体が静止する位置を原点$\\rm O$ とする．小物体が運動を開始した時刻を $t=0 \\rm\ s$ とするとき，
+    時刻$\ t=0\ $における小物体の位置（初期位置）を$\ x_0 \ \\rm[m]\ $，
+    小物体の速度（初速度）を$\ v_0 \ \\rm[m]\ $として
     時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
     """
 with Fig_col:
@@ -104,7 +106,7 @@ with Fig_col:
         st.image(image,caption="ばねと質点の様子",use_column_width='auto')
     except:
         image = '02_数理リテラシー/03_波動の数理_03/単振動01.jpg'
-        st.image(image,caption="ばねと質点の様子",use_column_width='auto')
+        st.image(image,caption="ばねと小物体の様子",use_column_width='auto')
 
 st.sidebar.markdown("#### **条件変更**")
 if st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更") :
@@ -253,11 +255,9 @@ if st.sidebar.checkbox("一般解を表示") :
         　　- 特製方程式が２つの複素数解 $\lambda_1=-i\omega,\ \lambda_2=i\omega$ を持つことから，求める$x(t)$の一般解は次のようになる．
         """
         st.latex( "x(t)=c_1 e^{-i\omega t} + c_2e^{i \omega t}" )
-
         """
         　　- さらに
-            [オイラーの公式](https://w3e.kanazawa-it.ac.jp/math/category/fukusosuu/henkan-tex.cgi?target=/math/category/fukusosuu/euler-no-kousiki.html)
-        より\n
+            [オイラーの公式](https://w3e.kanazawa-it.ac.jp/math/category/fukusosuu/henkan-tex.cgi?target=/math/category/fukusosuu/euler-no-kousiki.html)より\n
         　　$x(t) = c_1 e^{-i\omega t} + c_2e^{i \omega t}$\n
         　　$\\phantom{x(t)} = c_1 \cos (-\omega t )+ i c_1  \sin(-\omega t) + c_2 \cos \omega t  + i c_2 \sin \omega t$\n
         　　$\\phantom{x(t)} = \\big( c_1 + c_2 \\big) \cos \omega t + i\\big(c_1 - c_2\\big) \sin (-\omega t)$\n
