@@ -84,21 +84,29 @@ def sympy_extractsymbols(str00):
 
 #################### begin main program ##############
 st.markdown("##### 単振動(ばね振り子の運動)")
-st.markdown("""
+Q_col,Fig_col = st.columns([7,4])
+with Q_col:
+    """
     ##### 状況設定
     ばね定数 $k\\rm \ [N/m]$ の軽いばねを，水平で滑らかな床の上に置いた．ばねの一端を壁に取り付け，
     もう一端に質量 $m \\rm\  [kg]$ の小物体を取り付ける．水平右向きを $x$ 軸方向とし，ばねが自然長で
     小物体が静止する位置を原点$\\rm O$ とする．小物体が運動を開始した時刻を $t=0 \\rm\ s$ とするとき，
     時刻 $t \\rm\ [s]$ における小物体の運動の様子を考察する．
-""")
-# try:
-#     st.image('単振動01.svg')
-# except:
-#     st.image('02_数理リテラシー/03_波動の数理_03/単振動01.svg')
-# else:
+    """
+with Fig_col:
+    """
+    $\\phantom{A}$  
+    $\\phantom{A}$  
+
+    """
+    try:
+        image = '単振動01.jpg'
+        st.image(image,caption="ばねと質点の様子",use_column_width='auto')
+    except:
+        image = '02_数理リテラシー/03_波動の数理_03/単振動01.jpg'
+        st.image(image,caption="ばねと質点の様子",use_column_width='auto')
 
 st.sidebar.markdown("#### **条件変更**")
-
 if st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更") :
     col01,col02,col03,col04,col05 = st.columns(5)
     with col01:
