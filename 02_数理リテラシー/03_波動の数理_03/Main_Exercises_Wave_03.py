@@ -10,7 +10,7 @@ from sympy.utilities.lambdify import lambdify
 init_printing(order='grevlex')
 init_printing(order='none')
 
-st.sidebar.markdown("#### ver3.1(更新：2023.2.9)")
+
 
 def check_real(var_list):
     index = 0
@@ -438,4 +438,6 @@ end1_01 ="<div style= \"text-align: right;\"> "
 end1_01+=" --アプリEnd--"
 end1_01+=" </div>"
 st.markdown(end1_01,unsafe_allow_html=True)
+
+st.sidebar.markdown("#### ver3.1(更新：2023.2.9)")
 
