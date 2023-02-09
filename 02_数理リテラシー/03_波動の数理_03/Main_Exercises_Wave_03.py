@@ -2,17 +2,63 @@ import streamlit as st
 import pandas as pd
 from sympy import *
 from sympy.simplify.sqrtdenest import sqrtdenest
+from sympy import pi as sym_pi
 import numpy as np
 from matplotlib import pyplot as plt
 from sympy.utilities.lambdify import lambdify
-#from sympy.abc import _clash1, _clash2 
-init_printing()
+
+init_printing(order='grevlex')
+init_printing(order='none')
+
+st.sidebar.markdown("#### ver3.1(更新：2023.2.9)")
+
+def check_real(var_list):
+    index = 0
+    for var in var_list:
+        if var.is_real :
+            index += 1
+        if index == 0: 
+            return 0
+        else:
+            return 1 
+
+def check_str(var_list):
+    List_Integer = ["sympy.core.numbers.Zero","sympy.core.numbers.One","sympy.core.numbers.Integer"]
+    List_Float = ["sympy.core.numbers.Float"]
+    index = 1
+    for var in var_list:
+        # st.write(type(var),type(var) == type(simplify(1.0)))
+        if type(var) == type(simplify(1.0)):
+            return 0
+        else:
+            return 1
+
+def check_float(var_list):
+    List_Float = ["sympy.core.numbers.Float"]
+    index = 1
+    for var in var_list:
+        # st.write(type(var),type(var) == type(simplify(1.0)))
+        if type(var) == type(simplify(1.0)):
+            return 0
+        else:
+            return 1
+    
+def check_vars(var_list):
+    for var in var_list:
+        try:
+            var = float(var)
+        except:
+            return 0
+        if not isinstance(var, (float, int)):
+            return 0
+    return 1
 
 def pitonegapi(rad00):
-    if rad00 >= pi:
-        rad01 = rad00 - 2*pi
-    elif rad00 <= -pi:
-        rad01 = 2*pi + rad00
+    from sympy import pi as sym_pi
+    if (rad00-sym_pi).evalf() >= 0 :
+        rad01 = rad00 - 2*sym_pi
+    elif (rad00+sym_pi).evalf() < 0:
+        rad01 = rad00 + 2*sym_pi
     else :
         rad01 = rad00
     return rad01
@@ -29,11 +75,11 @@ def sympy_extractsymbols(str00):
     str00_Val01=[]
 
     if isinstance(sympify(str00),Float) or isinstance(sympify(str00),Integer):
-        str00 = sympify(str00)
+        str00 = str00
     else:
         for i in range(len(tmp_str00)):
             if isinstance(sympify(tmp_str00[i]),Symbol):
-                str00_Val01.append(sympify(tmp_str00[i])) 
+                str00_Val01.append(tmp_str00[i]) 
     return str00_Val01
 
 #################### begin main program ##############
@@ -50,11 +96,11 @@ st.markdown("""
 # except:
 #     st.image('02_数理リテラシー/03_波動の数理_03/単振動01.svg')
 # else:
-tmp_CB01=st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更")
 
+st.sidebar.markdown("#### **条件変更**")
 
-if tmp_CB01 :
-    col01,col02,col03,col04 = st.columns(4)
+if st.sidebar.checkbox("ばね振り子の質量，ばね定数，初期条件を変更") :
+    col01,col02,col03,col04,col05 = st.columns(5)
     with col01:
         Mass = st.text_input("質量","m")
     with col02:
@@ -63,6 +109,26 @@ if tmp_CB01 :
         x_ini = st.text_input("初期位置","x_0")
     with col04:
         v_ini = st.text_input("初速度","v_0")
+    with col05:
+        Significant_digits = st.number_input("有効桁数",value = 3,step=1,min_value=0)
+        format_str= f"{{:.{Significant_digits}f}}"
+    
+    with st.expander("条件の変更方法"):
+        """
+        ばね振り子の質量，ばね定数，初期位置，初速度を変更することができます．
+        数値を入力しても良いですし，文字で指定しても良いです．  
+        - **整数で指定する場合**  
+          x_0 を整数で指定したい場合， 2 や -3 としてください．  
+        - **小数で指定する場合**  
+          x_0 を整数で指定したい場合， 2.0 や -3.0 としてください．
+          小数で指定した場合，有効桁数を考察し，適切な値に変えてください．  
+        - **文字で指定する場合**  
+          x_0 を2倍，-3倍にしたい場合は， x_0 の部分を 2\*x_0 や -3\*x_0 としてください．
+          半角のアスタリスク( \* )は，かけるという意味です．
+          また x_0+2\*x のように変数や項が2つ以上の場合エラーが出ますのでご注意ください．  
+          $\\phantom{a}$
+
+        """
 else:
     Mass = "m"
     Sp_const = "k"
@@ -73,77 +139,107 @@ Mass_val = sympy_extractsymbols(Mass)
 if len(Mass_val) == 0:
     Mass = sympify(Mass)
 elif len(Mass_val) == 1 :
-    Mass_val = Symbol(str(Mass_val[0]),real=True,positive=True)
-    Mass = sympify(Mass)
+    tmp_Mass_symbol = symbols(str(Mass_val[0]))
+    tmp_Mass_coeff  = sympify(Mass).as_coefficient(tmp_Mass_symbol)
+    tmp_Mass_symbol = symbols(str(Mass_val[0]),real=True,positive=True)
+    Mass = tmp_Mass_coeff*tmp_Mass_symbol
 elif len(Mass_val) >=2 :
-    st.error("質量に入力できるパラメーターを意味する文字は１文字までです．")
+    st.error("パラメーターを表す文字は１文字にしてください．")
+    st.stop()
+
+# st.write(Mass)
+# st.stop()
 
 Sp_const_val = sympy_extractsymbols(Sp_const)
 if len(Sp_const_val) == 0:
     Sp_const = sympify(Sp_const)
 elif len(Sp_const_val) == 1 :
-    Sp_const_var = Symbol(str(Sp_const_val[0]),real=True,positive=True)
-    Sp_const = sympify(Sp_const)
+    tmp_Sp_const_symbol = symbols(str(Sp_const_val[0]))
+    tmp_Sp_const_coeff  = sympify(Sp_const).as_coefficient(tmp_Sp_const_symbol)
+    tmp_Sp_const_symbol = symbols(str(Sp_const_val[0]),real=True,positive=True)
+    Sp_const = tmp_Sp_const_coeff*tmp_Sp_const_symbol
 elif len(Sp_const_val) >= 2 :
-    st.error("バネ定数に入力できるパラメーターを意味する文字は１文字までです．")
+    st.error("パラメーターを表す文字は１文字にしてください．")
+    st.stop()
 
 x_ini_val = sympy_extractsymbols(x_ini)
 if len(x_ini_val) == 0:
     x_ini = sympify(x_ini)
 elif len(x_ini_val) == 1 :
-    x_ini_val = Symbol(str(x_ini_val[0]),positive = True)
-    x_ini = sympify(x_ini)
+    tmp_x_ini_symbol = symbols(str(x_ini_val[0]))
+    tmp_x_ini_coeff  = sympify(x_ini).as_coefficient(tmp_x_ini_symbol)
+    tmp_x_ini_symbol = symbols(str(x_ini_val[0]),real=True,positive=True)
+    x_ini = tmp_x_ini_coeff*tmp_x_ini_symbol
 elif len(x_ini_val) >= 2 :
-    st.error("初期位置に入力できるパラメーターを意味する文字は１文字までです．")
+    st.error("パラメーターを表す文字は１文字にしてください．")
+    st.stop()
 
 v_ini_val = sympy_extractsymbols(v_ini)
 if len(v_ini_val) == 0:
     v_ini = sympify(v_ini)
 elif len(v_ini_val) == 1 :
-    v_ini_val = Symbol(str(v_ini_val[0]),positive=True)
-    v_ini = sympify(v_ini)
+    tmp_v_ini_symbol = symbols(str(v_ini_val[0]))
+    tmp_v_ini_coeff  = sympify(v_ini).as_coefficient(tmp_v_ini_symbol)
+    tmp_v_ini_symbol = symbols(str(v_ini_val[0]),real=True,positive=True)
+    v_ini = tmp_v_ini_coeff*tmp_v_ini_symbol
 elif len(x_ini_val) >= 2 :
     st.write("初速度に入力できるパラメーターを意味する文字は１文字までです．")
-
-
+# st.write(Mass_val,Sp_const_val,x_ini_val,v_ini_val)
 
 
 ##### Step 01 
 st.markdown("##### ▷ Step 1：バネに繋がれた小物体の運動方程式")
-STR1_01 = "%s \\cdot \\frac{d^2 x}{dt^2} = -%s \\cdot x"%(converttotex(Mass),converttotex(Sp_const))
-CB_Step01_1 = st.sidebar.checkbox("運動方程式を表示")
-if CB_Step01_1 :
+
+if check_float([Mass]) == 0:
+    Mass_disp = latex(Mass.evalf(Significant_digits))
+else :
+    Mass_disp = latex(Mass)
+if check_float([Sp_const]) == 0:
+    Sp_const_disp = latex(-1*Sp_const.evalf(Significant_digits))
+else :
+    Sp_const_disp = latex(-1*Sp_const)
+
+st.sidebar.markdown("#### **各計算結果の表示**")
+if st.sidebar.checkbox("運動方程式を表示") :
+    STR1_01 = f"{Mass_disp} \\cdot \\frac{{d^2 x}}{{dt^2}} = {Sp_const_disp } \\cdot x"
     st.latex(STR1_01)
-
-
-
 
 
 ##### Step 02
 st.markdown("##### ▷ step 2：特性方程式")
-CB_Step01_2 = st.sidebar.checkbox("特性方程式とその解を表示")
-
-
 lambda_0 = Symbol(r"\lambda")
 lambda_0 = symbols('lambda_0')
 omega = Symbol(r"\omega")
 omega = symbols('omega', positive=True)
 
-omega_0 = sqrt( simplify( sympify(Sp_const)/sympify(Mass) ))
-eq01 = lambda_0**2 + omega**2
-Ans01 = solve( Eq(0,sympify(eq01)),lambda_0)
+omega_0 = sqrt( simplify(Sp_const/Mass))
 
-if CB_Step01_2 : 
-    STR1_02 = f"\\lambda^2 + \\frac{{ {converttotex(Sp_const)} }}{{ {converttotex(Mass)} }} = 0"
+if check_float([Mass,Sp_const]) == 0:
+    omega_0_disp = latex(omega_0.evalf(Significant_digits))
+else :
+    omega_0_disp = latex(omega_0)
+if check_float([Sp_const]) == 0:
+    Sp_const_disp1_2 = latex(Sp_const.evalf(Significant_digits))
+else :
+    Sp_const_disp1_2 = latex(Sp_const)
+
+if st.sidebar.checkbox("特性方程式とその解を表示") : 
+    STR1_02 = f"\\lambda^2 + \\frac{{ {Sp_const_disp1_2} }}{{ {Mass_disp} }} = 0"
+    STR1_03 = f"\\lambda_1 = i\\omega, \ \\lambda_2 = -i\\omega,\ \\omega = {omega_0_disp}"
     st.latex(STR1_02)
-    if len(Ans01) == 2:
-        st.latex( f"\\lambda_1 = {latex(Ans01[0])}, \ \\lambda_2 = {latex(Ans01[1])},\\omega = {latex(omega_0)}")
+    st.latex(STR1_03)
 
 ##### Step 03
 st.markdown("##### ▷ Step 3：微分方程式の一般解")
-CB_Step03_1 = st.sidebar.checkbox("一般解を表示")
-if CB_Step03_1 :
-    st.latex(f" x(t)= A\cos \\big(  \\omega t +  \\phi \\big) = A\\cos \\left(  {latex(omega_0)} t +  \\phi \\right)")
+# x_ini 
+if st.sidebar.checkbox("一般解を表示") :
+    if omega_0 == 1 :
+        STR1_04 =f" x(t)= A\cos \\big(  \\omega t +  \\phi \\big) = A\\cos \\left( t +  \\phi \\right)"
+    else:
+        STR1_04 =f" x(t)= A\cos \\big(  \\omega t +  \\phi \\big) = A\\cos \\left(  {omega_0_disp} t +  \\phi \\right)"
+    st.latex(STR1_04)
+
+
     if st.checkbox("一般解を求める過程を表示"):
         """
         　　- 特製方程式が２つの複素数解 $\lambda_1=-i\omega,\ \lambda_2=i\omega$ を持つことから，求める$x(t)$の一般解は次のようになる．
@@ -168,63 +264,89 @@ if CB_Step03_1 :
 
 
 ##### Step 04
-title_step4 = r"##### ▷ Step 4：微分方程式の初期条件 $x(0) = %s,\ v(0) = %s$ を満たす特殊解"%( converttotex(x_ini),converttotex(v_ini))
+title_step4 = r"##### ▷ Step 4：微分方程式の初期条件を満たす特殊解"
 st.markdown(title_step4)
+
+#-- set symbols and parameter
 phi = Symbol(r"\phi", real = True)
-A , v, t , phi= symbols('A v t phi', real = True)
-m, k= symbols('m k', positive=True, real = True)
+AA , v, t , phi= symbols('AA v t phi', real = True)
+A, m, k= symbols('A m k', positive=True, real = True)
 x_t , v_t= symbols('x_t v_t', cls=Function)
-x_t = A * cos( omega * t + phi)
+
+
+#-- set function
+from sympy.simplify.sqrtdenest import sqrtdenest
+# x_t = AA * cos( omega * t + phi)
 v_t = diff(x_t,t)
-
-Ans_A = sqrt( sympify(x_ini)**2 + sympify(v_ini)**2/omega**2 )   
-
-Ans_A_1 = Ans_A.subs(omega,sqrt(omega_0))
-Eqx = Eq(cos(phi), x_ini/Ans_A_1)
-set_Ans_Eqx = solve( Eqx,phi) 
-Eqv = Eq(sin(phi), -v_ini/(Ans_A_1 * sqrt(omega_0)))
-set_Ans_Eqv = solve( Eqv,phi )
+Ans_A = sqrtdenest(  sqrt(sympify(x_ini)**2 + sympify(v_ini)**2/omega**2 ))
+Ans_A_1 = Ans_A.subs(omega,omega_0)
 
 
+#-- cal param
+Eq_cos = Eq(cos(phi), x_ini/Ans_A_1 )
+Eq_sin = Eq(sin(phi), -1*(v_ini/(Ans_A_1*omega_0)))
+Eq_cos_sol = solve(Eq_cos,phi, interval=[-sym_pi,sym_pi])
+Eq_sin_sol = solve(Eq_sin,phi, interval=[-sym_pi,sym_pi])
+import itertools
+for i in  itertools.product(Eq_cos_sol,Eq_sin_sol):
+    eq0 = (i[0]-i[1]).rewrite(acos)
+    if trigsimp(cos(expand(eq0, trig=True))) == 1 :
+        if (i[0]/sym_pi)%2 == 0:
+            Ans_phi = sympify(0)
+        else:
+            Ans_phi = sympify(i[0])
 
-for i in range(len(set_Ans_Eqx)):
-    try:
-        pitonegapi(set_Ans_Eqx[i])
-    except:
-        set_Ans_Eqx[i] = simplify( set_Ans_Eqx[i] )
+theta = omega * t + phi
+theta = theta.subs(omega,omega_0)
+
+if check_float([Ans_A_1]) == 0 :
+    A_disp =latex( simplify(Ans_A_1).evalf(Significant_digits))
+else:
+    A_disp =latex(simplify(Ans_A_1))
+if check_float([omega_0,Ans_phi]) == 0 :
+    theta_disp = latex( collect( theta.evalf(Significant_digits),t))
+else:
+    theta_disp = latex(collect(theta,t))
+if check_float([x_ini/Ans_A_1]) == 0 :
+    phi_str01 = latex( (x_ini/Ans_A_1).evalf(Significant_digits)  )
+else:
+    phi_str01 = latex( (x_ini/Ans_A_1))
+if check_float([v_ini/(Ans_A_1*omega_0)] ) == 0 :
+    phi_str02 = latex( (-1*( v_ini/(Ans_A_1*omega_0)) ).evalf(Significant_digits) )
+else:
+    phi_str02 = latex( (-1*(v_ini/(Ans_A_1*omega_0))) )
+if st.sidebar.checkbox("特殊解を表示") :
+    if omega_0 == 1 :
+        STR1_06 =f"x(t) = { A_disp } \\cdot \\cos\\left( t+\\phi \\right)"
     else:
-        set_Ans_Eqx[i] = simplify( pitonegapi(set_Ans_Eqx[i]))
+        STR1_06 =f"x(t) = { A_disp } \\cdot \\cos\\left( { omega_0_disp }t+\\phi \\right)"
+    st.latex(STR1_06)
+    
+    if Ans_phi.is_real :
+        Ans_phi_disp0 = Ans_phi
+        Ans_phi_disp1 = Ans_phi.evalf(Significant_digits)
+        from sympy import S
+        if Ans_phi.is_zero or Ans_phi.is_integer:
+            STR1_07 = f"A={A_disp}\ {{\\rm [m]}},\\quad \\phi  = {latex(Ans_phi.rewrite(atan))} \ \\rm[rad]"
+        elif Ans_phi.is_Float :
+            STR1_07 = f"A={A_disp}\ {{\\rm [m]}},\\quad \\phi  = {latex(Ans_phi.evalf(Significant_digits))} \ \\rm[rad]"
+        else:
+            STR1_07 = f"A={A_disp}\ {{\\rm [m]}},\\quad \\phi  = {latex(Ans_phi)} ={latex(Ans_phi.rewrite(atan))} = {latex(Ans_phi_disp1)} \ \\rm[rad]"
+    else :
+        Ans_phi_disp = Ans_phi
+        STR1_07 = f"A={A_disp}\ {{\\rm [m]}},\ \\phi = {latex(Ans_phi_disp)} \ \\rm[rad]"    
 
-
-for i in range(len(set_Ans_Eqv)):
-    try:
-        pitonegapi(set_Ans_Eqv[i])
-    except:
-        set_Ans_Eqv[i] = simplify( set_Ans_Eqv[i] )
-    else:
-        set_Ans_Eqv[i] = simplify( pitonegapi(set_Ans_Eqv[i]))
-
-Ans_phi = set( set_Ans_Eqx ) & set( set_Ans_Eqv )
-if len(Ans_phi) == 0 :
-    Ans_phi = phi
-else :
-    Ans_phi = list(Ans_phi)[0]
-
-theta = omega * t + Ans_phi
-
-CB_Step04_1 = st.sidebar.checkbox("特殊解を表示")
-if CB_Step04_1 :
-    Ans_A = Ans_A.subs(omega,omega_0)
-    theta = theta.subs(omega,omega_0)
-    st.latex(f"x(t) = {latex( simplify(Ans_A))} \\cdot \\cos\\left( {latex(theta )} \\right)")
-    if Ans_phi == phi:
-        st.markdown(f"\
-                $ \\phi $ は，\
-                $ \\displaystyle \\cos \\phi = { latex(   sqrt(simplify( (x_ini/Ans_A)**2 ) )  )} $\
-                かつ\
-                $ \\displaystyle \\sin \\phi = { latex( -1*sqrt(simplify( (v_ini/(Ans_A*omega_0))**2 )))} $\
-                を満たす\
-                $-\\pi < \\phi \\le \\pi$ の角度である．")
+    f"""
+        初期条件 $\ \ x(0)={latex(x_ini)},\\quad v(0) = {latex(v_ini)}\ \ $より
+    """
+    st.latex(STR1_07)
+    f"""
+        ここで$\ \\phi\ $ は
+        $\ \ \\displaystyle \\cos \\phi = { phi_str01 } \ \ $
+        かつ
+        $\ \ \\displaystyle \\sin \\phi = {phi_str02}\ \ $
+        を満たす$\ \ -\\pi < \\phi \\le \\pi \ \ $ の角度である．
+    """
 
     if st.checkbox("特殊解を得るまでの途中計算を表示(一般的な初期条件に対する特殊解の求め方)"):
         st.markdown("""\
@@ -250,18 +372,24 @@ if CB_Step04_1 :
 
 
 
-
 ##### Step 05
 st.markdown("##### ▷ Step 5：角振動数と周期")
-CB_Step05_1 = st.sidebar.checkbox("角振動数と周期を表示")
-if CB_Step05_1 :
-    T = simplify(2*pi/omega_0)
-    st.latex(\
-        f"\\displaystyle\
-            \\text{{角振動数：}} \\omega = { latex(omega_0) }\
-            ，\\text{{周期：}}  T = \\frac{{2\pi}}{{\omega}} = {latex(T)}"\
-            )
+import math
+from math import pi as math_pi
+from sympy import pi as sym_pi
 
+T = simplify(2*sym_pi/omega_0)
+if omega_0.is_Float or omega_0.is_integer or omega_0.is_zero :
+    T=T.evalf(Significant_digits)
+else:
+    T =  sqrtdenest(sqrt( (T)**2 ))
+
+if st.sidebar.checkbox("角振動数と周期を表示") :
+    st.latex(\
+            f"\\displaystyle\
+                \\text{{角振動数：}} \\omega = { omega_0_disp }\
+                ，\\text{{周期：}}  T = \\frac{{2\pi}}{{\omega}} = {latex(T)}"\
+                )
 
 
 
@@ -270,7 +398,7 @@ st.markdown("##### ▷ Step 6：特殊解のグラフ")
 CB_Step06_1 = st.sidebar.checkbox("特殊解のグラフを表示")
 if CB_Step06_1 :
     try:
-        function0 = Ans_A_1 * cos( sqrt(omega_0) * t + Ans_phi)
+        function0 = Ans_A_1 * cos( omega_0 * t + Ans_phi)
         ts = np.linspace( 0, 10, 1)
         ys = lambdify(t, function0, "numpy")(ts)
         
@@ -295,9 +423,9 @@ if CB_Step06_1 :
         col2_01,col2_02=st.columns([3,1]) 
         with col2_02:
             xrange_min = st.number_input("▷ xの最小値",value=0,key=1)            
-            xrange_max = st.number_input("▷ xの最大値",value=10,key=1)
+            xrange_max = st.number_input("▷ xの最大値",value=10,key=2)
         with col2_01:
-            ts = np.linspace( xrange_min, xrange_max, 100)
+            ts = np.linspace( xrange_min, xrange_max, 1000)
             ys = lambdify(t, function0, "numpy")(ts)
             fig, ax = plt.subplots()
             plt.xlabel("$t$軸")
@@ -310,3 +438,4 @@ end1_01 ="<div style= \"text-align: right;\"> "
 end1_01+=" --アプリEnd--"
 end1_01+=" </div>"
 st.markdown(end1_01,unsafe_allow_html=True)
+
