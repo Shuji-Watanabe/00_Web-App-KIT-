@@ -17,3 +17,4 @@ gensim == 3.8.3
 pysummarization
 altair
 sumy
+tensorflow
